@@ -1,0 +1,74 @@
+3) Teniendo en cuenta el problema planteado en el taller de la asignatura se solicita
+lo siguiente:
+
+
+a) Escriban una narrativa con toda la información relevante que han
+recabado hasta el momento sobre la situación planteada.
+1. Survival Wisdom es una aplicación de aprendizaje sobre la supervivencia en la cual explicaremos cada aspecto crucial con guías, ilustraciones y para reforzar el aprendizaje hay para cada uno, una serie de preguntas para corroborar si la lectura de las guías otorgó conocimientos.
+
+
+b) Expliciten a partir de la narrativa:
+● ¿Cuál es el problema a resolver?
+El problema a resolver es la falta de conocimiento y aplicación de distintos métodos de supervivencia que con el paso del tiempo por los avances tecnológicos se están extinguiendo. Tambien estos conocimientos pueden salvarle la vida a alguna persona que se encuentre en una situación extrema
+● ¿Cuál es el contexto en el que se sitúa ese problema?
+El contexto de este problema es que muchas personas han dejado atrás el inicio de nuestra evolución y si surgiera un caso de riesgo en el que debamos volver a utilizar alguna de estas habilidades muchos no sabrían los datos importantes y la aplicación de cada una. Provocando algún problema además del que quisiéramos resolver.
+
+
+● Construyan un glosario, en el que definan el vocabulario
+relevante del contexto que como desarrolladores debemos
+conocer.
+Glosario:
+-Skills: Hace referencia a las diferentes técnicas y áreas de conocimiento necesarias para poder sobrevivir.
+-Guías: Es un conjunto de documentos teóricos con ilustraciones que nos enseña una “skill” (habilidad).
+-Test: Es una serie de preguntas para corroborar una “Skill”.
+-Supervivientes: Son los usuarios de la aplicación.
+
+
+● ¿Quiénes son los usuario/actores que van a interactuar con el
+sistema?
+Esta aplicación está dirigida a cualquier persona que quiera aprender sobre el tema por lo tanto cualquier persona que desee informarse es un usuario.Sus actores serán los usuarios de la aplicación.
+
+
+● ¿Cómo y para qué van a usar el sistema estos
+usuarios/actores?
+Esta aplicación será utilizada para aprender habilidades de supervivencia, donde cada opción será una habilidad específica en un área.
+
+
+c) A partir de la información que disponen realicen un listado de los
+requerimientos funcionales del sistema que se necesita desarrollar.
+
+
+
+
+Requerimientos funcionales:
+* Acceder a una categoría
+* Abrir una guia de una categoría
+* Rendir un test
+* Crear Usuario
+* Visualizar Progreso
+* Acceder al Perfil de Usuario
+
+
+d) A partir de la información que disponen listen los requerimientos no
+funcionales o restricciones (de desempeño, seguridad, estabilidad,
+atributos de calidad) del sistema a desarrollar.
+   Requerimientos no funcionales:
+* Funcionalidad offline.
+* Seguridad y privacidad.
+* Resistencia al fallo.
+* Disponibilidad.
+* Accesibilidad.
+* Facilidad de uso.
+* Interfaz intuitiva.
+* Buen rendimiento.
+* Mantenibilidad.     
+          
+e) Propongan al menos 2 o 3 preguntas que ustedes como parte del
+equipo de desarrollo desean realizar en una próxima reunión a los
+docentes del taller, para poder completar o ampliar los puntos
+anteriores, o aclarar inquietudes y así poder avanzar en la
+comprensión del problema a resolver.
+
+
+¿Debemos agregar más funcionalidades al Sistema?
+¿El Sistema es para móvil, pc o web?
