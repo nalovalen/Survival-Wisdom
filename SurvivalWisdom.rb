@@ -1,15 +1,11 @@
 require 'sinatra'
+set :public_folder, 'assets'  # Assuming your assets are in a folder named 'assets'
 
 get '/login' do
   erb :index
 end
-
-get '/register' do
-    erb :register
-end
-
 post '/login' do
-    username = params[:username]
+    username = params[:first]
     password = params[:password]
     
     # Aquí podrías agregar lógica para verificar las credenciales del usuario
@@ -17,8 +13,13 @@ post '/login' do
     "¡Hola, #{username}! Tu contraseña es #{password}."
 end
 
+get '/register' do
+    erb :register
+end
+
+
 post '/register' do
-    username = params[:username]
+    username = params[:first]
     password = params[:password]
     
     # Aquí podrías agregar lógica para verificar las credenciales del usuario
