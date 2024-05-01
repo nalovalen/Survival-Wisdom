@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Sinatra App</title>
+  <style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Establece la altura del cuerpo para cubrir toda la ventana */
+    margin: 0; /* Elimina el margen predeterminado */
+  }
+
+    .container {
+      width: 300px; /* Ancho del contenedor */
+      padding: 20px; /* Espaciado interno */
+      border: 1px solid #ccc; /* Borde del contenedor */
+      border-radius: 10px; /* Bordes redondeados */
+      background-color: #f9f9f9; /* Color de fondo */
+      text-align: center; /* Centrar el contenido del contenedor */
+    }
+
+    input[type="text"],
+    input[type="password"],
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box; /* Evita que el relleno y el borde afecten al ancho total */
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      display: block; /* Convertir el enlace en un bloque para ocupar todo el ancho disponible */
+      text-align: center; /* Centrar el texto del enlace */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome!</h1>
+    <form action="/login" method="post">
+      <label for="uname"><b>Username</b></label> 
+      <input type="text" placeholder="Enter Username" name="uname" required> 
+      <label for="psw"><b>Password</b></label> 
+      <input type="password" placeholder="Enter Password" name="psw" required> 
+      <button type="submit">Login</button>
+      <a href="/register">Register</a> <!-- Nuevo botón para registrarse -->
+    </form>
+  </div>
+</body>
+</html>
