@@ -1,0 +1,74 @@
+NAME:Register an user
+ID:00
+
+AS:User
+I WANT:sign up to the page
+SO THAT: i can learn about survival and play
+
+ACCEPTANCE CRITERIA:
+-Save users data if not exist in database 
+-Password needs to be minimum 8 character long and have at least 1 number 
+
+NAME:Showup guide
+ID:01
+
+AS:User
+I WANT: to see a guide of my choise
+SO THAT: i read about a skill
+
+ACCEPTANCE CRITERIA:
+-The user can choose a guide 
+
+NAME:Play the game
+ID:02
+
+AS:User
+I WANT: to play the card game
+SO THAT: i can test my knowledge 
+
+ACCEPTANCE CRITERIA:
+-the cards effects will affect the status bars
+-User can choose one of two choices 
+-When one of the four status bar is empty the game will finished and the score will be saved in the database for the stats
+
+NAME: Add Cards
+ID:03
+
+AS:Admin
+I WANT:to add more cards to the game
+SO THAT: the gameplay experience is longer and better
+
+ACCEPTANCE CRITERIA:
+-The new cards will be saved in the database 
+-Each card contains an id, statement and 2 options with its effects
+
+NAME: Add skill
+ID:04
+
+AS:Admin
+I WANT:to add more skills
+SO THAT: more knowledge is given
+
+ACCEPTANCE CRITERIA:
+-The skill needs a name, a description and a difficulty
+-It needs to create at leats 1 guide for the skill
+
+NAME: Add Guide
+ID:05
+
+AS:Admin
+I WANT:to add more guide to a skill
+SO THAT: more information is shown in a skill
+
+ACCEPTANCE CRITERIA:
+-Every guide has a title and its content
+
+NAME:Show Stats 
+ID:06
+
+AS:User
+I WANT:to see my stats
+SO THAT: i can visualize my learning curve and my top score
+
+ACCEPTANCE CRITERIA:
+-The data will be taken from the database
