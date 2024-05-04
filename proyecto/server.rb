@@ -16,8 +16,7 @@ class App < Sinatra::Application
   end
 
 
-  get '/login' do
-    puts "Hola"  
+  get '/login' do  
     erb :index
   end
 
