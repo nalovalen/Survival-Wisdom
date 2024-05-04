@@ -7,7 +7,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     margin: 0;
-    background-image: url('fondo.png');
+    background-image: url('a.jpg');
     
     
     
@@ -27,7 +27,7 @@ body {
 }
  
 h1 {
-    color: #12993f;
+    color: #466bd1;
 }
  
 label {
@@ -59,7 +59,7 @@ button {
     border: none;
     color: white;
     cursor: pointer;
-    background-color: #12993f;
+    background-color: #466bd1;
     width: 100%;
     font-size: 16px;
 }

@@ -24,12 +24,6 @@ class App < Sinatra::Application
   post '/login' do
     username = params[:first]
     password = params[:password]
-
-    @user = User.where(username: username).first
-    
-    if @user.password == password
-    else
-    end
     # Aquí podrías agregar lógica para verificar las credenciales del usuario
     erb :home
     
@@ -60,3 +54,12 @@ class App < Sinatra::Application
 
 
 end
+
+
+
+
+
+# @user = User.where(username: username).first   
+#if @user.password == password
+#else
+#end
