@@ -1,4 +1,6 @@
+require 'sinatra'
 require 'sinatra/base'
+require 'sinatra/activerecord'
 
 
 
@@ -7,7 +9,9 @@ class App < Sinatra::Application
     super()
   end
 
+  set :database_file, './config/database.yml'
   set :public_folder, 'assets'
+
   get '/login' do
     puts "Hola"  
     erb :index

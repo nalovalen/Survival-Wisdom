@@ -4,3 +4,7 @@ source "https://rubygems.org"
 
 gem 'sinatra'
 gem "rack", "= 3.0.0"
+gem 'activerecord'
+gem 'sinatra-activerecord'
+gem 'sqlite3'
+gem 'rake'
