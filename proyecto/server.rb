@@ -1,16 +1,20 @@
 require 'sinatra'
-require 'sinatra/base'
 require 'sinatra/activerecord'
 
+set :database_file, './config/database.yml'
+set :public_folder, 'assets'
 
+require './models/user'
 
 class App < Sinatra::Application
   def initialize(app = nil)
     super()
   end
 
-  set :database_file, './config/database.yml'
-  set :public_folder, 'assets'
+  get '/home' do
+    erb :home
+  end
+
 
   get '/login' do
     puts "Hola"  
@@ -29,23 +33,30 @@ class App < Sinatra::Application
     # Aquí podrías agregar lógica para verificar las credenciales del usuario
     erb :home
     
-end
+  end
 
-get '/register' do
+  get '/register' do
     erb :register
-end
+  end
 
 
-post '/register' do
+  post '/register' do
     username = params[:first]
     password = params[:password]
     
     # Aquí podrías agregar lógica para verificar las credenciales del usuario
     
     "¡Hola, #{username}! te registraste correctamente."
-end
+  end
 
   get '/' do
     'Welcome'
   end
+
+  get '/users' do
+    @users = User.all
+    erb :'users/users'
+  end
+
+
 end
