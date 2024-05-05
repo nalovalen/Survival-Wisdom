@@ -24,7 +24,7 @@ class App < Sinatra::Application
     username = params[:first]
     password = params[:password]
     # Aquí podrías agregar lógica para verificar las credenciales del usuario
-    erb :home
+    redirect '/home'
     
   end
 
