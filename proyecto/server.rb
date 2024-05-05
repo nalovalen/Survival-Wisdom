@@ -51,6 +51,25 @@ class App < Sinatra::Application
     erb :'users/users'
   end
 
+  get '/skills' do 
+    erb :skills
+  end 
+
+  get '/keep_it_alive' do
+    erb :keep_it_alive
+  end
+
+  get '/stats' do 
+    erb :stats
+  end
+
+  get '/about' do 
+    erb :about
+  end
+
+  get '/account' do 
+    erb :account
+  end
 
 end
 
