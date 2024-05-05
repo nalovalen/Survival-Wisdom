@@ -192,7 +192,7 @@
   }
 
   section {
-    display: flex;
+    display:flex;
     justify-content: center;
     width: 160%;
     height: 300%;
@@ -203,28 +203,29 @@
   section a {
     width: 0px;
     flex-grow: 1;
-    display: block;
+    display: flex;
     object-fit: cover;
+    transition: 0.5s ease;
   }
   section a img{
-    display: block;
-    width:100%;
+    display: flex;
+    width:0px;
     height: 100%;
-    flex-grow: 1;
-    object-fit: cover;
+    flex-grow:1;
+    object-fit:cover;
     opacity: .95;
-    transition: .5s ease;
   }
-
-
 
   section a:hover {
     width: 300px;
     object-fit: cover;
+    border-left: 0;
   }
+
   section a:hover img {
     cursor: crosshair;
     width: 300px;
     opacity: 1;
+    object-fit: cover;
     filter: contrast(120%);
   }
