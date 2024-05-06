@@ -210,6 +210,7 @@
     margin: 10px; 
   }
   section a img{
+    transition: 0.5s ease;
     display: flex;
     width:0px;
     height: 100%;
@@ -230,25 +231,34 @@
     opacity: 1;
     object-fit: cover;
     filter: contrast(120%);
+    filter: blur(1px);
+    filter: brightness(0.4);
   }
   
   section a span {
     position: absolute;
-    bottom: 10px;
-    top : 50%; 
+    top : 30%; 
     left: 50%; 
     transform: translate(-50%, -50%);
     opacity: 0; 
     transition: 0.1s ease;
     cursor: crosshair;
+    font-family: "Sedan SC", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    font-size: 60px;
+    color: #ffffff;
+    margin: 0;
   }
   
   section a:hover span {
     opacity: 1;
-    font-family: 'Lato', sans-serif;
-    font-weight: 300;
+    font-family: "Sedan SC", serif;
+    font-weight: 400;
+    font-style: normal;
     text-align: center;
-    font-size: 30px;
-    color: #00ff37;
+    font-size: 60px;
+    color: #ffffff;
     margin: 0;
   }
