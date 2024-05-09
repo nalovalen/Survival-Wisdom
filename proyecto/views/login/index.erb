@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
- 
+
 <head>
     <title> Sing in </title>
     <link rel="stylesheet"
           href="style.css">
 </head>
- 
+
 <body>
     <div class="main">
         <h1>Welcome</h1>
@@ -19,7 +19,7 @@
                    id="first"
                    name="first"
                    placeholder="Enter your Username" required>
- 
+
             <label for="password">
                   Password:
               </label>
@@ -27,7 +27,7 @@
                    id="password"
                    name="password"
                    placeholder="Enter your Password" required>
- 
+
             <div class="wrap">
                 <button type="submit"
                         onclick="solve()">
@@ -35,12 +35,15 @@
                 </button>
             </div>
         </form>
-        <p>Not registered? 
+        <p>Not registered?
               <a href="/register"
                style="text-decoration: none;">
                 Create an account
             </a>
         </p>
     </div>
+    <% if @errors == true %>
+     <%= @errors %>
+    <% end %>
 </body>
 </html>
