@@ -28,6 +28,9 @@
                    name="password"
                    placeholder="Enter your Password" required>
 
+                <p class = "error-message">
+                   <%= error %>
+                 </p>
             <div class="wrap">
                 <button type="submit"
                         onclick="solve()">
@@ -42,8 +45,5 @@
             </a>
         </p>
     </div>
-    <% if @errors == true %>
-     <%= @errors %>
-    <% end %>
 </body>
 </html>

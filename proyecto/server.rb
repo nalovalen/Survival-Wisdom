@@ -17,8 +17,7 @@ class App < Sinatra::Application
 
 
   get '/login' do
-    errors = false
-    erb :'login/index'
+    erb :'login/index', locals: { error: "" }
   end
 
   post '/login' do
@@ -28,14 +27,14 @@ class App < Sinatra::Application
     user = User.authenticate(username, password)
 
     if user
-      # Credenciales válidas, redirecciona a la página de inicio o realiza alguna otra acción
-      redirect '/home'
+        # Credenciales válidas, redirecciona a la página de inicio o realiza alguna otra acción
+        redirect '/home'
     else
-      # Credenciales inválidas, puedes renderizar nuevamente el formulario de inicio de sesión con un mensaje de error
-      errors = true
-      erb :'login/index'
+        # Credenciales inválidas, renderiza nuevamente el formulario de inicio de sesión con un mensaje de error
+        erb :'login/index', locals: { error: "Credenciales inválidas. Por favor, inténtalo de nuevo." }
     end
-  end
+end
+
 
 
   get '/register' do

@@ -8,13 +8,13 @@ body {
     flex-direction: column;
     margin: 0;
     background-image: url('img/a.jpg');
-    
-    
-    
+
+
+
     background-position:center;
     background-blend-mode: overlay;
 }
- 
+
 .main {
     background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con 50% de opacidad */
     color: #000; /* Texto opaco en color negro */
@@ -25,11 +25,11 @@ body {
     width: 500px;
     text-align: center;
 }
- 
+
 h1 {
     color: #466bd1;
 }
- 
+
 label {
     display: block;
     width: 100%;
@@ -39,8 +39,8 @@ label {
     color: #555;
     font-weight: bold;
 }
- 
- 
+
+
 input {
     display: block;
     width: 100%;
@@ -50,7 +50,7 @@ input {
     border: 1px solid #ddd;
     border-radius: 5px;
 }
- 
+
 button {
     padding: 15px;
     border-radius: 10px;
@@ -63,7 +63,7 @@ button {
     width: 100%;
     font-size: 16px;
 }
- 
+
 .wrap {
     display: flex;
     justify-content: center;
