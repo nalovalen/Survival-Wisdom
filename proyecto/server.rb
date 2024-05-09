@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 
+enable :sessions #esto era para mostrar el nombre de usuario en account
+
 set :database_file, './config/database.yml'
 set :public_folder, 'assets'
 
@@ -27,13 +29,22 @@ class App < Sinatra::Application
     user = User.authenticate(username, password)
 
     if user
-        # Credenciales válidas, redirecciona a la página de inicio o realiza alguna otra acción
-        redirect '/home'
+      session[:user_id] = user.id # Almacena el ID de usuario en la sesión
+      redirect '/home'
     else
-        # Credenciales inválidas, renderiza nuevamente el formulario de inicio de sesión con un mensaje de error
-        erb :'login/index', locals: { error: "Credenciales inválidas. Por favor, inténtalo de nuevo." }
+      # Credenciales inválidas, renderiza nuevamente el formulario de inicio de sesión con un mensaje de error
+      erb :'login/index', locals: { error: "Credenciales inválidas. Por favor, inténtalo de nuevo." }
     end
-end
+  end
+
+  def current_user
+    if session[:user_id]
+      @current_user ||= User.find(session[:user_id])
+    else
+      nil
+    end
+  end
+
 
 
 
@@ -91,7 +102,11 @@ end
   end
 
   get '/account' do
-    erb :'home/account'
+    if current_user
+      erb :'home/account', locals: { user: current_user }
+    else
+      redirect '/login'
+    end
   end
 
 end
