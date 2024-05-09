@@ -12,12 +12,12 @@ class App < Sinatra::Application
   end
 
   get '/home' do
-    erb :home
+    erb :'home/home'
   end
 
 
   get '/login' do  
-    erb :index
+    erb :'login/index'
   end
 
   post '/login' do
@@ -29,7 +29,7 @@ class App < Sinatra::Application
   end
 
   get '/register' do
-    erb :register
+    erb :'login/register'
   end
 
 
@@ -52,23 +52,23 @@ class App < Sinatra::Application
   end
 
   get '/skills' do 
-    erb :skills
+    erb :'home/skills'
   end 
 
   get '/keep_it_alive' do
-    erb :keep_it_alive
+    erb :'home/keep_it_alive'
   end
 
   get '/stats' do 
-    erb :stats
+    erb :'home/stats'
   end
 
   get '/about' do 
-    erb :about
+    erb :'home/about'
   end
 
   get '/account' do 
-    erb :account
+    erb :'home/account'
   end
 
 end
