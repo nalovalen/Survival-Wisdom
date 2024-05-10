@@ -7,6 +7,7 @@ set :database_file, './config/database.yml'
 set :public_folder, 'assets'
 
 require './models/user'
+require './models/question'
 
 class App < Sinatra::Application
   def initialize(app = nil)
@@ -14,11 +15,16 @@ class App < Sinatra::Application
   end
 
   get '/home' do
-    erb :'home/home'
+    if current_user
+      erb :'home/home', locals: { user: current_user }
+    else
+      redirect '/login'
+    end
   end
 
 
   get '/login' do
+
     erb :'login/index', locals: { error: "" }
   end
 
@@ -77,7 +83,7 @@ class App < Sinatra::Application
 
 
   get '/' do
-    'Welcome'
+    redirect '/login'
   end
 
   get '/users' do
@@ -86,19 +92,35 @@ class App < Sinatra::Application
   end
 
   get '/skills' do
-    erb :'home/skills'
+    if current_user
+      erb :'home/skills', locals: { user: current_user }
+    else
+      redirect '/login'
+    end
   end
 
   get '/keep_it_alive' do
-    erb :'home/keep_it_alive'
+    if current_user
+      erb :'home/keep_it_alive', locals: { user: current_user }
+    else
+      redirect '/login'
+    end
   end
 
   get '/stats' do
-    erb :'home/stats'
+    if current_user
+      erb :'home/stats', locals: { user: current_user }
+    else
+      redirect '/login'
+    end
   end
 
   get '/about' do
-    erb :'home/about'
+    if current_user
+      erb :'home/about', locals: { user: current_user }
+    else
+      redirect '/login'
+    end
   end
 
   get '/account' do
@@ -109,6 +131,10 @@ class App < Sinatra::Application
     end
   end
 
+  get '/test' do
+    @questions = Question.all
+    erb :'users/test'
+  end
 end
 
 

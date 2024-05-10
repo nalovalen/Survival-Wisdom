@@ -218,3 +218,15 @@
     margin: 0;
   }
   
+  .logout a{
+    position: absolute;
+    color: black;
+    bottom: 10px; 
+ 
+  }
+ 
+  .logout a.active,.logout > a:hover {
+    --accent-color: rgb(192, 57, 57);
+    --gradient-color: rgb(236, 42, 42);
+  }
+  

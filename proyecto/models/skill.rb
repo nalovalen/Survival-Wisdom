@@ -1,13 +1,4 @@
 class Skill < ActiveRecord::Base
-    def tittle
-        @tittle
-    end
-
-    def description
-        @description
-    end
-
-    def difficulty
-        @difficulty
-    end
+    belongs_to :user
+    has_many :guides
 end
