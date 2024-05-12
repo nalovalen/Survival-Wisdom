@@ -15,16 +15,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_10_153437) do
     t.integer "question_id"
     t.string "description"
     t.json "effects"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["question_id"], name: "index_options_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.string "statement"
-    t.string "tipo"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "typeCard"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "users", force: :cascade do |t|

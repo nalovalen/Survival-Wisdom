@@ -8,6 +8,7 @@ set :public_folder, 'assets'
 
 require './models/user'
 require './models/question'
+require './models/option'
 
 class App < Sinatra::Application
   def initialize(app = nil)

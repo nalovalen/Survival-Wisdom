@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Question</title>
+  <title>Visualización de Preguntas y Opciones</title>
 </head>
 <body>
+  <h1>Preguntas y Opciones</h1>
+
+  <% @questions.each do |question| %>
+    <h2><%= question.statement %></h2>
+    <p><strong>Tipo de Carta:</strong> <%= question.typeCard %></p>
+
     <ul>
-        <% @questions.each do |question| %>
-            <li><%= question.statement %></li>
-        <% end %>
+      <% question.options.each do |option| %>
+        <li>
+          <%= option.description %>
+          <ul>
+            <li>efectos: <%= option.effects %></li>
+          </ul>
+        </li>
+      <% end %>
     </ul>
+  <% end %>
 </body>
 </html>
