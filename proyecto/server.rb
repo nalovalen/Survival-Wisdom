@@ -185,15 +185,46 @@ class App < Sinatra::Application
   end
 
   get '/game' do 
+    # Recuperar todas las preguntas y opciones de la base de datos
+    @questions = Question.all.to_a
+    @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
+
+    water = 10
+    temperature = 10
+    hunger = 10
+    health = 10
+
+    # Si no hay preguntas en la base de datos, mostrar un mensaje
+    if @questions.empty?
+      return "No hay preguntas disponibles."
+    end
+
+    # Sacar la próxima pregunta de la cola de preguntas
+    @current_question = @questions.shift
+    aux = @current_question
     erb :'home/game'
   end
 
   post '/game' do
-    opcionelegida = params[:valor]
+    @opcionelegida = params[:valor]
 
-    puts " Hola : #{opcionelegida} "
-    erb :'home/game'
-  end
+     # Obtener los efectos de la opción seleccionada desde la base de datos
+     effects = aux.options[0].effects
+
+     # Aplicar los efectos a las barras del usuario
+     health += effects[0]
+     hunger += effects[1]
+     water += effects[2]
+     temperature += effects[3]
+ 
+     # Chequear si alguna barra llegó a cero
+     if health <= 0 || temperature <= 0 || hunger <= 0 || water <= 0
+       return "¡Juego terminado!"
+     else
+       redirect '/game'
+     end
+
+    end
 end
 
 
