@@ -61,8 +61,13 @@ document.getElementById('background')
         
         // Por ejemplo, puedes asignarlo a un campo oculto en un formulario
         document.getElementById('valorInput').value = valor;
-        
+
+		
+
+		// Assign the effects to the hidden input field
+		
         // Luego, puedes enviar el formulario
         document.getElementById('myForm').submit();
+		
     }
     

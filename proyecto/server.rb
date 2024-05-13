@@ -189,10 +189,10 @@ class App < Sinatra::Application
     @questions = Question.all.to_a
     @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
 
-    water = 10
-    temperature = 10
-    hunger = 10
-    health = 10
+    @water = 10
+    @temperature = 10
+    @hunger = 10
+    @health = 10
 
     # Si no hay preguntas en la base de datos, mostrar un mensaje
     if @questions.empty?
@@ -201,21 +201,33 @@ class App < Sinatra::Application
 
     # Sacar la próxima pregunta de la cola de preguntas
     @current_question = @questions.shift
-    aux = @current_question
+
     erb :'home/game'
   end
 
   post '/game' do
-    @opcionelegida = params[:valor]
+    opcionelegida = params[:valor]
+    e1 = params[:option1E]
+    e2 = params[:option2E]
 
+    health = params[:health].to_i
+    hunger = params[:hunger].to_i
+    water = params[:water].to_i
+    temperature = params[:temperature].to_i
+
+    if opcionelegida == 0
+      effects = e1
+    else 
+      effects = e2
      # Obtener los efectos de la opción seleccionada desde la base de datos
-     effects = aux.options[0].effects
+    end
 
+  
      # Aplicar los efectos a las barras del usuario
-     health += effects[0]
-     hunger += effects[1]
-     water += effects[2]
-     temperature += effects[3]
+     health += effects[0].to_i
+     hunger += effects[1].to_i
+     water += effects[2].to_i
+     temperature += effects[3].to_i
  
      # Chequear si alguna barra llegó a cero
      if health <= 0 || temperature <= 0 || hunger <= 0 || water <= 0
