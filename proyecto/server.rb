@@ -9,6 +9,8 @@ set :public_folder, 'assets'
 require './models/user'
 require './models/question'
 require './models/option'
+require './models/skill'
+require './models/guide'
 
 class App < Sinatra::Application
   def initialize(app = nil)
@@ -100,6 +102,15 @@ class App < Sinatra::Application
     end
   end
 
+  get '/guide/shelter' do
+    erb :'skill/shelter'
+  end
+
+  get '/guideShelter.pdf' do
+    send_file 'views\skill\guideShelter.pdf', :type => :pdf
+  end
+
+
   get '/keep_it_alive' do
     if current_user
       erb :'home/keep_it_alive', locals: { user: current_user }
@@ -135,6 +146,11 @@ class App < Sinatra::Application
   get '/test' do
     @questions = Question.all
     erb :'users/test'
+  end
+
+  get '/guiatest' do
+    @skills = Skill.all
+    erb :'users/guiatest'
   end
 end
 

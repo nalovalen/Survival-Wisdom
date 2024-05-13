@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visualización de skills y ruta de guides</title>
+</head>
+<body>
+  <h1>Skills y Rutas de Guides</h1>
+
+  <% @skills.each do |skill| %>
+    <h2><%= skill.name %></h2>
+    <p><strong>dificultad:</strong> <%= skill.dificulty %></p>
+    <p><strong>description:</strong> <%= skill.description%></p>
+    <ul>
+      <% skill.guides.each do |guide| %>
+        <li>
+          <%= guide.title %>
+          <ul>
+            <li>Ruta: <%= guide.rute_content %></li>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</body>
+</html>

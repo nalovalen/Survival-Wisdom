@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_10_153437) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_224438) do
+  create_table "guides", force: :cascade do |t|
+    t.string "title"
+    t.string "rute_content"
+    t.integer "skill_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["skill_id"], name: "index_guides_on_skill_id"
+  end
+
   create_table "options", force: :cascade do |t|
     t.integer "question_id"
     t.string "description"
@@ -27,6 +36,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_10_153437) do
     t.datetime "updated_at", precision: nil
   end
 
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "dificulty"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "names"
     t.string "username"
@@ -36,5 +53,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_10_153437) do
     t.datetime "updated_at", precision: nil
   end
 
+  add_foreign_key "guides", "skills"
   add_foreign_key "options", "questions"
 end
