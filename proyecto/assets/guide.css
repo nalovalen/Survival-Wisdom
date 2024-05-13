@@ -17,7 +17,7 @@
     background-image: url('img/v6_335.png');
     background-size: cover;
   }
-  
+
   .sidebar{
     position: fixed;
     width: 240px;
@@ -153,7 +153,7 @@
       visibility: visible;
     }
   }
-  
+
   .sidebar > a.active,.sidebar > a:hover:nth-child(even) {
     --accent-color: #a2e284;
     --gradient-color: #2db84b;
@@ -162,15 +162,16 @@
     --accent-color: #a2e284;
     --gradient-color: #2db84b;
   }
-  
-  
+
+
   .frame {
     width: 50%;
     height: 90%;
     margin: auto;
     text-align: center;
+    max-width: 200%;
   }
-  
+
   .frame label{
     position:fixed;
     top: 52%;
@@ -179,14 +180,14 @@
     cursor: pointer;
     color: #95d395;
     border-radius: 5px;
-    
+
     font-size: 29px;
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(32, 29, 29, 0.4);
     height: 45px;
     width: 180px;
     text-align: center;
-    
+
     line-height: 45px;
   }
 
@@ -208,7 +209,7 @@
     margin: 0;
     color: #2db84b;
   }
-  
+
   p {
     font-family: 'Lato', sans-serif;
     font-weight: 300;
@@ -217,16 +218,20 @@
     color: #2db84b;
     margin: 0;
   }
-  
+
   .logout a{
     position: absolute;
     color: black;
-    bottom: 10px; 
- 
+    bottom: 10px;
+
   }
- 
+
   .logout a.active,.logout > a:hover {
     --accent-color: rgb(192, 57, 57);
     --gradient-color: rgb(236, 42, 42);
   }
-  
+
+  .frame embed {
+    height: 100%;
+    width: 100%;
+  }
