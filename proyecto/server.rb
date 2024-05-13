@@ -102,11 +102,11 @@ class App < Sinatra::Application
     end
   end
 
-  get '/guide/shelter' do
+  get '/skill/shelter' do
     erb :'skill/shelter'
   end
 
-  get '/guide/guideShelter.pdf' do
+  get '/skill/guideShelter.pdf' do
     send_file 'views\skill\guideShelter.pdf', :type => :pdf
   end
 
