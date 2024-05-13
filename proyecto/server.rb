@@ -110,6 +110,37 @@ class App < Sinatra::Application
     send_file 'views\skill\guideShelter.pdf', :type => :pdf
   end
 
+  get '/skill/fire' do
+    erb :'skill/fire'
+  end
+
+  get '/skill/guideFire.pdf' do
+    send_file 'views\skill\guideFire.pdf', :type => :pdf
+  end
+
+  get '/skill/food' do
+    erb :'skill/food'
+  end
+
+  get '/skill/guideFood.pdf' do
+    send_file 'views\skill\guideFood.pdf', :type => :pdf
+  end
+
+  get '/skill/medicine' do
+    erb :'skill/medicine'
+  end
+
+  get '/skill/guideMedicine.pdf' do
+    send_file 'views\skill\guideMedicine.pdf', :type => :pdf
+  end
+
+  get '/skill/water' do
+    erb :'skill/water'
+  end
+
+  get '/skill/guideWater.pdf' do
+    send_file 'views\skill\guideWater.pdf', :type => :pdf
+  end
 
   get '/keep_it_alive' do
     if current_user
