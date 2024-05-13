@@ -183,6 +183,10 @@ class App < Sinatra::Application
     @skills = Skill.all
     erb :'users/guiatest'
   end
+
+  get '/game' do 
+    erb :'home/game'
+  end
 end
 
 
