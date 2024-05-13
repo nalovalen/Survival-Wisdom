@@ -187,6 +187,13 @@ class App < Sinatra::Application
   get '/game' do 
     erb :'home/game'
   end
+
+  post '/game' do
+    opcionelegida = params[:valor]
+
+    puts " Hola : #{opcionelegida} "
+    erb :'home/game'
+  end
 end
 
 

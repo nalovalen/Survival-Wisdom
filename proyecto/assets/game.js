@@ -33,3 +33,36 @@ document.getElementById('background')
 		document.getElementById('optionright').style.opacity="0";
 		document.getElementById('optionleft').style.opacity="0";
 	}
+
+
+    document.addEventListener('click', function(event) {
+        var bg = document.getElementById('background');
+        var windowWidth = 90;
+        var x = event.clientX / bg.clientWidth * 100;
+    
+        // Si la carta está inclinada hacia la izquierda
+        if (x < 40) {
+            // Aquí puedes hacer lo que necesites cuando se hace clic y la carta está inclinada hacia la izquierda
+           
+            // Por ejemplo, puedes enviar el valor 1
+            enviarValor(1);
+        }
+        // Si la carta está inclinada hacia la derecha
+        else if (x > 60) {
+            // Aquí puedes hacer lo que necesites cuando se hace clic y la carta está inclinada hacia la derecha
+            
+            // Por ejemplo, puedes enviar el valor 2
+            enviarValor(2);
+        }
+    });
+    
+    function enviarValor(valor) {
+        // Aquí puedes hacer lo que necesites con el valor antes de enviarlo al servidor
+        
+        // Por ejemplo, puedes asignarlo a un campo oculto en un formulario
+        document.getElementById('valorInput').value = valor;
+        
+        // Luego, puedes enviar el formulario
+        document.getElementById('myForm').submit();
+    }
+    
