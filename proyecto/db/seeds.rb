@@ -56,3 +56,14 @@ guides = [
 guides.each do |u|
   Guide.create(u)
 end
+
+bars = [
+  {name_bar: 'temperature', value: 10},
+  {name_bar: 'water', value: 10},
+  {name_bar: 'hunger', value: 10},
+  {name_bar: 'health', value: 10}
+]
+
+bars.each do |u|
+  Bar.create(u)
+end

@@ -11,6 +11,7 @@ require './models/question'
 require './models/option'
 require './models/skill'
 require './models/guide'
+require './models/bar'
 
 class App < Sinatra::Application
   def initialize(app = nil)
@@ -184,7 +185,7 @@ class App < Sinatra::Application
     erb :'users/guiatest'
   end
 
-  get '/keep_it_alive/init' do 
+  get '/keep_it_alive/init' do
     # Recuperar todas las preguntas y opciones de la base de datos
     @questions = Question.all.to_a
     @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
@@ -211,7 +212,7 @@ class App < Sinatra::Application
     @hunger = params[:hunger]
     @temperature = params[:temperature]
     @questions = params[:questions]
-   
+
     # Sacar la próxima pregunta de la cola de preguntas
     @current_question = @questions.shift
 
@@ -223,7 +224,7 @@ class App < Sinatra::Application
     opcionelegida = params[:valor]
     e1 = params[:option1E]
     e2 = params[:option2E]
-    
+
 
     health = params[:health].to_i
     hunger = params[:hunger].to_i
@@ -232,18 +233,18 @@ class App < Sinatra::Application
 
     if opcionelegida == 0
       effects = e1
-    else 
+    else
       effects = e2
      # Obtener los efectos de la opción seleccionada desde la base de datos
     end
 
-  
+
      # Aplicar los efectos a las barras del usuario
      health += effects[0].to_i
      hunger += effects[1].to_i
      water += effects[2].to_i
      temperature += effects[3].to_i
- 
+
      # Chequear si alguna barra llegó a cero
      if health <= 0 || temperature <= 0 || hunger <= 0 || water <= 0
        return "¡Juego terminado!"

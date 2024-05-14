@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_224438) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_14_001730) do
+  create_table "bars", force: :cascade do |t|
+    t.string "name_bar"
+    t.integer "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "guides", force: :cascade do |t|
     t.string "title"
     t.string "rute_content"
