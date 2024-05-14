@@ -176,7 +176,7 @@ class App < Sinatra::Application
   end
 
   get '/test' do
-    @questions = Question.all
+    @bars = Bar.all
     erb :'users/test'
   end
 
