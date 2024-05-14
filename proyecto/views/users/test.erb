@@ -6,9 +6,20 @@
 <body>
   <h1>Preguntas y Opciones</h1>
 
-  <% @bars.each do |bar| %>
-    <h2><%= bar.name_bar %></h2>
-    <p><strong>Value:</strong> <%= bar.value %></p>
+  <% @questions.each do |question| %>
+    <h2><%= question.statement %></h2>
+    <p><strong>Tipo de Carta:</strong> <%= question.typeCard %></p>
+
+    <ul>
+      <% question.options.each do |option| %>
+        <li>
+          <%= option.description %>
+          <ul>
+            <li>efectos: <%= option.effects %></li>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
   <% end %>
 </body>
 </html>

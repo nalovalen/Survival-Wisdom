@@ -176,7 +176,7 @@ class App < Sinatra::Application
   end
 
   get '/test' do
-    @bars = Bar.all
+    @questions = Question.all
     erb :'users/test'
   end
 
@@ -187,49 +187,56 @@ class App < Sinatra::Application
 
   get '/keep_it_alive/init' do
     # Recuperar todas las preguntas y opciones de la base de datos
-    @questions = Question.all.to_a
+    @questions = Question.all
+    @bars = Bar.all
     @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
-
-    @water = 10
-    @temperature = 10
-    @hunger = 10
-    @health = 10
 
     # Si no hay preguntas en la base de datos, mostrar un mensaje
     if @questions.empty?
       return "No hay preguntas disponibles."
     end
 
-    # Sacar la próxima pregunta de la cola de preguntas
-    @current_question = @questions.shift
+    @bars.each do |bar|
+      bar.update(value: 10)
+    end
 
+    @questions.each do |question|
+      question.update(visited: false)
+    end
+
+    question = @questions.first
+    @current_question = question
+    question.update(visited: true)
     erb :'home/game'
+
+    
   end
 
   get '/keep_it_alive/playing' do
-    @health = params[:health]
-    @water = params[:water]
-    @hunger = params[:hunger]
-    @temperature = params[:temperature]
-    @questions = params[:questions]
-
-    # Sacar la próxima pregunta de la cola de preguntas
-    @current_question = @questions.shift
-
-    erb :'home/game'
+    @questions = Question.all
+    # barras
+    
+    @questions.each do |question|
+      if !question.visited
+        question.update(visited: true)
+        @current_question = question
+        erb :'home/game'
+      end
+    end
   end
 
 
   post '/keep_it_alive/playing' do
+
+    @barWater = Bar.where(name_bar: 'water')
+    @barHunger = Bar.where(name_bar: 'hunger')
+    @barHealt = Bar.where(name_bar: 'healt')
+    @barTemperature = Bar.where(name_bar: 'temperature')
+    
     opcionelegida = params[:valor]
     e1 = params[:option1E]
     e2 = params[:option2E]
 
-
-    health = params[:health].to_i
-    hunger = params[:hunger].to_i
-    water = params[:water].to_i
-    temperature = params[:temperature].to_i
 
     if opcionelegida == 0
       effects = e1
@@ -238,23 +245,23 @@ class App < Sinatra::Application
      # Obtener los efectos de la opción seleccionada desde la base de datos
     end
 
-
      # Aplicar los efectos a las barras del usuario
-     health += effects[0].to_i
-     hunger += effects[1].to_i
-     water += effects[2].to_i
-     temperature += effects[3].to_i
+     @barHealth.update(value: @barHealth.value + effects[0].to_i)
+     @barHunger..update(value: @barHunger.value + effects[1].to_i)
+     @barWater.update(value: @barWater.value + effects[2].to_i)
+     @barTemperature.update(value: @barTemperature.value + effects[3].to_i)
+
+     puts "mi valor es #{@barHealth.value}"
+
 
      # Chequear si alguna barra llegó a cero
      if health <= 0 || temperature <= 0 || hunger <= 0 || water <= 0
        return "¡Juego terminado!"
      else
-       redirect "/keep_it_alive/playing?health=#{health}&water=#{water}&hunger=#{hunger}&temperature=#{temperature}"
+       redirect '/keep_it_alive/playing'
      end
-
-    end
+  end
 end
-
 
 
 

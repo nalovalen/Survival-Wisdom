@@ -31,16 +31,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_001730) do
     t.integer "question_id"
     t.string "description"
     t.json "effects"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["question_id"], name: "index_options_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.string "statement"
     t.string "typeCard"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.boolean "visited", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -56,8 +57,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_001730) do
     t.string "username"
     t.string "email"
     t.string "password"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_foreign_key "guides", "skills"
