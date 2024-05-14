@@ -2,7 +2,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <title> Home Page</title>
-<link rel="stylesheet" href="game.css">
+<link rel="stylesheet" href="/game.css">
 
 </head>
 <body>
@@ -39,14 +39,15 @@
       <div id="carddiv">
         <div id="optionleft" class="left option"><%= @current_question.options[0].description%></div>
         <div id="optionright" class="right option"><%= @current_question.options[1].description%></div>
-        <form id="myForm" action="/game" method="post">
+        <form id="myForm" action="/keep_it_alive/playing" method="post">
         <input type="hidden" id="valorInput" name="valor">
-        <input type="hidden" id="pregunta" name="option1E" value= "<%= @current_question.options[0].effects %>" >
-        <input type="hidden" id="pregunta" name="option2E" value= "<%= @current_question.options[1].effects %>" >
-        <input type="hidden" id="pregunta" name="health" value= "<%= @health %>" >
-        <input type="hidden" id="pregunta" name="temperature" value= "<%= @temperature %>" >
-        <input type="hidden" id="pregunta" name="water" value= "<%= @water %>" >
-        <input type="hidden" id="pregunta" name="hunger" value= "<%= @hunger %>" >
+        <input type="hidden" id="pregunta" name="option1E" value= '<%= @current_question.options[0].effects %>' >
+        <input type="hidden" id="pregunta" name="option2E" value= '<%= @current_question.options[1].effects %>' >
+        <input type="hidden" id="pregunta" name="health" value= '<%= @health %>' >
+        <input type="hidden" id="pregunta" name="temperature" value= '<%= @temperature %>' >
+        <input type="hidden" id="pregunta" name="water" value= '<%= @water %>' >
+        <input type="hidden" id="pregunta" name="hunger" value= '<%= @hunger %>' >
+        <input type="hidden" id="pregunta" name="questions" value= '<%= @questions %>' >
         </form>
 
       </div>
@@ -69,6 +70,6 @@
     </div>
   </div>
 </div>
-<script src="./game.js"></script>
+<script src="/game.js"></script>
 
 </body>

@@ -184,7 +184,7 @@ class App < Sinatra::Application
     erb :'users/guiatest'
   end
 
-  get '/game' do 
+  get '/keep_it_alive/init' do 
     # Recuperar todas las preguntas y opciones de la base de datos
     @questions = Question.all.to_a
     @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
@@ -205,10 +205,25 @@ class App < Sinatra::Application
     erb :'home/game'
   end
 
-  post '/game' do
+  get '/keep_it_alive/playing' do
+    @health = params[:health]
+    @water = params[:water]
+    @hunger = params[:hunger]
+    @temperature = params[:temperature]
+    @questions = params[:questions]
+   
+    # Sacar la próxima pregunta de la cola de preguntas
+    @current_question = @questions.shift
+
+    erb :'home/game'
+  end
+
+
+  post '/keep_it_alive/playing' do
     opcionelegida = params[:valor]
     e1 = params[:option1E]
     e2 = params[:option2E]
+    
 
     health = params[:health].to_i
     hunger = params[:hunger].to_i
@@ -233,7 +248,7 @@ class App < Sinatra::Application
      if health <= 0 || temperature <= 0 || hunger <= 0 || water <= 0
        return "¡Juego terminado!"
      else
-       redirect '/game'
+       redirect "/keep_it_alive/playing?health=#{health}&water=#{water}&hunger=#{hunger}&temperature=#{temperature}"
      end
 
     end
