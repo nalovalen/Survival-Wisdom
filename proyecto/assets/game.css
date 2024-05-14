@@ -18,6 +18,19 @@
     background-size: cover;
   }
   
+  body::before {
+    content: "";
+    background-image: inherit;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(20px); /* Puedes ajustar el valor de desenfoque aquí */
+    z-index: -1; /* Para asegurarte de que el seudoelemento esté detrás del contenido del body */
+  }
+
   .sidebar{
     position: fixed;
     width: 240px;
@@ -284,23 +297,65 @@ margin: 0.0vw auto;
     height: 100%;
     position: absolute;
     left: 35%;
+    border-radius: 4%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
-#top{
-    width: 100%;
-    height: 16%;
-    background: rgb(35,20,3);
-    box-sizing: border-box;
+#top {
+  width: 100%;
+  background: rgb(35, 20, 3);
+  padding: 10px;
+  box-sizing: border-box;
 }
-#topicons{
-    height: 50%;
-    width: 93.71%;
-    margin: auto;
+
+.bar-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
 }
-.topicon{
-    width: 25%;
-    height: 100%;
-    float: left;
+
+.bar-label {
+  color: white;
+  margin-bottom: 5px;
 }
+
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0df;
+  border-radius: 13px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  height: 15px; /* Reduced height */
+  position: relative; /* Ensure proper stacking */
+}
+
+.progress {
+  height: 100%;
+  border-radius: 13px;
+  text-align: right;
+  line-height: 15px; /* Align text vertically center for reduced height */
+  color: white;
+  padding-right: 5px; /* Padding for text inside progress bar */
+  box-sizing: border-box;
+  transition: width 0.3s ease-in-out; /* Add a smooth transition */
+}
+
+.health-bar {
+  background-color: #17d858; /* Custom color for health */
+}
+
+.hunger-bar {
+  background-color: #ffcc00; /* Custom color for hunger */
+}
+
+.water-bar {
+  background-color: #1e90ff; /* Custom color for water */
+}
+
+.temperature-bar {
+  background-color: #ff6347; /* Custom color for temperature */
+}
+
+
 .topicon svg{
     height: 100%;
 }
@@ -310,7 +365,7 @@ margin: 0.0vw auto;
 }
 #bottom{
     width: 100%;
-    height: 11%;
+    height: 3%;
     background: rgb(35,20,3);
     position: absolute;
     bottom: 0;
@@ -327,26 +382,30 @@ margin: 0.0vw auto;
 #bottom>div>span:nth-of-type(even){
     background: none;
 }
-#card{
-    width: 79.9%;
-    height: 46.66%;
-    background-color: rgb(29,29,13);
-    position: absolute;
-    bottom: 17.66%;
-    left: 10%;
-    border-radius: 4%;
+#card {
+  width: 79.9%;
+  height: 46.66%;
+  background-color: rgb(29, 29, 13);
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  background-image: url('img/cardA.jpg');
+  border-radius: 4%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Esto agregará un sombreado alrededor del elemento */
 }
-#card>div{
-    border-radius: 4%;
-    width: 101%;
-    height: 101%;
-    background-color: blue;
-    transform-origin: 50% 225%;
-    transition-duration: 0.5s;
-    background-color: rgb(47,46,41);
-    border-bottom: none;
-    overflow: hidden;
+
+#card > div {
+  border-radius: 4%;
+  width: 101%;
+  height: 101%;
+  background-image: url('img/frenteCard.jpg');
+  transform-origin: 50% 225%;
+  transition-duration: 0.5s;
+  background-color: rgb(47, 46, 41);
+  border-bottom: none;
+  overflow: hidden;
 }
+
 #card>div svg{
     height: 100%;
     width: 100%;
@@ -378,7 +437,7 @@ margin: 0.0vw auto;
     width: 100%;
     height: 6.66%;
     position: absolute;
-    bottom: 11%;
+    bottom: 3%;
 }
 #msg{
     width: 100%;

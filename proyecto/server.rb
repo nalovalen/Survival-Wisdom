@@ -1,7 +1,8 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 
-enable :sessions #esto era para mostrar el nombre de usuario en account
+
+  enable :sessions
 
 set :database_file, './config/database.yml'
 set :public_folder, 'assets'
@@ -187,79 +188,81 @@ class App < Sinatra::Application
 
   get '/keep_it_alive/init' do
     # Recuperar todas las preguntas y opciones de la base de datos
-    @questions = Question.all
-    @bars = Bar.all
+    
+    @questions = Question.all.order("RANDOM()").to_a.map(&:id)
+    bars = Bar.all
     @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
-
+    
+    
+    bars.each do |bar|
+      if bar.name_bar == 'health'
+      session[:health] = bar.value
+      end
+      if bar.name_bar == 'hunger'
+        session[:hunger] = bar.value
+      end
+      if bar.name_bar == 'water'
+        session[:water] = bar.value
+      end
+      if bar.name_bar == 'temperature'
+        session[:temperature] = bar.value
+      end
+    end
+    
+    
     # Si no hay preguntas en la base de datos, mostrar un mensaje
     if @questions.empty?
       return "No hay preguntas disponibles."
     end
-
-    @bars.each do |bar|
-      bar.update(value: 10)
-    end
-
-    @questions.each do |question|
-      question.update(visited: false)
-    end
-
-    question = @questions.first
-    @current_question = question
-    question.update(visited: true)
+    session[:question] = @questions.shift
+    session[:@questions]= @questions
+    session[:days] = 0
     erb :'home/game'
-
-    
   end
 
   get '/keep_it_alive/playing' do
-    @questions = Question.all
-    # barras
-    
-    @questions.each do |question|
-      if !question.visited
-        question.update(visited: true)
-        @current_question = question
-        erb :'home/game'
-      end
-    end
+    @questions = session[:@questions]
+    session[:question] = @questions.shift
+    session[:@questions]= @questions
+    @current_user = current_user
+    erb :'home/game'
   end
 
 
   post '/keep_it_alive/playing' do
-
-    @barWater = Bar.where(name_bar: 'water')
-    @barHunger = Bar.where(name_bar: 'hunger')
-    @barHealt = Bar.where(name_bar: 'healt')
-    @barTemperature = Bar.where(name_bar: 'temperature')
     
-    opcionelegida = params[:valor]
-    e1 = params[:option1E]
-    e2 = params[:option2E]
+    opcionelegida = params[:valor].to_i
+    effects = Question.find(session[:question]).options[opcionelegida-1].effects
 
-
-    if opcionelegida == 0
-      effects = e1
-    else
-      effects = e2
-     # Obtener los efectos de la opción seleccionada desde la base de datos
-    end
-
-     # Aplicar los efectos a las barras del usuario
-     @barHealth.update(value: @barHealth.value + effects[0].to_i)
-     @barHunger..update(value: @barHunger.value + effects[1].to_i)
-     @barWater.update(value: @barWater.value + effects[2].to_i)
-     @barTemperature.update(value: @barTemperature.value + effects[3].to_i)
-
-     puts "mi valor es #{@barHealth.value}"
-
-
-     # Chequear si alguna barra llegó a cero
-     if health <= 0 || temperature <= 0 || hunger <= 0 || water <= 0
-       return "¡Juego terminado!"
+     if session[:health] + effects[0] >= 10
+      session[:health] = 10
      else
-       redirect '/keep_it_alive/playing'
+      session[:health] += effects[0]
      end
+     if session[:hunger] + effects[1] >= 10
+      session[:health] = 10
+     else
+      session[:hunger] += effects[1]
+     end
+     if session[:water] + effects[2] >= 10
+      session[:water] = 10
+     else
+      session[:water] += effects[2]
+     end
+     if session[:temperature] + effects[3] >= 10
+      session[:temperature] = 10
+     else
+      session[:health] += effects[3] 
+     end
+
+    
+    puts "#{session[:health]},#{session[:hunger]},#{session[:water]},#{session[:temperature]}"
+    if session[:health] <= 0 || session[:hunger] <= 0 || session[:water] <= 0 || session[:temperature] <= 0
+      puts 'Anda a dormir gordito'
+    else
+      session[:days] += 1
+      redirect '/keep_it_alive/playing'     
+    end 
   end
 end
 

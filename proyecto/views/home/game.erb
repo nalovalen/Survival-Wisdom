@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -8,47 +10,53 @@
 <body>
 <div id="background">
 
-  <div id="years"><span class="big">0</span> years in power</div>
-  <div id="name">the_aliraza</div>
+  
+  <div id="name"> "<%= session[:days].div(3)%> Days Survived"</div>
 
   <div id="main">
-    <div id="top" class="textfix">
-      <div id="topicons">
-        <div class="topicon1">
-          
-        </div>
-        <div class="topicon2">
-          
-        </div>
-        <div class="topicon3">
-         
-        </div>
-        <div class="topicon">
-          
-        </div>
-      </div>
+  <div id="top" class="textfix">
+  <div class="bar-container">
+    <div class="bar-label">Health</div>
+    <div class="progress-bar">
+      <div class="progress health-bar" style="width: <%= session[:health] * 10 %>%;"></div>
     </div>
+    <div class="bar-label">Hunger</div>
+    <div class="progress-bar">
+      <div class="progress hunger-bar" style="width: <%= session[:hunger] * 10 %>%;"></div>
+    </div>
+    <div class="bar-label">Water</div>
+    <div class="progress-bar">
+      <div class="progress water-bar" style="width: <%= session[:water] * 10 %>%;"></div>
+    </div>
+    <div class="bar-label">Temperature</div>
+    <div class="progress-bar">
+      <div class="progress temperature-bar" style="width: <%= session[:temperature] * 10 %>%;"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
     <!-- <div id="mid"> -->
     <div id="msg" class="textfix">
-      <%= @current_question.statement %> 
+      <%= Question.find(session[:question]).statement %> 
     </div>
     
     <div id="card">
       
       <div id="carddiv">
-        <div id="optionleft" class="left option"><%= @current_question.options[0].description%></div>
-        <div id="optionright" class="right option"><%= @current_question.options[1].description%></div>
+        <div id="optionleft" class="left option"><%= Question.find(session[:question]).options[0].description%></div>
+        <div id="optionright" class="right option"><%= Question.find(session[:question]).options[1].description%></div>
         <form id="myForm" action="/keep_it_alive/playing" method="post">
         <input type="hidden" id="valorInput" name="valor">
-        <input type="hidden" id="pregunta" name="option1E" value= '<%= @current_question.options[0].effects %>' >
-        <input type="hidden" id="pregunta" name="option2E" value= '<%= @current_question.options[1].effects %>' >
         </form>
 
       </div>
     </div>
     <div id="cardname" class="textfix">
-      The King
+      <%= @current_user.name %>
     </div>
     <!-- </div> -->
 
@@ -68,3 +76,4 @@
 <script src="/game.js"></script>
 
 </body>
+</html>
