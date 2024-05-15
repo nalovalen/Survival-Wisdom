@@ -300,6 +300,8 @@
 .card__img {
   height: 192px;
   width: 100%;
+  background-image: url('img/gameCard.jpg');
+  border-radius: 20px 20px 0 0;
 }
 
 .card__img svg {
@@ -317,6 +319,7 @@
   justify-content: center;
   align-items: center;
   top: calc(50% - 57px);
+  background-image: url('img/Perfil.jpg');
 }
 
 .card__avatar svg {
