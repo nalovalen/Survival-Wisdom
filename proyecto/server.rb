@@ -267,6 +267,7 @@ class App < Sinatra::Application
     puts "#{session[:health]},#{session[:hunger]},#{session[:water]},#{session[:temperature]}"
     if session[:health] <= 0 || session[:hunger] <= 0 || session[:water] <= 0 || session[:temperature] <= 0
       puts 'Anda a dormir gordito'
+      erb :'home/gameover'
     else
       session[:days] += 1
       redirect '/keep_it_alive/playing'
