@@ -84,26 +84,7 @@
     transition: all .5s ease;
   }
 
-  .frame i{
-    position: absolute;
-    left: 5px;
-    cursor: pointer;
-    color: #2e412e;
-    border-radius: 5px;
-    margin: 15px 30px;
-    font-size: 29px;
-    background-color: #2db84b;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-      inset -7px -7px 10px 0px rgba(0,0,0,.1),
-     3.5px 3.5px 20px 0px rgba(0,0,0,.1),
-     2px 2px 5px 0px rgba(0,0,0,.1);
-    height: 45px;
-    width: 45px;
-    text-align: center;
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
-    line-height: 45px;
-    transition: all .5s ease;
-  }
+
 
   label #cancel{
     opacity: 0;
@@ -163,15 +144,49 @@
     --gradient-color: #2db84b;
   }
   
-  
   .frame {
-    width: 50%;
-    height: 30%;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 50%;
     margin: auto;
     text-align: center;
-    background-color: #566b56;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
   }
   
+  .flex-container {
+    display: flex;
+    flex-direction: column; /* Mantener los elementos en columna */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    height: 100%; /* Asegura que ocupe toda la altura del contenedor */
+  }
+  
+  .flex-container a {
+    text-align: center;
+    padding: 10px 20px;
+    background-color:#2db84b;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: 40%; 
+  }
+  
+  .frame i {
+    cursor: pointer;
+    color: #2e412e;
+    border-radius: 5px;
+    font-size: 29px;
+    justify-content: center; 
+    align-items: center;
+    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+    width: 100%; 
+    height: 100%; 
+    display: flex;  
+  }
   .frame label{
     position:fixed;
     top: 52%;
@@ -208,6 +223,18 @@
     font-family: 'Lato', sans-serif;
     margin: 0;
     color: #2db84b;
+    
+    border-radius: 20px;
+  }
+  h1 {
+    position: relative;
+    text-align: center;
+    
+    font-size: 30px;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    color: #2db84b;
+    
   }
   
   p {
@@ -219,6 +246,17 @@
     margin: 0;
   }
   
+  li {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    text-align: left;
+    
+    font-size: 20px;
+    color: #2db84b;
+    margin: 10;
+  
+    border-radius: 20px;
+  }
   .logout a{
     position: absolute;
     color: black;
@@ -230,4 +268,3 @@
     --accent-color: rgb(192, 57, 57);
     --gradient-color: rgb(236, 42, 42);
   }
-  

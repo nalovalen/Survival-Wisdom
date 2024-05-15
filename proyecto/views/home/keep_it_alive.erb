@@ -1,5 +1,7 @@
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <title> Home Page</title>
 <link rel="stylesheet" href="keep_it_alive.css">
@@ -12,7 +14,7 @@
  </label>
  <div class="sidebar">
    <header>Survival Wisdom</header>
-   <a href="/home">
+   <a href="/home" >
      <i class="fas fa-home"></i>
      <span>Home</span>
    </a>
@@ -37,18 +39,26 @@
      <span>Account</span>
    </a>
    <div class="logout">
-   <a href="/login">
-    <i class="fas fa-sign-out-alt"></i>
-     <span>Log Out</span>
-   </a>
-  </div>
+    <a href="/login">
+     <i class="fas fa-sign-out-alt"></i>
+      <span>Log Out</span>
+      <% @current_user = false %>
+    </a>
+   </div>
  </div>
 </body>
  
 <div class="frame">
-<p> Responsive </p>
-<h2>SIDE BAR</h2>
-<p>in Pure CSS</p>
+<h2> Keep It Alive </h2>
+<p>We introduce you to the game that will test your knolegde when it comes about survival</p>
+<h1> Instructions </h1>
+<li>On top you have four bars (Health, Hunger, Water, Temperature) which all of those have 10 points initialy</li>
+<li>A random card description will appear in the center of your screen and you need choose one of the 2 options, the left one and the rigth one</li>
+<li>The goal of the game is trying to survive as many days as possible </li>
+<div class="flex-container">
+<a href="/keep_it_alive/init"> <i class="fas fa-play"></i></a>
+</div>
+</div>
 
 </div>  
  
