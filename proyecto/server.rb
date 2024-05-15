@@ -67,7 +67,7 @@ class App < Sinatra::Application
   post '/register' do
     username = params[:first]
     password = params[:password]
-
+    nickname = params[:nickname]
     # Verifica si ya existe un usuario con el mismo nombre de usuario en la base de datos
     existing_user = User.find_by(username: username)
 
@@ -80,6 +80,7 @@ class App < Sinatra::Application
       user = User.new
       user.username = username
       user.password = password
+      user.nickname = nickname
       user.save
       redirect '/home'
 
