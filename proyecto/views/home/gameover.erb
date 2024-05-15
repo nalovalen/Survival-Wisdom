@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-<title> Home Page</title>
-<link rel="stylesheet" href="/game.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <title>Game Over</title>
+    <link rel="stylesheet" href="/game.css">
 </head>
 <body>
-<div id="background">
+    <div id="background">
+        <div id="name">"<%= session[:days].div(3)%> Days Survived"</div>
+        <p>GAME OVER!</p>
+        <!-- Formulario para volver a jugar -->
+        <form id="play-again-form" action="/jugar-de-nuevo" method="post" style="text-align: center;">
+           <button type="submit" style="color: black; margin-top: 50px;">Volver a Jugar</button>
+        </form>
 
-
-  <div id="name"> "<%= session[:days].div(3)%> Days Survived"</div>
-
-<p>GAME OVER!<p>
-
+    </div>
 </body>
 </html>

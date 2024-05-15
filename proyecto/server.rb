@@ -277,6 +277,15 @@ end
 
 
 
+# Maneja la solicitud POST para jugar de nuevo
+post '/jugar-de-nuevo' do
+  # Aquí puedes agregar la lógica para reiniciar el juego o redirigir a la página de inicio del juego
+  # Por ejemplo, puedes reiniciar las variables de sesión y redirigir al usuario a la página de inicio
+  session[:game_state] = nil # Reiniciar el estado del juego
+  redirect to('/keep_it_alive/init') # Redirigir a la página de inicio del juego
+end
+
+
 
 # @user = User.where(username: username).first
 #if @user.password == password

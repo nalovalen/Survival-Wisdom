@@ -228,3 +228,10 @@ p {
     --gradient-color: rgb(236, 42, 42);
 }
 
+#play-again-form button {
+    width: 20%;
+    height: 20%;
+    margin: 0 auto; /* Esto centrará el botón horizontalmente */
+    color: black; /* Esto cambiará el color del texto a negro */
+}
+
