@@ -188,12 +188,12 @@ class App < Sinatra::Application
 
   get '/keep_it_alive/init' do
     # Recuperar todas las preguntas y opciones de la base de datos
-    
+
     @questions = Question.all.order("RANDOM()").to_a.map(&:id)
     bars = Bar.all
     @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
-    
-    
+
+
     bars.each do |bar|
       if bar.name_bar == 'health'
       session[:health] = bar.value
@@ -208,8 +208,8 @@ class App < Sinatra::Application
         session[:temperature] = bar.value
       end
     end
-    
-    
+
+
     # Si no hay preguntas en la base de datos, mostrar un mensaje
     if @questions.empty?
       return "No hay preguntas disponibles."
@@ -221,16 +221,24 @@ class App < Sinatra::Application
   end
 
   get '/keep_it_alive/playing' do
-    @questions = session[:@questions]
-    session[:question] = @questions.shift
-    session[:@questions]= @questions
+    if session[:@questions].nil? || session[:@questions].empty?
+      # Si no quedan preguntas en la sesión, vuelve a asignar todas las preguntas de manera aleatoria
+      @questions = Question.all.order("RANDOM()")
+      session[:@questions] = @questions.map(&:id)
+    else
+      # Si quedan preguntas en la sesión, sigue utilizando esas preguntas
+      @questions = Question.where(id: session[:@questions])
+    end
+
+    session[:question] = session[:@questions].shift
     @current_user = current_user
     erb :'home/game'
   end
 
 
+
   post '/keep_it_alive/playing' do
-    
+
     opcionelegida = params[:valor].to_i
     effects = Question.find(session[:question]).options[opcionelegida-1].effects
 
@@ -252,17 +260,17 @@ class App < Sinatra::Application
      if session[:temperature] + effects[3] >= 10
       session[:temperature] = 10
      else
-      session[:health] += effects[3] 
+      session[:health] += effects[3]
      end
 
-    
+
     puts "#{session[:health]},#{session[:hunger]},#{session[:water]},#{session[:temperature]}"
     if session[:health] <= 0 || session[:hunger] <= 0 || session[:water] <= 0 || session[:temperature] <= 0
       puts 'Anda a dormir gordito'
     else
       session[:days] += 1
-      redirect '/keep_it_alive/playing'     
-    end 
+      redirect '/keep_it_alive/playing'
+    end
   end
 end
 
