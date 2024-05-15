@@ -43,17 +43,16 @@
    </a>
   </div>
  </div>
-<div class="frame">
-</div>
-
-<div class="overlay">
-  <!-- Contenedor para la foto de perfil y nombre del usuario -->
-  <div class="user-info">
-    <img src="img/mountain.jpg" alt="Foto de perfil">
-    <span><%= current_user.name %></span>
-  </div>
-  <div class="user-info-text">
-    Información del Usuario
+ <div class="frame">
+  <div class="card">
+    <div class="card__img"></div>
+    <div class="card__avatar"></div>
+    <div class="card__title"><%= @current_user.name%></div>
+    <div class="card__subtitle">Web Development</div>
+    <div class="card__wrapper">
+      <button class="card__btn">Button</button>
+      <button class="card__btn card__btn-solid">Button</button>
+    </div>
   </div>
 </div>
 
