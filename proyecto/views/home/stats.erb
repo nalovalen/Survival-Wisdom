@@ -51,18 +51,20 @@
     <span>Statitics</span>
   </div>
   <div class="user-info-text">
-  greatest number of days survived: <br>
+  <% stat = Stat.where(user_id: current_user.id).order(days: :desc).first %>
+   greatest number of days survived: <%= stat.days.div(3) %>
+ <br>
   <br>
   <br>
-  number of days survived on average:
+  <% all_days = Stat.pluck(:days) %>
+  <% total_days = all_days.sum %>
+  <% average_days = total_days.to_f / all_days.size %>
+  number of days survived on average: <%=average_days.div(3) %>
   <br>
   <br>
   <br>
-  number of games played:
-  <br>
-  <br>
-  <br>
-  Top Score:
+  <% total_stats = Stat.count %>
+  number of games played: <%=total_stats %>
   </div>
 </div>
 
