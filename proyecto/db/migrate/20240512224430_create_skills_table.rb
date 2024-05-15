@@ -4,7 +4,7 @@ class CreateSkillsTable < ActiveRecord::Migration[7.1]
       t.string :name
       t.string :description
       t.string :dificulty
-      
+
       t.datetime :created_at
       t.datetime :updated_at
     end

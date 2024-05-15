@@ -13,6 +13,7 @@ require './models/option'
 require './models/skill'
 require './models/guide'
 require './models/bar'
+require './models/stat'
 
 class App < Sinatra::Application
   def initialize(app = nil)
@@ -267,6 +268,12 @@ class App < Sinatra::Application
     puts "#{session[:health]},#{session[:hunger]},#{session[:water]},#{session[:temperature]}"
     if session[:health] <= 0 || session[:hunger] <= 0 || session[:water] <= 0 || session[:temperature] <= 0
       puts 'Anda a dormir gordito'
+      stat = Stat.new
+      stat.user_id = session[:user_id] # Asigna el ID del usuario
+      stat.days = session[:days]
+      stat.save
+
+
       erb :'home/gameover'
     else
       session[:days] += 1

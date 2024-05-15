@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_14_001730) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_15_212628) do
   create_table "bars", force: :cascade do |t|
     t.string "name_bar"
     t.integer "value"
@@ -47,6 +47,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_001730) do
     t.datetime "updated_at"
   end
 
+  create_table "stats", force: :cascade do |t|
+    t.integer "days"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_stats_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "names"
     t.string "username"
@@ -58,4 +64,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_001730) do
 
   add_foreign_key "guides", "skills"
   add_foreign_key "options", "questions"
+  add_foreign_key "stats", "users"
 end
