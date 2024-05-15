@@ -83,7 +83,13 @@ class App < Sinatra::Application
       user.password = password
       user.nickname = nickname
       user.save
-      redirect '/home'
+
+      session[:user_id] = user.id
+      stat = Stat.new
+      stat.user_id = session[:user_id] # Asigna el ID del usuario
+      stat.days = 0
+      stat.save
+      redirect '/login'
 
     end
   end
