@@ -3,6 +3,7 @@ class CreateUsersTable < ActiveRecord::Migration[7.1]
     create_table :users do |t|
       t.string :names
       t.string :username
+      t.string :nickname
       t.string :email
       t.string :password
 
