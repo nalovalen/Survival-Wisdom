@@ -49,23 +49,27 @@
   <a href="/skill/fire">
     <img src="img/fuego.jpg" alt="Fuego">
     <span class="image-text-1">Fire</span>
+    <span class="des"><%= Skill.find_by(name: 'fire').description %></span>
   </a>
   <a href="/skill/shelter">
     <img src="img/refugio.jpg" alt="Refugio">
     <span class="image-text-2">Shelter</span>
+    <span class="des"><%= Skill.find_by(name: 'shelter').description %></span>
   </a>
-  
   <a href="/skill/food">
     <img src="img/comida.jpg" alt="Comida">
     <span class="image-text-3">Food</span>
+    <span class="des"><%= Skill.find_by(name: 'food').description %></span>
   </a>
   <a href="/skill/medicine">
     <img src="img/medicina.jpg" alt="Medicina">
     <span class="image-text-4">Medicine</span>
+    <span class="des"><%= Skill.find_by(name: 'medicine').description %></span>
   </a>
   <a href="/skill/water">
     <img src="img/agua.jpg" alt="Agua">
-    <span class="image-text-5">Water</span>
+    <span class id="image-text-5">Water</span>
+    <span class="des"><%= Skill.find_by(name: 'water').description %></span>
   </a>
 </section>
   </div>  
