@@ -148,10 +148,10 @@
     display: flex;
     flex-direction: column;
     width: 60%;
-    height: 50%;
+    
     margin: auto;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgb(189,168,103);
     border-radius: 20px;
   }
   
@@ -166,13 +166,14 @@
   .flex-container a {
     text-align: center;
     padding: 10px 20px;
-    background-color:#2db84b;
+    background-color: rgb(35, 20, 3);
     border-radius: 20px;
     text-decoration: none;
     display: flex; 
     justify-content: center; 
     align-items: center; 
     width: 40%; 
+    margin-bottom: 10px;
   }
   
   .frame i {
@@ -182,7 +183,7 @@
     font-size: 29px;
     justify-content: center; 
     align-items: center;
-    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+    
     width: 100%; 
     height: 100%; 
     display: flex;  
@@ -215,48 +216,71 @@
     margin: 0;
   }
 
+  .top {
+    background-color:  rgb(35, 20, 3);
+    box-sizing: border-box;
+  }
+  .sub {
+    margin: 10px;
+    background-color: rgb(29, 21, 21);
+
+  }
   h2 {
-    position: relative;
-    text-align: center;
-    color: #2e412e;
-    font-size: 60px;
-    font-family: 'Lato', sans-serif;
     margin: 0;
-    color: #2db84b;
-    
-    border-radius: 20px;
+    padding: 0;
+    position: relative;
+    font-size: 60px;
+    font-weight: 500;
+    color: rgb(249,246,191);
+    letter-spacing: 1px;
+    font-family: courier new;
   }
   h1 {
-    position: relative;
-    text-align: center;
-    
-    font-size: 30px;
-    font-family: 'Lato', sans-serif;
     margin: 0;
-    color: #2db84b;
-    
+    padding: 0;
+    position: relative;
+    font-size: 30px;
+    font-weight: 500;
+    color: rgb(249,246,191);
+    background-color: rgb(35, 20, 3);
+    letter-spacing: 1px;
+    font-family: courier new;
   }
   
   p {
-    font-family: 'Lato', sans-serif;
-    font-weight: 300;
-    text-align: center;
-    font-size: 30px;
-    color: #2db84b;
-    margin: 0;
+    margin: 25px;
+    padding: 0;
+    position: relative;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(249,246,191);
+    letter-spacing: 1px;
+    font-family: courier new;
   }
   
   li {
-    font-family: 'Lato', sans-serif;
-    font-weight: 300;
+    margin: 10px;
+    padding: 0;
+    position: relative;
     text-align: left;
-    
     font-size: 20px;
-    color: #2db84b;
-    margin: 10;
-  
-    border-radius: 20px;
+    font-weight: 500;
+    color: rgb(249,246,191);
+    letter-spacing: 1px;
+    font-family: courier new;
   }
+
+  .middle {
+
+    margin: 10px;
+    background-color: rgb(29, 21, 21);
+
+  }
+  :root {
+    --accent-color: #305e2e;
+    --gradient-color: #305e2e;
+}
+
   .logout a{
     position: absolute;
     color: black;
