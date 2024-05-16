@@ -11,9 +11,19 @@ end
 /Barra Salud=[0],Comida[1],Agua[2],Temperatura[3]/
 
 questions = [
-  { statement: 'Te encuentras con una colmena de abejas', typeCard: 'Default' },
-  { statement: 'Te encuentras una fogata abandonada', typeCard: 'Default' },
-  { statement: 'Te encuentras un riachuelo poco profundo', typeCard: 'Default' }
+  { statement: 'You come across a hive of bees', typeCard: 'Default' },
+  { statement: 'You find an abandoned campfire', typeCard: 'Default' },
+  { statement: 'You find a shallow stream', typeCard: 'Default' },
+  { statement:'You find a stream' , typeCard: 'Default' },
+  { statement:'You come across an unknown plant' , typeCard:'Medium' },
+  { statement:'You find a group of mushrooms' , typeCard:'Medium' },
+  { statement:'You encounter a thunderstorm' , typeCard:'Hard' },
+  { statement:'You meet a group of survivors' , typeCard:'Hard' },
+  { statement:'You meet a wounded wolf', typeCard:'Hard' },
+  { statement:'You find an abandoned backpack', typeCard:'Easy' },
+  { statement:'You find a dark cave', typeCard:'Default' },
+  { statement:'You find a fruit tree', typeCard:'Default' },
+  { statement:'Its getting a little cold', typeCard:'Medium' }
 ]
 
 questions.each do |t|
@@ -21,12 +31,32 @@ questions.each do |t|
 end
 
 options = [
-  { question_id: 1, description: 'Intentar robar algo de miel', effects:[-1,1,0,0]},
-  { question_id: 1, description: 'Dejar la colmena en paz', effects:[0,-1,0,0]},
-  { question_id: 2, description: 'Reavivar la fogata para calentarse', effects:[0,-1,-1,3]},
-  { question_id: 2, description: 'Ignorar la fogata y seguir adelante', effects:[0,0,0,-1]},
-  { question_id: 3, description: 'Meterse a buscar peces', effects:[-1,2,0,-1]},
-  { question_id: 3, description: 'Evitarlo', effects:[0,-1,-1,0]}
+  { question_id: 1, description: 'Try to steal some honey', effects:[-1,1,0,0]},
+  { question_id: 1, description: 'Leave the hive alone', effects:[0,-1,0,0]},
+  { question_id: 2, description: 'Rekindle the campfire to keep warm', effects:[0,-1,-1,3]},
+  { question_id: 2, description: 'Ignore the campfire and move on', effects:[0,0,0,-1]},
+  { question_id: 3, description: 'Go looking for fish', effects:[-1,2,0,-1]},
+  { question_id: 3, description: 'Avoid it', effects:[0,-1,-1,0]},
+  { question_id: 4, description:'Drink water from the stream' , effects:[1,1,0,0]},
+  { question_id: 4, description: 'Distrust water and look for another source', effects:[0,0,-1,0]},
+  { question_id: 5, description: 'Test the plant', effects:[-3,0,0,0]},
+  { question_id: 5, description:'Ignore the plant' , effects:[0,0,0,0]},
+  { question_id: 6, description: 'Collect and eat mushrooms', effects:[-2,1,0,0]},
+  { question_id: 6, description:'Be wary of mushrooms and move on' , effects:[0,-1,0,0]},
+  { question_id: 7, description:'Take shelter under a tree' , effects:[-3,0,2,-3]},
+  { question_id: 7, description:'Find a safer refuge' , effects:[0,0,3,-3]},
+  { question_id: 8, description:'Try to negotiate with them' , effects:[-3,-2,-1,0]},
+  { question_id: 8, description:'Avoid conflict and escape' , effects:[0,0,0,-1]},
+  { question_id: 9, description:'Run' , effects:[0,-1,-1,1]},
+  { question_id: 9, description:'hunt the wolf' , effects:[-3,3,-2,-1]},
+  { question_id: 10, description:'Check backpack for supplies' , effects:[0,2,3,1]},
+  { question_id: 10, description:'Leave the backpack in its place' , effects:[0,0,0,0]},
+  { question_id: 11, description:'Explore the cave in search of shelter' , effects:[1,0,0,-2]},
+  { question_id: 11, description:'Avoid the cave and continue traveling' , effects:[0,-1,-1,0]},
+  { question_id: 12, description:'Collect and eat the fruit' , effects:[0,2,1,0]},
+  { question_id: 12, description:'Distrust the fruit and move on' , effects:[0,-1,-1,-1]},
+  { question_id: 13, description:'Create a campfire on the trail' , effects:[0,-1,0,3]},
+  { question_id: 13, description:'Keep looking for shelter' , effects:[0,-1,-1,-2]}
 ]
 
 options.each do |u|

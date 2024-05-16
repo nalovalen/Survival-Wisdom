@@ -256,7 +256,7 @@ class App < Sinatra::Application
       session[:health] += effects[0]
      end
      if session[:hunger] + effects[1] >= 10
-      session[:health] = 10
+      session[:hunger] = 10
      else
       session[:hunger] += effects[1]
      end
@@ -268,7 +268,7 @@ class App < Sinatra::Application
      if session[:temperature] + effects[3] >= 10
       session[:temperature] = 10
      else
-      session[:health] += effects[3]
+      session[:temperature] += effects[3]
      end
 
 
