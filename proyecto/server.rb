@@ -300,6 +300,11 @@ post '/jugar-de-nuevo' do
 end
 
 
+# Maneja la solicitud GET para redirigir a /home cuando se hace clic en "Volver a Home"
+get '/back-to-home' do
+  redirect '/home' # Redirige al usuario a la página de inicio
+end
+
 
 # @user = User.where(username: username).first
 #if @user.password == password
