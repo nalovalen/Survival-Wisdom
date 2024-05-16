@@ -24,10 +24,6 @@
      <i class="fas fa-bomb"></i>
      <span>Keep It Alive</span>
    </a>
-   <a href="/stats">
-      <i class="fas fa-award"></i>
-     <span>Stats</span>
-   </a>
    <a href="/about">
      <i class="far fa-question-circle"></i>
      <span>About</span>
@@ -49,10 +45,23 @@
     <div class="card__avatar"></div>
     <div class="card__title"><%= @current_user.nickname%></div>
     <div class="card__subtitle">User Name: @<%=@current_user.name%></div>
-    <div class="card__subtitle">Account Created :<%=@current_user.created_at%></div>
+    <div class="card__subtitle">Account Created : <%=@current_user.created_at%></div>
+    <div class="card__subtitle"><% stat = Stat.where(user_id: current_user.id).order(days: :desc).first %>Greatest number of days survived: <%= stat.days.div(3) %></div>
+    <div class="card__subtitle">
+
+    <% all_days = Stat.where(user_id: current_user.id).pluck(:days) %>
+    <% total_days = all_days.sum %>
+
+    <%if all_days.size-1 == 0 %>
+      <% average_days = 0 %>
+    <%else%>
+      <% average_days = total_days.to_f / (all_days.size-1) %>
+    <%end%>
+     Number of days survived on average: <%=average_days.div(3) %></div>
+     <% total_stats = Stat.where(user_id: current_user.id).count %>
+    <div class="card__subtitle">Number of games played: <%=total_stats -1 %></div>
     <div class="card__wrapper">
-      <button class="card__btn">Button</button>
-      <button class="card__btn card__btn-solid">Button</button>
+     
     </div>
   </div>
 </div>
