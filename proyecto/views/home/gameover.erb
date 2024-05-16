@@ -8,15 +8,18 @@
 </head>
 <body>
     <div id="background">
-        <div id="name">"<%= session[:days].div(3)%> Days Survived"</div>
         <p>GAME OVER!</p>
         <!-- Formulario para volver a jugar -->
         <form id="play-again-form" action="/jugar-de-nuevo" method="post" style="text-align: center;">
-    <button type="submit" style="font-family: 'Lato', sans-serif; font-size: 24px; color: black; background-color: white; border: none; padding: 10px 20px; margin-top: 20px; cursor: pointer; border-radius: 5px;">Volver a Jugar</button>
-</form>
-
-
-
+            <button type="submit" style="font-family: 'Lato', sans-serif; font-size: 24px; color: black; background-color: rgb(255,255,255,0.7); border: none; padding: 10px 20px; margin-top: 20px; cursor: pointer; border-radius: 5px;">Volver a Jugar</button>
+        </form>
+        <!-- Formulario para volver a la página de inicio -->
+        <form id="back-to-home-form" action="/back-to-home" method="get" style="text-align: center;">
+            <button type="submit" style="font-family: 'Lato', sans-serif; font-size: 24px; color: black; background-color: rgb(255,255,255,0.7); border: none; padding: 10px 20px; margin-top: 20px; cursor: pointer; border-radius: 5px;">Volver a Home</button>
+        </form>
+        <br>
+        <p>"<%= session[:days].div(3)%> Days Survived"</p>
     </div>
 </body>
 </html>
+

@@ -256,7 +256,7 @@ class App < Sinatra::Application
       session[:health] += effects[0]
      end
      if session[:hunger] + effects[1] >= 10
-      session[:health] = 10
+      session[:hunger] = 10
      else
       session[:hunger] += effects[1]
      end
@@ -268,7 +268,7 @@ class App < Sinatra::Application
      if session[:temperature] + effects[3] >= 10
       session[:temperature] = 10
      else
-      session[:health] += effects[3]
+      session[:temperature] += effects[3]
      end
 
 
@@ -299,6 +299,11 @@ post '/jugar-de-nuevo' do
   redirect to('/keep_it_alive/init') # Redirigir a la página de inicio del juego
 end
 
+
+# Maneja la solicitud GET para redirigir a /home cuando se hace clic en "Volver a Home"
+get '/back-to-home' do
+  redirect '/home' # Redirige al usuario a la página de inicio
+end
 
 
 # @user = User.where(username: username).first
