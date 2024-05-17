@@ -20,17 +20,16 @@ class App < Sinatra::Application
     super()
   end
 
+  before do
+    redirect '/login' unless ['/login', '/register'].include?(request.path_info) || current_user
+  end
+
   get '/home' do
-    if current_user
-      erb :'home/home', locals: { user: current_user }
-    else
-      redirect '/login'
-    end
+    erb :'home/home', locals: { user: current_user }
   end
 
 
   get '/login' do
-
     erb :'login/index', locals: { error: "" }
   end
 
@@ -105,11 +104,7 @@ class App < Sinatra::Application
   end
 
   get '/skills' do
-    if current_user
       erb :'home/skills', locals: { user: current_user }
-    else
-      redirect '/login'
-    end
   end
 
   get '/skill/shelter' do
@@ -169,11 +164,7 @@ class App < Sinatra::Application
   end
 
   get '/account' do
-    if current_user
       erb :'home/account', locals: { user: current_user }
-    else
-      redirect '/login'
-    end
   end
 
   get '/test' do
