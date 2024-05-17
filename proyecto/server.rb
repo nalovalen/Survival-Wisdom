@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 
 
-  enable :sessions
+enable :sessions
 
 set :database_file, './config/database.yml'
 set :public_folder, 'assets'
@@ -160,14 +160,6 @@ class App < Sinatra::Application
     end
   end
 
-  get '/stats' do
-    if current_user
-      erb :'home/stats', locals: { user: current_user }
-    else
-      redirect '/login'
-    end
-  end
-
   get '/about' do
     if current_user
       erb :'home/about', locals: { user: current_user }
@@ -305,8 +297,7 @@ get '/back-to-home' do
   redirect '/home' # Redirige al usuario a la página de inicio
 end
 
-
-# @user = User.where(username: username).first
-#if @user.password == password
-#else
-#end
+get '/logout' do
+  session.clear
+  redirect '/login'
+end
