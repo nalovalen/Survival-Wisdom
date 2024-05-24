@@ -1,28 +1,28 @@
-/users = [
-  { names: 'Jon Doe', username: 'jondoe', email: 'jon@doe.com', password: 'abc'},
-  { names: 'Jane Doe', username: 'janedoe', email: 'jane@doe.com', password: 'abcd'},
-  { names: 'Baby Doe', username: 'babydoe', email: 'baby@doe.com', password: 'abcde'},
+users = [
+  { username: 'jondoe', password: 'abc'},
+  { username: 'janedoe', password: 'abcd'},
+  { username: 'babydoe', password: 'abcde'},
 ]
 
 users.each do |u|
   User.create(u)
 end
-/
+
 /Barra Salud=[0],Comida[1],Agua[2],Temperatura[3]/
 
 questions = [
-  { statement: 'You come across a hive of bees', typeCard: 'Default' },
-  { statement: 'You find an abandoned campfire', typeCard: 'Default' },
-  { statement: 'You find a shallow stream', typeCard: 'Default' },
-  { statement:'You find a stream' , typeCard: 'Default' },
+  { statement: 'You come across a hive of bees', typeCard: 'Medium' },
+  { statement: 'You find an abandoned campfire', typeCard: 'Medium' },
+  { statement: 'You find a shallow stream', typeCard: 'Medium' },
+  { statement:'You find a stream' , typeCard: 'Medium' },
   { statement:'You come across an unknown plant' , typeCard:'Medium' },
   { statement:'You find a group of mushrooms' , typeCard:'Medium' },
   { statement:'You encounter a thunderstorm' , typeCard:'Hard' },
   { statement:'You meet a group of survivors' , typeCard:'Hard' },
   { statement:'You meet a wounded wolf', typeCard:'Hard' },
   { statement:'You find an abandoned backpack', typeCard:'Easy' },
-  { statement:'You find a dark cave', typeCard:'Default' },
-  { statement:'You find a fruit tree', typeCard:'Default' },
+  { statement:'You find a dark cave', typeCard:'Medium' },
+  { statement:'You find a fruit tree', typeCard:'Medium' },
   { statement:'Its getting a little cold', typeCard:'Medium' }
 ]
 
