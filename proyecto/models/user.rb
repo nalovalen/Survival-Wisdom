@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
     has_many :skills
 
 
+    validates :username, presence: true, uniqueness: true
+    validates :password, presence: true
+
     def self.authenticate(username, password)
       user = find_by(username: username)
       if user && user.password == password

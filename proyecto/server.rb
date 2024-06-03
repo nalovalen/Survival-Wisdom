@@ -60,7 +60,7 @@ class App < Sinatra::Application
 
 
   get '/register' do
-    erb :'login/register'
+    erb :'login/register', locals: { error: " " }
   end
 
 
