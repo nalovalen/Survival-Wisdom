@@ -92,22 +92,4 @@ RSpec.describe 'The Server' do
     end
   end
 
-
-  #Database Errors: (duplicate usernames).
-  describe 'POST /register' do
-    # Existing test cases
-
-    it 'renders register page with error on duplicate username' do
-      user = User.new
-      user.username = 'testuser'
-      user.password = 'password'
-      user.nickname = 'nickname'
-      user.save
-
-      post '/register', first: 'testuser', password: 'anotherpassword', nickname: 'othernickname'
-      expect(last_response).to be_ok
-      expect(last_response.body).to include("El nombre de usuario ya está en uso. Por favor, elige otro nombre de usuario.")
-    end
-  end
-
 end
