@@ -197,11 +197,11 @@ RSpec.describe 'The Server' do
 
   describe 'Keep It Alive' do
     describe 'GET /keep_it_alive/init' do
-    
+
 
       it 'initializes the game session' do
         post '/login', first: 'testuser', password: 'password'
-        
+
         env 'rack.session', {
             health: 5,
             hunger: 5,
@@ -211,13 +211,13 @@ RSpec.describe 'The Server' do
             question: nil,
             questions: nil,
           }
-      
+
         def session
           last_request.env['rack.session']
         end
 
         get '/keep_it_alive/init'
-  
+
         expect(last_response).to be_ok
         expect(session[:health]).to eq(10)
         expect(session[:hunger]).to eq(10)
@@ -228,4 +228,30 @@ RSpec.describe 'The Server' do
       end
     end
   end
+
+    #si te deslogeas y queres entrar a una seccion no te tiene que dejar:
+    describe 'User Logout' do
+      it 'successfully logs out the user and redirects to login' do
+        post '/login', first: 'testuser', password: 'password'
+
+        env 'rack.session', {
+          user_id: User.where(username: 'testuser', password: 'password')
+        }
+
+          def session
+            last_request.env['rack.session']
+          end
+
+        expect(last_response).to be_redirect
+        follow_redirect!
+
+        get '/logout'
+        expect(last_response).to be_redirect
+        follow_redirect!
+        # Verify session is cleared (if using Rack::Session)
+        expect(last_request.path).to eq('/login')
+        expect(session[:user_id]).to be_nil
+      end
+    end
+
 end
