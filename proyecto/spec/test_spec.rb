@@ -3,7 +3,6 @@ ENV['APP_ENV'] = 'test'
 require_relative '../server.rb'
 require 'rspec'
 require 'rack/test'
-require './models/user'
 
 RSpec.describe 'The Server' do
   include Rack::Test::Methods
@@ -12,7 +11,6 @@ RSpec.describe 'The Server' do
     # Sinatra::Appplication
     App
   end
-
 
   describe 'POST /login' do
     user = User.new
@@ -68,14 +66,6 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /users' do
-    it 'redirects unauthorized users to login' do
-      get '/users'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
   describe 'GET /skills' do
     it 'redirects unauthorized users to login' do
       get '/skills'
@@ -84,7 +74,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/shelter' do
+  describe 'GET /skill/shelter' do
     it 'redirects unauthorized users to login' do
       get '/skills/shelter'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -92,7 +82,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/guideShelter.pdf' do
+  describe 'GET /skill/guideShelter.pdf' do
     it 'redirects unauthorized users to login' do
       get '/skills/guideShelter.pdf'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -100,7 +90,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/fire' do
+  describe 'GET /skill/fire' do
     it 'redirects unauthorized users to login' do
       get '/skills/fire'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -108,7 +98,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/guideFire.pdf' do
+  describe 'GET /skill/guideFire.pdf' do
     it 'redirects unauthorized users to login' do
       get '/skills/guideFire.pdf'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -116,7 +106,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/food' do
+  describe 'GET /skill/food' do
     it 'redirects unauthorized users to login' do
       get '/skills/food'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -124,7 +114,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/guideFood.pdf' do
+  describe 'GET /skill/guideFood.pdf' do
     it 'redirects unauthorized users to login' do
       get '/skills/guideFood.pdf'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -132,7 +122,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/medicine' do
+  describe 'GET /skill/medicine' do
     it 'redirects unauthorized users to login' do
       get '/skills/medicine'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -140,7 +130,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/guideMedicine.pdf' do
+  describe 'GET /skill/guideMedicine.pdf' do
     it 'redirects unauthorized users to login' do
       get '/skills/guideMedicine.pdf'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -148,7 +138,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/water' do
+  describe 'GET /skill/water' do
     it 'redirects unauthorized users to login' do
       get '/skills/water'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -156,7 +146,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  describe 'GET /skills/guideWater.pdf' do
+  describe 'GET /skill/guideWater.pdf' do
     it 'redirects unauthorized users to login' do
       get '/skills/guideWater.pdf'
       expect(last_response.status).to eq(302) # Found (redirect)
@@ -196,6 +186,14 @@ RSpec.describe 'The Server' do
     end
   end
 
+  describe 'GET /keep_it_alive/playing' do
+    it 'redirects unauthorized users to login' do
+      get '/keep_it_alive/playing'
+      expect(last_response.status).to eq(302) # Found (redirect)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
   #Invalid Session:
   #You can create a test where you set an invalid session variable (e.g., non-existent user ID).
   #Access a protected route and assert a redirect to login.
@@ -203,6 +201,114 @@ RSpec.describe 'The Server' do
     it 'redirects users with invalid session to login' do
       session[:user_id] = 100 # Non-existent user ID
       get '/home'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skills' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skills'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skill/shelter' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/shelter'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skill/guideShelter.pdf' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/guideShelter.pdf'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skill/fire' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/fire'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skill/guideFire.pdf' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/guideFire.pdf'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skill/food' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/guideFood.pdf'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skill/medicine' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/guideMedicine.pdf'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /skill/water' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/guideWater.pdf'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /keep_it_alive' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/keep_it_alive'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /about' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/skill/about'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /account' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/account'
+      expect(last_response.status).to eq(302)
+      expect(last_response.headers['Location']).to include('/login')
+    end
+  end
+
+  describe 'GET /keep_it_alive/playing' do
+    it 'redirects users with invalid session to login' do
+      session[:user_id] = 100 # Non-existent user ID
+      get '/keep_it_alive/playing'
       expect(last_response.status).to eq(302)
       expect(last_response.headers['Location']).to include('/login')
     end
