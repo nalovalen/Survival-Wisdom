@@ -3,6 +3,7 @@ ENV['APP_ENV'] = 'test'
 require_relative '../server.rb'
 require 'rspec'
 require 'rack/test'
+require 'spec_helper'
 
 RSpec.describe 'The Server' do
   include Rack::Test::Methods
@@ -35,7 +36,7 @@ RSpec.describe 'The Server' do
 
   describe 'POST /register' do
     it 'registers a new user' do
-      post '/register', first: 'newusera', password: 'password', nickname: 'newnickname'
+      post '/register', first: 'newuser1', password: 'password', nickname: 'newnickname'
       expect(last_response).to be_redirect
       follow_redirect!
       expect(last_request.path).to eq('/login')
@@ -194,4 +195,37 @@ RSpec.describe 'The Server' do
     end
   end
 
+  describe 'Keep It Alive' do
+    describe 'GET /keep_it_alive/init' do
+    
+
+      it 'initializes the game session' do
+        post '/login', first: 'testuser', password: 'password'
+        
+        env 'rack.session', {
+            health: 5,
+            hunger: 5,
+            water: 5,
+            temperature: 5,
+            days: 0,
+            question: nil,
+            questions: nil,
+          }
+      
+        def session
+          last_request.env['rack.session']
+        end
+
+        get '/keep_it_alive/init'
+  
+        expect(last_response).to be_ok
+        expect(session[:health]).to eq(10)
+        expect(session[:hunger]).to eq(10)
+        expect(session[:water]).to eq(10)
+        expect(session[:temperature]).to eq(10)
+        expect(session[:days]).to eq(0)
+        expect(session[:question]).to be_present
+      end
+    end
+  end
 end

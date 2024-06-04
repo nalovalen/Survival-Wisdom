@@ -13,10 +13,32 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+ENV['RACK_ENV'] = 'test'
+
+require 'rspec'
+require 'rack/test'
+require 'sinatra/activerecord'
+require_relative '../server.rb' 
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+  config.include Rack::Test::Methods
+
+  config.before(:suite) do
+    ActiveRecord::Base.establish_connection(:test)
+    ActiveRecord::Migration.maintain_test_schema!
+  end
+
+  config.before(:each) do
+    ActiveRecord::Base.connection.begin_transaction(joinable: false)
+  end
+
+  config.after(:each) do
+    ActiveRecord::Base.connection.rollback_transaction
+  end
+
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
