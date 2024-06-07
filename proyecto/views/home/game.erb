@@ -55,9 +55,23 @@
 
       </div>
     </div>
-    <div id="cardname" class="textfix">
-      <%= @current_user.name %>
+    <% question = Question.find(session[:question]) %>
+    <% difficulty_class = case question.typeCard
+                       when 'Easy'
+                         'easy'
+                       when 'Medium'
+                         'medium'
+                       when 'Hard'
+                         'hard'
+                       else
+                         ''
+                       end %>
+
+    <div id="cardname" class="textfix <%= difficulty_class %>">
+      <%= question.typeCard %>
     </div>
+
+  
     <!-- </div> -->
 
     <div id="bottom" class="textfix">
