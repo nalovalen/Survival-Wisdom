@@ -13,6 +13,7 @@ RSpec.describe 'The Server' do
     App
   end
 
+  
   describe 'POST /login' do
     user = User.new
     user.username = 'testuser'

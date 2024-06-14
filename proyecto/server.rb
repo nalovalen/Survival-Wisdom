@@ -66,7 +66,7 @@ class App < Sinatra::Application
     erb :'login/register', locals: { error: " " }
   end
 
-
+  # Registra un nuevo usuario en la web
   post '/register' do
     username = params[:first]
     password = params[:password]
@@ -101,15 +101,12 @@ class App < Sinatra::Application
     redirect '/login'
   end
 
-  get '/users' do
-    @users = User.all
-    erb :'users/users'
-  end
 
   get '/skills' do
-      erb :'home/skills', locals: { user: current_user }
+    erb :'home/skills', locals: { user: current_user }
   end
 
+  # Muestra los pdf de las guias
   get '/skill/:guide.pdf' do
     file_path = "views\\skill\\#{params[:guide].capitalize}.pdf"
     if File.exist?(file_path)
@@ -119,41 +116,25 @@ class App < Sinatra::Application
     end
   end
   
+  # Ingresa a la guia que el usuario desee
   get '/skill/:id' do
     erb :"skill/#{params[:id]}"
   end
   
 
   get '/keep_it_alive' do
-    if current_user
-      erb :'home/keep_it_alive', locals: { user: current_user }
-    else
-      redirect '/login'
-    end
+    erb :'home/keep_it_alive', locals: { user: current_user }
   end
 
   get '/about' do
-    if current_user
-      erb :'home/about', locals: { user: current_user }
-    else
-      redirect '/login'
-    end
+    erb :'home/about', locals: { user: current_user }
   end
 
   get '/account' do
-      erb :'home/account', locals: { user: current_user }
+    erb :'home/account', locals: { user: current_user }
   end
 
-  get '/test' do
-    @questions = Question.all
-    erb :'users/test'
-  end
-
-  get '/guiatest' do
-    @skills = Skill.all
-    erb :'users/guiatest'
-  end
-
+  # Inicializa la partida
   get '/keep_it_alive/init' do
     # Recuperar todas las preguntas y opciones de la base de datos
 
@@ -204,7 +185,7 @@ class App < Sinatra::Application
   end
 
 
-
+  # Es la partida a medida que va avanzando el usuario
   post '/keep_it_alive/playing' do
 
     opcionelegida = params[:valor].to_i
@@ -264,6 +245,7 @@ get '/back-to-home' do
   redirect '/home' # Redirige al usuario a la página de inicio
 end
 
+# cierra la sesion
 get '/logout' do
   session.clear
   redirect '/login'
