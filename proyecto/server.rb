@@ -20,6 +20,7 @@ class App < Sinatra::Application
     super()
   end
 
+  # Restringe el ingreso a ciertas rutas de la web sin estar logeado
   before do
     redirect '/login' unless ['/login', '/register'].include?(request.path_info) || current_user
   end
@@ -33,6 +34,7 @@ class App < Sinatra::Application
     erb :'login/index', locals: { error: "" }
   end
 
+  # Inicio de sesion para los usuarios
   post '/login' do
     username = params[:first]
     password = params[:password]
@@ -48,6 +50,7 @@ class App < Sinatra::Application
     end
   end
 
+  # Para acceder al usuario guardado en la session
   def current_user
     if session[:user_id]
       @current_user ||= User.find(session[:user_id])
