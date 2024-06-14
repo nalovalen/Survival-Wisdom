@@ -1,12 +1,4 @@
-users = [
-  { username: 'jondoe', password: 'abc'},
-  { username: 'janedoe', password: 'abcd'},
-  { username: 'babydoe', password: 'abcde'},
-]
 
-users.each do |u|
-  User.create(u)
-end
 
 /Barra Salud=[0],Comida[1],Agua[2],Temperatura[3]/
 

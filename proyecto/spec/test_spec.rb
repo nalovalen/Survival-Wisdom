@@ -233,24 +233,19 @@ RSpec.describe 'The Server' do
     describe 'User Logout' do
       it 'successfully logs out the user and redirects to login' do
         post '/login', first: 'testuser', password: 'password'
-
-        env 'rack.session', {
-          user_id: User.where(username: 'testuser', password: 'password')
-        }
-
-          def session
-            last_request.env['rack.session']
-          end
-
         expect(last_response).to be_redirect
         follow_redirect!
-
+      
         get '/logout'
         expect(last_response).to be_redirect
         follow_redirect!
-        # Verify session is cleared (if using Rack::Session)
         expect(last_request.path).to eq('/login')
-        expect(session[:user_id]).to be_nil
+
+        get '/skills'
+        expect(last_response.status).to eq(302)
+        follow_redirect!
+        expect(last_request.path).to eq('/login')
+
       end
     end
 
