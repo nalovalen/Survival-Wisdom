@@ -13,7 +13,7 @@ RSpec.describe 'The Server' do
     App
   end
 
-  
+  # Checkea si el usuario se loguea correctamente
   describe 'POST /login' do
     user = User.new
     user.username = 'testuser'
@@ -35,6 +35,7 @@ RSpec.describe 'The Server' do
     end
   end
 
+  # Checkea si se registra bien el usuario
   describe 'POST /register' do
     it 'registers a new user' do
       post '/register', first: 'newuser1', password: 'password', nickname: 'newnickname'
@@ -56,10 +57,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-  #Unauthorized User:
-  #Simulate an unauthorized user by not setting any user session in the test.
-  #Try to access a protected route, like /home.
-  #Assert that the response redirects to the login page (/login).
+  # Checkea que no se pueda acceder a ciertas direcciones de la web sin haber iniciado sesion
   describe 'GET /home' do
     it 'redirects unauthorized users to login' do
       get '/home'
@@ -196,6 +194,7 @@ RSpec.describe 'The Server' do
     end
   end
 
+  # Checkea que la partida se inicialice correctamente
   describe 'Keep It Alive' do
     describe 'GET /keep_it_alive/init' do
 
@@ -230,7 +229,7 @@ RSpec.describe 'The Server' do
     end
   end
 
-    #si te deslogeas y queres entrar a una seccion no te tiene que dejar:
+    # Si te deslogeas y queres entrar a una ruta no te tiene que dejar:
     describe 'User Logout' do
       it 'successfully logs out the user and redirects to login' do
         post '/login', first: 'testuser', password: 'password'
