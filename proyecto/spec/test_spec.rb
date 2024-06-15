@@ -58,139 +58,35 @@ RSpec.describe 'The Server' do
   end
 
   # Checkea que no se pueda acceder a ciertas direcciones de la web sin haber iniciado sesion
-  describe 'GET /home' do
-    it 'redirects unauthorized users to login' do
-      get '/home'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
+  describe 'Unauthorized access' do
+    rutas = [
+      '/home',
+      '/skills',
+      '/skills/shelter',
+      '/skills/guideShelter.pdf',
+      '/skills/fire',
+      '/skills/guideFire.pdf',
+      '/skills/food',
+      '/skills/guideFood.pdf',
+      '/skills/medicine',
+      '/skills/guideMedicine.pdf',
+      '/skills/water',
+      '/skills/guideWater.pdf',
+      '/keep_it_alive',
+      '/keep_it_alive/init',
+      '/about',
+      '/account',
+      '/keep_it_alive/playing'
+    ]
 
-  describe 'GET /skills' do
-    it 'redirects unauthorized users to login' do
-      get '/skills'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/shelter' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/shelter'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/guideShelter.pdf' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/guideShelter.pdf'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/fire' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/fire'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/guideFire.pdf' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/guideFire.pdf'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/food' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/food'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/guideFood.pdf' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/guideFood.pdf'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/medicine' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/medicine'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/guideMedicine.pdf' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/guideMedicine.pdf'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/water' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/water'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /skill/guideWater.pdf' do
-    it 'redirects unauthorized users to login' do
-      get '/skills/guideWater.pdf'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /keep_it_alive' do
-    it 'redirects unauthorized users to login' do
-      get '/keep_it_alive'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /keep_it_alive/init' do
-    it 'redirects unauthorized users to login' do
-      get '/keep_it_alive/init'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /about' do
-    it 'redirects unauthorized users to login' do
-      get '/about'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /account' do
-    it 'redirects unauthorized users to login' do
-      get '/account'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
-    end
-  end
-
-  describe 'GET /keep_it_alive/playing' do
-    it 'redirects unauthorized users to login' do
-      get '/keep_it_alive/playing'
-      expect(last_response.status).to eq(302) # Found (redirect)
-      expect(last_response.headers['Location']).to include('/login')
+    rutas.each do |ruta|
+      describe "GET #{ruta}" do
+        it 'redirects unauthorized users to login' do
+          get ruta
+          expect(last_response.status).to eq(302)
+          expect(last_response.headers['Location']).to include('/login')
+        end
+      end
     end
   end
 
@@ -235,7 +131,7 @@ RSpec.describe 'The Server' do
         post '/login', first: 'testuser', password: 'password'
         expect(last_response).to be_redirect
         follow_redirect!
-      
+
         get '/logout'
         expect(last_response).to be_redirect
         follow_redirect!
