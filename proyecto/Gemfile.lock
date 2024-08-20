@@ -22,6 +22,7 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     diff-lcs (1.5.1)
+    docile (1.4.1)
     drb (2.2.1)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
@@ -52,6 +53,12 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
     ruby2_keywords (0.0.5)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     sinatra (4.0.0)
       mustermann (~> 3.0)
       rack (>= 3.0.0, < 4)
@@ -76,12 +83,13 @@ DEPENDENCIES
   rack-test
   rake
   rspec
+  simplecov
   sinatra
   sinatra-activerecord
   sqlite3 (~> 1.4)
 
 RUBY VERSION
-   ruby 3.2.4p170
+   ruby 3.3.0p0
 
 BUNDLED WITH
    2.4.19

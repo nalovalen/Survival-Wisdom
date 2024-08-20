@@ -13,12 +13,16 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'simplecov'
+SimpleCov.start
+
 ENV['RACK_ENV'] = 'test'
 
 require 'rspec'
 require 'rack/test'
 require 'sinatra/activerecord'
-require_relative '../server.rb' 
+require_relative '../server.rb'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
