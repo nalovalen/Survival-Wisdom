@@ -93,8 +93,6 @@ RSpec.describe 'The Server' do
   # Checkea que la partida se inicialice correctamente
   describe 'Keep It Alive' do
     describe 'GET /keep_it_alive/init' do
-
-
       it 'initializes the game session' do
         post '/login', first: 'testuser', password: 'password'
 
@@ -123,6 +121,58 @@ RSpec.describe 'The Server' do
         expect(session[:question]).to be_present
       end
     end
+
+    describe "POST /keep_it_alive/playing" do
+      before do
+        post '/login', first: 'testuser', password: 'password'
+  
+        # Set up the session
+        env 'rack.session', {
+          question: 1,
+          health: 5,
+          hunger: 5,
+          water: 5,
+          temperature: 5,
+          days: 1,
+          user_id: 1
+        }
+      end
+  
+      def session
+        last_request.env['rack.session']
+      end
+
+      let(:effects) { [1, -1, 2, -2] } # Simula los efectos de la opción elegida
+  
+      before do
+        allow(Question).to receive_message_chain(:find, :options).and_return([double(effects: effects)])
+      end
+  
+      it "updates session correctly when effects are positive and negative" do
+        post '/keep_it_alive/playing', params: { valor: 1 }
+        expect(session[:health]).to eq(6)
+        expect(session[:hunger]).to eq(4)
+        expect(session[:water]).to eq(7)
+        expect(session[:temperature]).to eq(3)
+      end
+  
+      it "caps session values at 10" do
+        allow(Question).to receive_message_chain(:find, :options).and_return([double(effects: [10, 10, 10, 10])])
+        post '/keep_it_alive/playing', params: { valor: 1 }
+        expect(session[:health]).to eq(10)
+        expect(session[:hunger]).to eq(10)
+        expect(session[:water]).to eq(10)
+        expect(session[:temperature]).to eq(10)
+      end
+  
+      it "renders gameover when any session value is 0 or below" do
+        allow(Question).to receive_message_chain(:find, :options).and_return([double(effects: [-10, -10, -10, -10])])
+        post '/keep_it_alive/playing', params: { valor: 1 }
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to include('GAME OVER')
+      end
+    end
+
   end
 
     # Si te deslogeas y queres entrar a una ruta no te tiene que dejar:
