@@ -60,6 +60,7 @@ RSpec.describe 'The Server' do
   # Checkea que no se pueda acceder a ciertas direcciones de la web sin haber iniciado sesion
   describe 'Unauthorized access' do
     rutas = [
+      '/',
       '/home',
       '/skills',
       '/skills/shelter',
@@ -78,7 +79,6 @@ RSpec.describe 'The Server' do
       '/account',
       '/keep_it_alive/playing'
     ]
-
     rutas.each do |ruta|
       describe "GET #{ruta}" do
         it 'redirects unauthorized users to login' do
@@ -87,6 +87,45 @@ RSpec.describe 'The Server' do
           expect(last_response.headers['Location']).to include('/login')
         end
       end
+    end
+  end
+ 
+  describe 'GET /register' do
+    it 'redirects normaly' do
+      get '/register'
+      expect(last_request.path).to eq('/register') 
+    end
+  end
+
+  describe 'GET /skills' do
+    it 'redirects normaly' do
+      post '/login', first: 'testuser', password: 'password'
+      get '/skills'
+      expect(last_request.path).to eq('/skills') 
+    end
+  end
+
+  describe 'GET /keep_it_alive' do
+    it 'redirects normaly' do
+      post '/login', first: 'testuser', password: 'password'
+      get '/keep_it_alive' 
+      expect(last_request.path).to eq('/keep_it_alive') 
+    end
+  end
+
+  describe 'GET /about' do
+    it 'redirects normaly' do
+      post '/login', first: 'testuser', password: 'password'
+      get '/about'
+      expect(last_request.path).to eq('/about') 
+    end
+  end
+
+  describe 'GET /account' do
+    it 'redirects normaly' do
+      post '/login', first: 'testuser', password: 'password'
+      get '/account'
+      expect(last_request.path).to eq('/account') 
     end
   end
 
