@@ -89,11 +89,11 @@ RSpec.describe 'The Server' do
       end
     end
   end
- 
+
   describe 'GET /register' do
     it 'redirects normaly' do
       get '/register'
-      expect(last_request.path).to eq('/register') 
+      expect(last_request.path).to eq('/register')
     end
   end
 
@@ -101,15 +101,15 @@ RSpec.describe 'The Server' do
     it 'redirects normaly' do
       post '/login', first: 'testuser', password: 'password'
       get '/skills'
-      expect(last_request.path).to eq('/skills') 
+      expect(last_request.path).to eq('/skills')
     end
   end
 
   describe 'GET /keep_it_alive' do
     it 'redirects normaly' do
       post '/login', first: 'testuser', password: 'password'
-      get '/keep_it_alive' 
-      expect(last_request.path).to eq('/keep_it_alive') 
+      get '/keep_it_alive'
+      expect(last_request.path).to eq('/keep_it_alive')
     end
   end
 
@@ -117,7 +117,7 @@ RSpec.describe 'The Server' do
     it 'redirects normaly' do
       post '/login', first: 'testuser', password: 'password'
       get '/about'
-      expect(last_request.path).to eq('/about') 
+      expect(last_request.path).to eq('/about')
     end
   end
 
@@ -125,7 +125,7 @@ RSpec.describe 'The Server' do
     it 'redirects normaly' do
       post '/login', first: 'testuser', password: 'password'
       get '/account'
-      expect(last_request.path).to eq('/account') 
+      expect(last_request.path).to eq('/account')
     end
   end
 
@@ -164,7 +164,7 @@ RSpec.describe 'The Server' do
     describe "POST /keep_it_alive/playing" do
       before do
         post '/login', first: 'testuser', password: 'password'
-  
+
         # Set up the session
         env 'rack.session', {
           question: 1,
@@ -176,17 +176,17 @@ RSpec.describe 'The Server' do
           user_id: 1
         }
       end
-  
+
       def session
         last_request.env['rack.session']
       end
 
       let(:effects) { [1, -1, 2, -2] } # Simula los efectos de la opción elegida
-  
+
       before do
         allow(Question).to receive_message_chain(:find, :options).and_return([double(effects: effects)])
       end
-  
+
       it "updates session correctly when effects are positive and negative" do
         post '/keep_it_alive/playing', params: { valor: 1 }
         expect(session[:health]).to eq(6)
@@ -194,7 +194,7 @@ RSpec.describe 'The Server' do
         expect(session[:water]).to eq(7)
         expect(session[:temperature]).to eq(3)
       end
-  
+
       it "caps session values at 10" do
         allow(Question).to receive_message_chain(:find, :options).and_return([double(effects: [10, 10, 10, 10])])
         post '/keep_it_alive/playing', params: { valor: 1 }
@@ -203,7 +203,7 @@ RSpec.describe 'The Server' do
         expect(session[:water]).to eq(10)
         expect(session[:temperature]).to eq(10)
       end
-  
+
       it "renders gameover when any session value is 0 or below" do
         allow(Question).to receive_message_chain(:find, :options).and_return([double(effects: [-10, -10, -10, -10])])
         post '/keep_it_alive/playing', params: { valor: 1 }
@@ -233,5 +233,66 @@ RSpec.describe 'The Server' do
 
       end
     end
+
+    # Verifica que la ruta raíz redirige correctamente
+describe 'GET /' do
+  it 'redirects to /login' do
+    get '/'
+    expect(last_response.status).to eq(302)
+    expect(last_response.headers['Location']).to include('/login')
+  end
+end
+
+
+describe 'Game Restart' do
+  it 'resets the game state and redirects to the game init page' do
+    #logeo el usuario:
+    post '/login', first: 'testuser', password: 'password'
+    # Realiza la solicitud POST para reiniciar el juego
+    post '/jugar-de-nuevo'
+
+    # Verifica la redirección
+    expect(last_response).to be_redirect
+    follow_redirect!
+
+    # Verifica que la redirección lleve a la página de inicio del juego
+    expect(last_request.path).to eq('/keep_it_alive/init')
+  end
+end
+
+
+describe 'GET /back-to-home' do
+  it 'redirects to the home page' do
+    #logeo el usuario:
+    post '/login', first: 'testuser', password: 'password'
+    # Realiza una solicitud GET a la ruta /back-to-home
+    get '/back-to-home'
+
+    # Verifica que la respuesta sea una redirección
+    expect(last_response).to be_redirect
+
+    # Sigue la redirección
+    follow_redirect!
+
+    # Verifica que después de la redirección la URL sea /home
+    expect(last_request.path).to eq('/home')
+  end
+end
+
+describe 'GET /keep_it_alive/init' do
+  context 'cuando no hay preguntas disponibles' do
+    before do
+      #logeo el usuario:
+      post '/login', first: 'testuser', password: 'password'
+      allow(Question).to receive(:all).and_return(double(order: [])) # Simula que no hay preguntas
+      allow(Bar).to receive(:all).and_return([]) # Opcional: si también necesitas simular los bares
+      get '/keep_it_alive/init'
+    end
+
+    it 'debe devolver un mensaje indicando que no hay preguntas disponibles' do
+      expect(last_response.body.force_encoding('UTF-8')).to eq('No hay preguntas disponibles.')
+    end
+  end
+end
 
 end
