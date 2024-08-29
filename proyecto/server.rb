@@ -22,7 +22,7 @@ class App < Sinatra::Application
 
   # Restringe el ingreso a ciertas rutas de la web sin estar logeado
   before do
-    redirect '/login' unless ['/login', '/register'].include?(request.path_info) || current_user
+    redirect '/login' unless ['/login', '/register','/'].include?(request.path_info) || current_user
   end
 
   get '/home' do
@@ -98,7 +98,11 @@ class App < Sinatra::Application
 
 
   get '/' do
-    redirect '/login'
+    if current_user == nil 
+      redirect '/login'
+    else
+      redirect '/home' 
+    end
   end
 
 
@@ -109,11 +113,8 @@ class App < Sinatra::Application
   # Muestra los pdf de las guias
   get '/skill/:guide.pdf' do
     file_path = "views\\skill\\#{params[:guide].capitalize}.pdf"
-    if File.exist?(file_path)
-      send_file file_path, :type => :pdf
-    else
-      halt 404, 'File not found'
-    end
+    send_file file_path, :type => :pdf
+    
   end
   
   # Ingresa a la guia que el usuario desee

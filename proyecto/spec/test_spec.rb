@@ -129,6 +129,66 @@ RSpec.describe 'The Server' do
     end
   end
 
+  describe 'GET /' do
+    it 'redirects unlogged' do
+      get '/'
+      expect(last_response.status).to eq(302)
+      follow_redirect!
+      expect(last_request.path).to eq('/login')
+    end
+
+    it 'redirects logged' do
+      post '/login', first: 'testuser', password: 'password'
+      get '/'
+      expect(last_response.status).to eq(302)
+      follow_redirect!
+      expect(last_request.path).to eq('/home')
+    end
+  end
+
+  describe 'Enter skills' do
+    rutas2 = [
+      'shelter',
+      'fire',
+      'food',
+      'medicine',
+      'water'
+      
+    ]
+  
+    rutas2.each do |ruta2|
+      describe "GET #{ruta2}" do
+        it 'visitar endpoint' do
+          post '/login', first: 'testuser', password: 'password'
+          get "/skill/#{ruta2}"
+          expect(last_response.status).to eq(200) 
+          expect(last_request.path).to eq("/skill/#{ruta2}")
+        end
+      end
+    end
+
+    guias = [
+      'Shelter',
+      'Fire',
+      'Food',
+      'Medicine',
+      'Water'
+      
+    ]
+
+    guias.each do |guia|
+      describe 'pdfs' do
+        it "returns the PDF file" do
+          post '/login', first: 'testuser', password: 'password'
+          get "/skill/guide#{guia}.pdf"
+          expect(last_response.status).to eq(200)
+          expect(last_response.headers['Content-Type']).to eq('application/pdf')
+        end
+      end
+    end
+
+
+  end
   # Checkea que la partida se inicialice correctamente
   describe 'Keep It Alive' do
     describe 'GET /keep_it_alive/init' do
@@ -161,6 +221,7 @@ RSpec.describe 'The Server' do
       end
     end
 
+    
     describe "POST /keep_it_alive/playing" do
       before do
         post '/login', first: 'testuser', password: 'password'
