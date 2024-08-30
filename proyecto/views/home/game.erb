@@ -10,27 +10,27 @@
 <body>
 <div id="background">
 
-  
-  <div id="name"> "<%= session[:days].div(3)%> Days Survived"</div>
+
+<div id="name"> "<%= session[:days] ? session[:days].div(3) : 0 %> Days Survived"</div>
 
   <div id="main">
   <div id="top" class="textfix">
   <div class="bar-container">
     <div class="bar-label">Health</div>
     <div class="progress-bar">
-      <div class="progress health-bar" style="width: <%= session[:health] * 10 %>%;"></div>
+    <div class="progress health-bar" style="width: <%= (session[:health] || 0) * 10 %>%;"></div>
     </div>
     <div class="bar-label">Hunger</div>
     <div class="progress-bar">
-      <div class="progress hunger-bar" style="width: <%= session[:hunger] * 10 %>%;"></div>
+    <div class="progress hunger-bar" style="width: <%= (session[:hunger] || 0) * 10 %>%;"></div>
     </div>
     <div class="bar-label">Water</div>
     <div class="progress-bar">
-      <div class="progress water-bar" style="width: <%= session[:water] * 10 %>%;"></div>
+    <div class="progress water-bar" style="width: <%= (session[:water] || 0) * 10 %>%;"></div>
     </div>
     <div class="bar-label">Temperature</div>
     <div class="progress-bar">
-      <div class="progress temperature-bar" style="width: <%= session[:temperature] * 10 %>%;"></div>
+    <div class="progress temperature-bar" style="width: <%= (session[:temperature] || 0) * 10 %>%;"></div>
     </div>
   </div>
 </div>
@@ -41,11 +41,11 @@
 
     <!-- <div id="mid"> -->
     <div id="msg" class="textfix">
-      <%= Question.find(session[:question]).statement %> 
+      <%= Question.find(session[:question]).statement %>
     </div>
-    
+
     <div id="card">
-      
+
       <div id="carddiv">
         <div id="optionleft" class="left option"><%= Question.find(session[:question]).options[0].description%></div>
         <div id="optionright" class="right option"><%= Question.find(session[:question]).options[1].description%></div>
@@ -71,7 +71,7 @@
       <%= question.typeCard %>
     </div>
 
-  
+
     <!-- </div> -->
 
     <div id="bottom" class="textfix">

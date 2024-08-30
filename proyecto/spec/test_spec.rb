@@ -153,15 +153,15 @@ RSpec.describe 'The Server' do
       'food',
       'medicine',
       'water'
-      
+
     ]
-  
+
     rutas2.each do |ruta2|
       describe "GET #{ruta2}" do
         it 'visitar endpoint' do
           post '/login', first: 'testuser', password: 'password'
           get "/skill/#{ruta2}"
-          expect(last_response.status).to eq(200) 
+          expect(last_response.status).to eq(200)
           expect(last_request.path).to eq("/skill/#{ruta2}")
         end
       end
@@ -173,7 +173,7 @@ RSpec.describe 'The Server' do
       'Food',
       'Medicine',
       'Water'
-      
+
     ]
 
     guias.each do |guia|
@@ -221,7 +221,7 @@ RSpec.describe 'The Server' do
       end
     end
 
-    
+
     describe "POST /keep_it_alive/playing" do
       before do
         post '/login', first: 'testuser', password: 'password'
@@ -355,5 +355,19 @@ describe 'GET /keep_it_alive/init' do
     end
   end
 end
+
+
+describe 'GET /keep_it_alive/playing' do
+  before do
+    post '/login', first: 'testuser', password: 'password'
+  end
+
+  it 'se renderiza la página de keep-it-alive' do
+    get '/keep_it_alive/playing'
+    #como el servidor devuelve un html, entonces para chequear que renderiza la pagina, me puedo fijar por ejemplo que el html tenga el titulo correcto.
+    expect(last_response.body).to include('<title> Home Page</title>')
+  end
+end
+
 
 end

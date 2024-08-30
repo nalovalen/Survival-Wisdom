@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/server.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/server.rb": {
         "lines": [
           1,
           1,
@@ -27,7 +27,7 @@
           null,
           null,
           1,
-          81,
+          83,
           null,
           null,
           1,
@@ -41,14 +41,14 @@
           null,
           null,
           1,
-          25,
-          25,
+          26,
+          26,
           null,
-          25,
+          26,
           null,
+          26,
           25,
-          24,
-          24,
+          25,
           null,
           null,
           1,
@@ -57,8 +57,8 @@
           null,
           null,
           1,
-          63,
-          42,
+          65,
+          44,
           null,
           null,
           null,
@@ -176,18 +176,18 @@
           null,
           null,
           1,
-          0,
+          1,
           null,
-          0,
-          0,
-          null,
-          null,
-          0,
+          1,
+          1,
           null,
           null,
           0,
-          0,
-          0,
+          null,
+          null,
+          1,
+          1,
+          1,
           null,
           null,
           null,
@@ -258,7 +258,7 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/models/user.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/models/user.rb": {
         "lines": [
           1,
           null,
@@ -272,9 +272,9 @@
           1,
           null,
           1,
+          26,
+          26,
           25,
-          25,
-          24,
           null,
           null,
           null,
@@ -287,7 +287,7 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/models/question.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/models/question.rb": {
         "lines": [
           1,
           1,
@@ -297,7 +297,7 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/models/option.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/models/option.rb": {
         "lines": [
           1,
           1,
@@ -306,7 +306,7 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/models/skill.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/models/skill.rb": {
         "lines": [
           1,
           1,
@@ -314,22 +314,14 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/models/guide.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/models/guide.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/models/bar.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/models/stat.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/models/bar.rb": {
         "lines": [
           1,
           1,
@@ -337,7 +329,15 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Survival-Wisdom/proyecto/spec/test_spec.rb": {
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/models/stat.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "C:/Users/facun/proyect/Survival-Wisdom/proyecto/spec/test_spec.rb": {
         "lines": [
           1,
           null,
@@ -351,7 +351,7 @@
           null,
           1,
           null,
-          48,
+          49,
           null,
           null,
           null,
@@ -697,10 +697,24 @@
           null,
           null,
           null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
           null
         ]
       }
     },
-    "timestamp": 1724960019
+    "timestamp": 1725060200
   }
 }
