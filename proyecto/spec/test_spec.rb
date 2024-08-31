@@ -369,7 +369,6 @@ describe 'GET /keep_it_alive/playing' do
   end
 
   it 'asigna correctamente @questions con las preguntas de la sesión' do
-    # Crear algunas preguntas de ejemplo en la base de datos
     @questions = Question.all.order("RANDOM()").to_a.map(&:id)
     question1 = @questions.shift
     question2 = @questions.shift
