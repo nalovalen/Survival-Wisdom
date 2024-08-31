@@ -367,6 +367,21 @@ describe 'GET /keep_it_alive/playing' do
     #como el servidor devuelve un html, entonces para chequear que renderiza la pagina, me puedo fijar por ejemplo que el html tenga el titulo correcto.
     expect(last_response.body).to include('<title> Home Page</title>')
   end
+
+  it 'asigna correctamente @questions con las preguntas de la sesión' do
+    # Crear algunas preguntas de ejemplo en la base de datos
+    @questions = Question.all.order("RANDOM()").to_a.map(&:id)
+    question1 = @questions.shift
+    question2 = @questions.shift
+
+    # Simular que las preguntas estan en la sesión
+    #aca hice una chanchada en la sesión pq sino no se gaurdaba la question1
+    get '/keep_it_alive/playing', {}, { 'rack.session' => { '@questions' => [question1, question2, question1] } }
+    # Verificar que la sesión contiene las preguntas correctas
+    expect(last_request.env['rack.session']['@questions']).to contain_exactly(question1, question2)
+  end
+
+
 end
 
 
