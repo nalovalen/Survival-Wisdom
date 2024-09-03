@@ -391,7 +391,6 @@ describe 'GET /keep_it_alive/playing' do
     question2 = @questions.shift
 
     # Simular que las preguntas estan en la sesión
-    #aca hice una chanchada en la sesión pq sino no se gaurdaba la question1
     get '/keep_it_alive/playing', {}, { 'rack.session' => { '@questions' => [question1, question2, question1] } }
     # Verificar que la sesión contiene las preguntas correctas
     expect(last_request.env['rack.session']['@questions']).to contain_exactly(question1, question2)
