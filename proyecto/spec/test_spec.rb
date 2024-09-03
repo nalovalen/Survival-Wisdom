@@ -362,6 +362,23 @@ describe 'GET /keep_it_alive/playing' do
     post '/login', first: 'testuser', password: 'password'
   end
 
+    it 'empty questions' do
+      post '/login', first: 'testuser', password: 'password'
+
+      env 'rack.session', {
+          health: 5,
+          hunger: 5,
+          water: 5,
+          temperature: 5,
+          days: 0,
+          question: nil,
+          questions: []
+        }
+
+      get '/keep_it_alive/playing'
+      expect(last_request.session[:questions]).to_not eq(nil)
+    end
+
   it 'se renderiza la página de keep-it-alive' do
     get '/keep_it_alive/playing'
     #como el servidor devuelve un html, entonces para chequear que renderiza la pagina, me puedo fijar por ejemplo que el html tenga el titulo correcto.
@@ -383,5 +400,23 @@ describe 'GET /keep_it_alive/playing' do
 
 end
 
+describe '.authenticate' do
+  
+  it 'authenticate a valid account' do
+    
+    username = 'testuser'
+    password = 'password'
+    user = User.find_by(username: username)
 
+    expect(User.authenticate(username,password)).to eq(user)
+  end
+
+  it 'Wrong credentials' do
+    username = 'notuser'
+    password = 'notpassword'
+    user = User.find_by(username: username)
+
+    expect(User.authenticate(username,password)).to eq(nil)
+  end
+end
 end
