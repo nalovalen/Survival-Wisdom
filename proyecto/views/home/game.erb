@@ -1,93 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-<title> Home Page</title>
-<link rel="stylesheet" href="/game.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="/game.css">
 </head>
+
 <body>
-<div id="background">
+    <div id="background">
+        <!-- Mostrar el nombre con días sobrevividos -->
+        <div id="name">"<%= session[:days] ? session[:days].div(3) : 0 %> Days Survived"</div>
 
+        <div id="main">
+            <!-- Barra de estado superior -->
+            <div id="top" class="textfix">
+                <div class="bar-container">
+                    <div class="bar-label">Health</div>
+                    <div class="progress-bar">
+                        <div class="progress health-bar" style="width: <%= (session[:health] || 0) * 10 %>%;"></div>
+                    </div>
+                    <div class="bar-label">Hunger</div>
+                    <div class="progress-bar">
+                        <div class="progress hunger-bar" style="width: <%= (session[:hunger] || 0) * 10 %>%;"></div>
+                    </div>
+                    <div class="bar-label">Water</div>
+                    <div class="progress-bar">
+                        <div class="progress water-bar" style="width: <%= (session[:water] || 0) * 10 %>%;"></div>
+                    </div>
+                    <div class="bar-label">Temperature</div>
+                    <div class="progress-bar">
+                        <div class="progress temperature-bar" style="width: <%= (session[:temperature] || 0) * 10 %>%;"></div>
+                    </div>
+                </div>
+            </div>
 
-<div id="name"> "<%= session[:days] ? session[:days].div(3) : 0 %> Days Survived"</div>
+            <!-- Pregunta y opciones de respuesta -->
+            <div id="msg" class="textfix">
+                <%= Question.find(session[:question]).statement %>
+            </div>
 
-  <div id="main">
-  <div id="top" class="textfix">
-  <div class="bar-container">
-    <div class="bar-label">Health</div>
-    <div class="progress-bar">
-    <div class="progress health-bar" style="width: <%= (session[:health] || 0) * 10 %>%;"></div>
+            <div id="card">
+                <div id="carddiv">
+                    <!-- Opciones de respuesta -->
+                    <div id="optionleft" class="left option" onclick="submitForm(1)">
+                        <%= Question.find(session[:question]).options[0].description %>
+                    </div>
+                    <div id="optionright" class="right option" onclick="submitForm(2)">
+                        <%= Question.find(session[:question]).options[1].description %>
+                    </div>
+                    <!-- Formulario oculto para enviar la opción seleccionada -->
+                    <form id="myForm" action="/keep_it_alive/playing" method="post">
+                        <input type="hidden" id="valorInput" name="valor">
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tipo de carta según la dificultad -->
+            <% question = Question.find(session[:question]) %>
+            <% difficulty_class = case question.typeCard
+                                   when 'Easy' then 'easy'
+                                   when 'Medium' then 'medium'
+                                   when 'Hard' then 'hard'
+                                   else '' end %>
+
+            <div id="cardname" class="textfix <%= difficulty_class %>">
+                <%= question.typeCard %>
+            </div>
+
+            <!-- Elementos adicionales en la parte inferior -->
+            <div id="bottom" class="textfix">
+                <div class="textfix">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra lateral derecha con formularios y bloque de monedas -->
+        <div id="sidebar">
+            <!-- Formularios para los botones laterales -->
+            <form id="buttonForm1" action="/keep_it_alive/comodin" method="post" style="display: inline;">
+                <input type="hidden" name="comidin" value="1">
+                <button type="submit" class="circle-button">1</button>
+            </form>
+            <form id="buttonForm2" action="/keep_it_alive/comodin" method="post" style="display: inline;">
+                <input type="hidden" name="comidin" value="2">
+                <button type="submit" class="circle-button">2</button>
+            </form>
+            <form id="buttonForm3" action="/keep_it_alive/comodin" method="post" style="display: inline;">
+                <input type="hidden" name="comidin" value="3">
+                <button type="submit" class="circle-button">3</button>
+            </form>
+            <div id="coin-block">
+                <%= session[:coins] || 0 %> Coins
+            </div>
+        </div>
     </div>
-    <div class="bar-label">Hunger</div>
-    <div class="progress-bar">
-    <div class="progress hunger-bar" style="width: <%= (session[:hunger] || 0) * 10 %>%;"></div>
-    </div>
-    <div class="bar-label">Water</div>
-    <div class="progress-bar">
-    <div class="progress water-bar" style="width: <%= (session[:water] || 0) * 10 %>%;"></div>
-    </div>
-    <div class="bar-label">Temperature</div>
-    <div class="progress-bar">
-    <div class="progress temperature-bar" style="width: <%= (session[:temperature] || 0) * 10 %>%;"></div>
-    </div>
-  </div>
-</div>
 
-
-
-
-
-    <!-- <div id="mid"> -->
-    <div id="msg" class="textfix">
-      <%= Question.find(session[:question]).statement %>
-    </div>
-
-    <div id="card">
-
-      <div id="carddiv">
-        <div id="optionleft" class="left option"><%= Question.find(session[:question]).options[0].description%></div>
-        <div id="optionright" class="right option"><%= Question.find(session[:question]).options[1].description%></div>
-        <form id="myForm" action="/keep_it_alive/playing" method="post">
-        <input type="hidden" id="valorInput" name="valor">
-        </form>
-
-      </div>
-    </div>
-    <% question = Question.find(session[:question]) %>
-    <% difficulty_class = case question.typeCard
-                       when 'Easy'
-                         'easy'
-                       when 'Medium'
-                         'medium'
-                       when 'Hard'
-                         'hard'
-                       else
-                         ''
-                       end %>
-
-    <div id="cardname" class="textfix <%= difficulty_class %>">
-      <%= question.typeCard %>
-    </div>
-
-
-    <!-- </div> -->
-
-    <div id="bottom" class="textfix">
-      <div class="textfix">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
-</div>
-<script src="/game.js"></script>
-
+    <!-- Script para manejar el envío de opciones -->
+    <script src="/game.js"></script>
+    <script>
+        function submitForm(option) {
+            document.getElementById('valorInput').value = option;
+            document.getElementById('myForm').submit();
+        }
+    </script>
 </body>
+
 </html>

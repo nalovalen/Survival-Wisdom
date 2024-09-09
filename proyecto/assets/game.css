@@ -478,3 +478,41 @@ margin: 0.0vw auto;
   padding: 10px;
   border-radius: 5px;
 }
+
+/* Estilos adicionales para la barra lateral */
+#sidebar {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    left: 75%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.circle-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #4CAF50; /* Color de fondo de los botones */
+    color: white;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#coin-block {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    width: 80px;
+}

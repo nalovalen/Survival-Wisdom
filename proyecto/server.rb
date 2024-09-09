@@ -164,7 +164,7 @@ class App < Sinatra::Application
     bars = Bar.all
     @current_user = current_user # Asegúrate de que current_user esté definido en algún lugar de tu código
 
-
+    session[:xray] = 0
     bars.each do |bar|
       if bar.name_bar == 'health'
       session[:health] = bar.value
@@ -200,7 +200,7 @@ class App < Sinatra::Application
       # Si quedan preguntas en la sesión, sigue utilizando esas preguntas
       @questions = Question.where(id: session[:@questions])
     end
-
+    session[:xray] = 0
     session[:question] = session[:@questions].shift
     @current_user = current_user
     erb :'home/game'
@@ -212,6 +212,7 @@ class App < Sinatra::Application
 
     opcionelegida = params[:valor].to_i
     effects = Question.find(session[:question]).options[opcionelegida-1].effects
+
 
      if session[:health] + effects[0] >= 10
       session[:health] = 10
@@ -233,7 +234,7 @@ class App < Sinatra::Application
      else
       session[:temperature] += effects[3]
      end
-
+     session[:xray] = 0
 
     puts "#{session[:health]},#{session[:hunger]},#{session[:water]},#{session[:temperature]}"
     if session[:health] <= 0 || session[:hunger] <= 0 || session[:water] <= 0 || session[:temperature] <= 0
@@ -251,8 +252,36 @@ class App < Sinatra::Application
   end
 end
 
+post '/keep_it_alive/comodin' do
+  comodinElegido = params[:comodin].to_i
 
-
+  puts " HOLAAAAAAAAAAAAAAAAAAAAA #{comodinElegido}"
+  if comodinElegido == 1
+    #Comodin de Skip de carta
+    puts hola
+    redirect '/keep_it_alive/playing'
+    if session[:@questions].nil? || session[:@questions].empty?
+      # Si no quedan preguntas en la sesión, vuelve a asignar todas las preguntas de manera aleatoria
+      @questions = Question.all.order("RANDOM()")
+      session[:@questions] = @questions.map(&:id)
+    else
+      # Si quedan preguntas en la sesión, sigue utilizando esas preguntas
+      @questions = Question.where(id: session[:@questions])
+    end
+  end
+  if comodinElegido == 2
+    #Comodin de Stat Boost
+    session[:health] += rand(0..3)
+    session[:hunger] += rand(0..3)
+    session[:water] += rand(0..3)
+    session[:temperature] += rand(0..3)
+  end
+  if comodinElegido == 3 
+    #Comodin de Xray
+    session[:xray] = 1
+  end 
+  
+end
 # Maneja la solicitud POST para jugar de nuevo
 post '/jugar-de-nuevo' do
   # Aquí puedes agregar la lógica para reiniciar el juego o redirigir a la página de inicio del juego
