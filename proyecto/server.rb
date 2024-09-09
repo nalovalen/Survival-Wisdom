@@ -96,6 +96,27 @@ class App < Sinatra::Application
     end
   end
 
+  post '/change_nickname' do
+    new_nickname = params[:new_nickname]
+    current_user = User.find(session[:user_id])
+    # Actualiza el nickname del usuario actual
+    current_user.update(nickname: new_nickname)
+    # Guarda los cambios en la base de datos
+    current_user.save
+    # Redirige a la página de cuenta o a donde prefieras
+    redirect '/account'
+  end
+
+  post '/change_password' do
+    new_password = params[:new_password]
+    current_user = User.find(session[:user_id])
+    # Actualiza el pasword del usuario actual
+    current_user.update(password: new_password)
+    # Guarda los cambios en la base de datos
+    current_user.save
+    # Redirige a la página de cuenta o a donde prefieras
+    redirect '/logout'
+  end
 
   get '/' do
     if current_user == nil 

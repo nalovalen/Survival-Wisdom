@@ -67,10 +67,19 @@
      <% total_stats = Stat.where(user_id: current_user.id).count %>
     <div class="card__subtitle">Number of games played: <%=total_stats  %></div>
     <div class="card__wrapper">
-     
+    <button class="card__btn" id="nickname-btn">Change Nickname</button>
+    <button class="card__btn" id="password-btn">Change Password</button>
     </div>
+    <form id="nickname-form" class="hidden-input" method="POST" action="/change_nickname">
+        <input type="text" name="new_nickname" placeholder="Enter new nickname">
+        <button type="submit">Confirm</button>
+    </form>
+    <form id="password-form" class="hidden-input" method="POST" action="/change_password">
+        <input type="password" name="new_password" placeholder="Enter new password">
+        <button type="submit">Confirm</button>
+    </form>
   </div>
 </div>
 
-
+<script src="/rename.js"></script>
 </body>
