@@ -84,6 +84,7 @@ class App < Sinatra::Application
       user.username = username
       user.password = password
       user.nickname = nickname
+      user.coins = 0
       user.save
 
       session[:user_id] = user.id
@@ -192,6 +193,7 @@ class App < Sinatra::Application
     session[:question] = @questions.shift
     session[:@questions]= @questions
     session[:days] = 0
+    session[:coins] = @current_user.coins
     erb :'home/game'
   end
 
@@ -244,46 +246,70 @@ class App < Sinatra::Application
       stat = Stat.new
       stat.user_id = session[:user_id] # Asigna el ID del usuario
       stat.days = session[:days]
+      @current_user.coins = session[:coins]
+      @current_user.save
       stat.save
 
 
       erb :'home/gameover'
     else
       session[:days] += 1
+      session[:coins] += 1
       redirect '/keep_it_alive/playing'
     end
   end
 end
-
 post '/keep_it_alive/comodin' do
   comodinElegido = params[:comodin].to_i
+  monedas = session[:coins]
 
   if comodinElegido == 1
-    #Comodin de Skip de carta
-    redirect '/keep_it_alive/playing'
-    if session[:@questions].nil? || session[:@questions].empty?
-      # Si no quedan preguntas en la sesión, vuelve a asignar todas las preguntas de manera aleatoria
-      @questions = Question.all.order("RANDOM()")
-      session[:@questions] = @questions.map(&:id)
+    if monedas >= 30
+      # Comodin de Skip de carta
+      session[:coins] -= 30
+
+      if session[:@questions].nil? || session[:@questions].empty?
+        # Si no quedan preguntas en la sesión, vuelve a asignar todas las preguntas de manera aleatoria
+        @questions = Question.all.order("RANDOM()")
+        session[:@questions] = @questions.map(&:id)
+      else
+        # Si quedan preguntas en la sesión, sigue utilizando esas preguntas
+        @questions = Question.where(id: session[:@questions])
+      end
+      
+      redirect '/keep_it_alive/playing'
     else
-      # Si quedan preguntas en la sesión, sigue utilizando esas preguntas
-      @questions = Question.where(id: session[:@questions])
+      # No hay suficientes monedas
+      @error_message = "No tienes suficientes monedas para usar este comodín."
     end
-  end
-  if comodinElegido == 2
-    #Comodin de Stat Boost
-    session[:health] += rand(0..3)
-    session[:hunger] += rand(0..3)
-    session[:water] += rand(0..3)
-    session[:temperature] += rand(0..3)
-    
-  end
-  if comodinElegido == 3 
-    #Comodin de Xray
-    session[:xray] = 1
+
+  elsif comodinElegido == 2
+    # Comodin de Stat Boost
+    if monedas >= 5
+      session[:coins] -= 5
+      session[:health] += rand(0..3)
+      session[:hunger] += rand(0..3)
+      session[:water] += rand(0..3)
+      session[:temperature] += rand(0..3)
+    else
+      # No hay suficientes monedas
+      @error_message = "No tienes suficientes monedas para usar este comodín."
+    end
+
+  elsif comodinElegido == 3 
+    # Comodin de Xray
+    if monedas >= 15
+      session[:coins] -= 15
+      session[:xray] = 1
+    else
+      # No hay suficientes monedas
+      @error_message = "No tienes suficientes monedas para usar este comodín."
+    end
   end 
+
   erb :'home/game'
 end
+
 # Maneja la solicitud POST para jugar de nuevo
 post '/jugar-de-nuevo' do
   # Aquí puedes agregar la lógica para reiniciar el juego o redirigir a la página de inicio del juego

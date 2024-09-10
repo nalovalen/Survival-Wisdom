@@ -91,25 +91,25 @@
             <!-- Formularios para los botones laterales -->
             <form id="buttonForm1" action="/keep_it_alive/comodin" method="post" style="display: inline;">
                 <input type="hidden" name="comodin" value="1">
-                <button type="submit" class="circle-button">
+                <button type="submit" class="circle-button" data-cost="30">
                     <box-icon type='solid' class="caja" name='chevrons-right'></box-icon>
                 </button>
             </form>
-            $10
+            $30
             <form id="buttonForm2" action="/keep_it_alive/comodin" method="post" style="display: inline;">
                 <input type="hidden" name="comodin" value="2">
-                <button type="submit" class="circle-button">
+                <button type="submit" class="circle-button" data-cost="5">
                     <box-icon class="caja"  name='rocket' ></box-icon>
                 </button>
             </form>
-            $2
+            $5
             <form id="buttonForm3" action="/keep_it_alive/comodin" method="post" style="display: inline;">
                 <input type="hidden" name="comodin" value="3">
-                <button type="submit" class="circle-button">
+                <button type="submit" class="circle-button" data-cost="15">
                     <box-icon class="caja" name='glasses-alt' ></box-icon>
                 </button>
             </form>
-            $5
+            $15
             <div id="coin-block">
                 <%= session[:coins] || 0 %> Coins
             </div>
@@ -123,6 +123,25 @@
             document.getElementById('valorInput').value = option;
             document.getElementById('myForm').submit();
         }
+
+        // Pasando el valor de session[:coins] desde Ruby a JavaScript
+        let monedas = <%= session[:coins] %>;
+
+        document.querySelectorAll('.circle-button').forEach(button => {
+            button.addEventListener('mouseover', function() {
+                const cost = parseInt(this.getAttribute('data-cost'), 10);
+                if (monedas >= cost) {
+                    this.style.backgroundColor = 'green';
+                } else {
+                    this.style.backgroundColor = 'red';
+                }
+            });
+
+            button.addEventListener('mouseout', function() {
+                this.style.backgroundColor = 'rgb(189, 168, 103)'; // Color original del botón
+            });
+        });
+    
     </script>
 </body>
 

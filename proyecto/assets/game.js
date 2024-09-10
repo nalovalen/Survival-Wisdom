@@ -62,3 +62,4 @@ function handleClick(buttonNumber) {
     let remainingCoins = parseInt(coinBlock.textContent) - buttonNumber;
     coinBlock.textContent = remainingCoins > 0 ? remainingCoins : 0;
 }
+
