@@ -110,12 +110,16 @@ class App < Sinatra::Application
   post '/change_password' do
     new_password = params[:new_password]
     current_user = User.find(session[:user_id])
-    # Actualiza el pasword del usuario actual
-    current_user.update(password: new_password)
-    # Guarda los cambios en la base de datos
-    current_user.save
-    # Redirige a la página de cuenta o a donde prefieras
-    redirect '/logout'
+    if new_password != " " && new_password != "" && new_password != current_user.password
+      # Actualiza el pasword del usuario actual
+      current_user.update(password: new_password)
+      # Guarda los cambios en la base de datos
+      current_user.save
+      # Redirige a la página de cuenta o a donde prefieras
+      redirect '/logout'
+    else
+      erb :'home/account', locals: { error: "El nombre de usuario ya está en uso. Por favor, elige otro nombre de usuario." }
+    end
   end
 
   get '/' do
