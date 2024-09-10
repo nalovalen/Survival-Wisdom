@@ -240,7 +240,6 @@ class App < Sinatra::Application
      end
      session[:xray] = 0
 
-    puts "#{session[:health]},#{session[:hunger]},#{session[:water]},#{session[:temperature]}"
     if session[:health] <= 0 || session[:hunger] <= 0 || session[:water] <= 0 || session[:temperature] <= 0
       stat = Stat.new
       stat.user_id = session[:user_id] # Asigna el ID del usuario
@@ -259,10 +258,8 @@ end
 post '/keep_it_alive/comodin' do
   comodinElegido = params[:comodin].to_i
 
-  puts " HOLAAAAAAAAAAAAAAAAAAAAA #{comodinElegido}"
   if comodinElegido == 1
     #Comodin de Skip de carta
-    puts hola
     redirect '/keep_it_alive/playing'
     if session[:@questions].nil? || session[:@questions].empty?
       # Si no quedan preguntas en la sesión, vuelve a asignar todas las preguntas de manera aleatoria

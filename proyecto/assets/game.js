@@ -15,7 +15,7 @@ document.getElementById('background')
                 div.style.transform = "translateY(" + y + "%) rotate(" + parseInt(x) + "deg)";
                 document.getElementById('optionright').style.opacity = "1";
             } else if (x < 40) {  // Rango del 25% al 40% (más pequeño a la izquierda)
-                x = (x - 35) / degree;
+                x = (x - 55) / degree;
                 div.style.transform = "translateY(" + y + "%) rotate(" + parseInt(x) + "deg)";
                 document.getElementById('optionleft').style.opacity = "1";
             } else {
