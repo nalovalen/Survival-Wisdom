@@ -285,8 +285,8 @@ post '/keep_it_alive/comodin' do
 
   elsif comodinElegido == 2
     # Comodin de Stat Boost
-    if monedas >= 5
-      session[:coins] -= 5
+    if monedas >= 10
+      session[:coins] -= 10
       session[:health] += rand(0..3)
       session[:hunger] += rand(0..3)
       session[:water] += rand(0..3)
