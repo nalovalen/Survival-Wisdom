@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/game.css">
@@ -90,16 +91,25 @@
             <!-- Formularios para los botones laterales -->
             <form id="buttonForm1" action="/keep_it_alive/comodin" method="post" style="display: inline;">
                 <input type="hidden" name="comodin" value="1">
-                <button type="submit" class="circle-button">1</button>
+                <button type="submit" class="circle-button">
+                    <box-icon type='solid' class="caja" name='chevrons-right'></box-icon>
+                </button>
             </form>
+            $10
             <form id="buttonForm2" action="/keep_it_alive/comodin" method="post" style="display: inline;">
                 <input type="hidden" name="comodin" value="2">
-                <button type="submit" class="circle-button">2</button>
+                <button type="submit" class="circle-button">
+                    <box-icon class="caja"  name='rocket' ></box-icon>
+                </button>
             </form>
+            $2
             <form id="buttonForm3" action="/keep_it_alive/comodin" method="post" style="display: inline;">
                 <input type="hidden" name="comodin" value="3">
-                <button type="submit" class="circle-button">3</button>
+                <button type="submit" class="circle-button">
+                    <box-icon class="caja" name='glasses-alt' ></box-icon>
+                </button>
             </form>
+            $5
             <div id="coin-block">
                 <%= session[:coins] || 0 %> Coins
             </div>

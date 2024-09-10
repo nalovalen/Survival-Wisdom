@@ -276,12 +276,13 @@ post '/keep_it_alive/comodin' do
     session[:hunger] += rand(0..3)
     session[:water] += rand(0..3)
     session[:temperature] += rand(0..3)
+    
   end
   if comodinElegido == 3 
     #Comodin de Xray
     session[:xray] = 1
   end 
-  
+  erb :'home/game'
 end
 # Maneja la solicitud POST para jugar de nuevo
 post '/jugar-de-nuevo' do
