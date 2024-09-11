@@ -13,6 +13,10 @@
 
 <body>
     <div id="background">
+            <form id="back-button" action="/keep_it_alive/comodin" method="post" style="display: inline;">
+                <input type="hidden" name="comodin" value="1">
+                <button style='font-size:24px' class="back-button"><i class='fas fa-arrow-left' style="color:black;"></i></button>
+            </form>
         <!-- Mostrar el nombre con días sobrevividos -->
         <div id="name">"<%= session[:days] ? session[:days].div(3) : 0 %> Days Survived"</div>
 
@@ -141,7 +145,7 @@
                 this.style.backgroundColor = 'rgb(189, 168, 103)'; // Color original del botón
             });
         });
-    
+
     </script>
 </body>
 

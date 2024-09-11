@@ -17,7 +17,7 @@
     background-image: url('img/v6_335.png');
     background-size: cover;
   }
-  
+
   body::before {
     content: "";
     background-image: inherit;
@@ -166,7 +166,7 @@
       visibility: visible;
     }
   }
-  
+
   .sidebar > a.active,.sidebar > a:hover:nth-child(even) {
     --accent-color: #a2e284;
     --gradient-color: #2db84b;
@@ -175,15 +175,15 @@
     --accent-color: #a2e284;
     --gradient-color: #2db84b;
   }
-  
-  
+
+
   .frame {
     width: 50%;
     height: 30%;
     margin: auto;
     text-align: center;
   }
-  
+
   .frame label{
     position:fixed;
     top: 52%;
@@ -192,14 +192,14 @@
     cursor: pointer;
     color: #95d395;
     border-radius: 5px;
-    
+
     font-size: 29px;
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(32, 29, 29, 0.4);
     height: 45px;
     width: 180px;
     text-align: center;
-    
+
     line-height: 45px;
   }
 
@@ -221,7 +221,7 @@
     margin: 0;
     color: #2db84b;
   }
-  
+
   p {
     font-family: 'Lato', sans-serif;
     font-weight: 300;
@@ -230,14 +230,14 @@
     color: #2db84b;
     margin: 0;
   }
-  
+
   .logout a{
     position: absolute;
     color: black;
-    bottom: 10px; 
- 
+    bottom: 10px;
+
   }
- 
+
   .logout a.active,.logout > a:hover {
     --accent-color: rgb(192, 57, 57);
     --gradient-color: rgb(236, 42, 42);
@@ -247,7 +247,7 @@
  /*------------------------------------------------------------------*/
 
 
- 
+
 *{
     margin: 0;
     padding: 0;
@@ -423,7 +423,7 @@ margin: 0.0vw auto;
     padding: 20px;
     box-sizing: border-box;
     z-index: 1;
-    transition-duration: .3s; 
+    transition-duration: .3s;
     opacity: 0;
 }
 .left.option{
@@ -489,7 +489,7 @@ margin: 0.0vw auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     background-color: rgb(35, 20, 3);
     border-radius: 2%;
 }
@@ -532,4 +532,19 @@ margin: 0.0vw auto;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 30%;
+  background-color: rgb(189, 168, 103); /* Color de fondo de los botones */
+  color: white;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
