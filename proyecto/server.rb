@@ -124,10 +124,10 @@ class App < Sinatra::Application
   end
 
   get '/' do
-    if current_user == nil 
+    if current_user == nil
       redirect '/login'
     else
-      redirect '/home' 
+      redirect '/home'
     end
   end
 
@@ -140,14 +140,14 @@ class App < Sinatra::Application
   get '/skill/:guide.pdf' do
     file_path = "views\\skill\\#{params[:guide].capitalize}.pdf"
     send_file file_path, :type => :pdf
-    
+
   end
-  
+
   # Ingresa a la guia que el usuario desee
   get '/skill/:id' do
     erb :"skill/#{params[:id]}"
   end
-  
+
 
   get '/keep_it_alive' do
     erb :'home/keep_it_alive', locals: { user: current_user }
@@ -276,7 +276,7 @@ post '/keep_it_alive/comodin' do
         # Si quedan preguntas en la sesión, sigue utilizando esas preguntas
         @questions = Question.where(id: session[:@questions])
       end
-      
+
       redirect '/keep_it_alive/playing'
     else
       # No hay suficientes monedas
@@ -296,7 +296,7 @@ post '/keep_it_alive/comodin' do
       @error_message = "No tienes suficientes monedas para usar este comodín."
     end
 
-  elsif comodinElegido == 3 
+  elsif comodinElegido == 3
     # Comodin de Xray
     if monedas >= 15
       session[:coins] -= 15
@@ -305,10 +305,23 @@ post '/keep_it_alive/comodin' do
       # No hay suficientes monedas
       @error_message = "No tienes suficientes monedas para usar este comodín."
     end
-  end 
+  end
 
   erb :'home/game'
 end
+
+#Fin de la partida con el back-button:
+post '/keep_it_alive/end' do
+  stat = Stat.new
+  stat.user_id = session[:user_id]
+  stat.days = session[:days]
+  @current_user.coins = session[:coins]
+  @current_user.save
+  stat.save
+
+  redirect '/home'
+end
+
 
 # Maneja la solicitud POST para jugar de nuevo
 post '/jugar-de-nuevo' do
