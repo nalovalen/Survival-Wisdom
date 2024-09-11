@@ -47,7 +47,7 @@
     <div class="card__title"><%= @current_user.nickname%></div>
     <div class="card__subtitle">User Name: @<%=@current_user.name%></div>
     <div class="card__subtitle">Account Created : <%=@current_user.created_at%></div>
-    
+
     <div class="card__subtitle">
     <%if Stat.where(user_id: current_user.id).order(days: :desc).first == nil%>
       Greatest number of days survived: 0
@@ -67,6 +67,7 @@
      Number of days survived on average: <%=average_days.div(3) %></div>
      <% total_stats = Stat.where(user_id: current_user.id).count %>
     <div class="card__subtitle">Number of games played: <%=total_stats  %></div>
+    <div class="card__subtitle">Total coins: <%= current_user.coins %></div>
     <div class="card__wrapper">
     <button class="card__btn" id="nickname-btn">Change Nickname</button>
     <button class="card__btn" id="password-btn">Change Password</button>
