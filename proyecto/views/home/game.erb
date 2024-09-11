@@ -12,6 +12,32 @@
 </head>
 
 <body>
+<!-- aca dejo toda la info para poder acceder desde el js, porque no puedo usar session en js -->
+<div id="comodin-data" data-comodin="<%= session[:comodin] %>"></div>
+<div id="effects-data"
+    data-left-health="<%= Question.find(session[:question]).options[0].effects[0] %>"
+    data-left-hunger="<%= Question.find(session[:question]).options[0].effects[1] %>"
+    data-left-water="<%= Question.find(session[:question]).options[0].effects[2] %>"
+    data-left-temperature="<%= Question.find(session[:question]).options[0].effects[3] %>"
+
+    data-right-health="<%= Question.find(session[:question]).options[1].effects[0] %>"
+    data-right-hunger="<%= Question.find(session[:question]).options[1].effects[1] %>"
+    data-right-water="<%= Question.find(session[:question]).options[1].effects[2] %>"
+    data-right-temperature="<%= Question.find(session[:question]).options[1].effects[3] %>">
+ </div>
+
+ <%if session[:xray] == 1%>
+ <div id="effects-display">
+ <p>Effects: </p>
+ <p id="health-effect">Salud: 0</p>
+ <p id="hunger-effect">Hambre: 0</p>
+ <p id="water-effect">Agua: 0</p>
+ <p id="temperature-effect">Temperatura: 0</p>
+</div>
+</div>
+<script src="script.js"></script>
+<%end%>
+
     <div id="background">
         <!-- Backbutton -->
         <form id="back-button" action="/keep_it_alive/end" method="post" style="display: inline;">
@@ -30,8 +56,6 @@
             </div>
         </div>
 
-        <!-- El resto de tu contenido aquí... -->
-        <!-- Mostrar el nombre con días sobrevividos -->
         <div id="name">"<%= session[:days] ? session[:days].div(3) : 0 %> Days Survived"</div>
 
         <div id="main">
@@ -57,7 +81,6 @@
                 </div>
             </div>
 
-            <!-- Pregunta y opciones de respuesta -->
             <div id="msg" class="textfix">
                 <%= Question.find(session[:question]).statement %>
             </div>
@@ -78,7 +101,6 @@
                 </div>
             </div>
 
-            <!-- Tipo de carta según la dificultad -->
             <% question = Question.find(session[:question]) %>
             <% difficulty_class = case question.typeCard
                                    when 'Easy' then 'easy'
@@ -134,7 +156,7 @@
         </div>
     </div>
 
-    <!-- Script para manejar el envío de opciones -->
+    <!-- Script para las opciones -->
     <script src="/game.js"></script>
     <script>
         function submitForm(option) {
