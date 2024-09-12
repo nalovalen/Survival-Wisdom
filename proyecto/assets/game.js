@@ -65,6 +65,9 @@ function showEffects(position) {
 
     // Obtener el comodín actual de los datos del HTML
     var comodin = parseInt(comodinElement.getAttribute('data-comodin'), 10);
+    if (modal.style.display === 'flex') {
+        return;
+    }
 
     // Obtener los efectos basados en la posición
     var effects = {
