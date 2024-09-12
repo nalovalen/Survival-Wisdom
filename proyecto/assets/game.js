@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     var comodinElement = document.getElementById('comodin-data');
     var comodin = parseInt(comodinElement.getAttribute('data-comodin'), 10);
+    var modal = document.getElementById('warningModal');
 
     document.getElementById('background').onmousemove = function(event) {
+        if (modal.style.display === 'flex') {
+            return;
+        }
         var bg = document.getElementById('background');
         var x = event.clientX / bg.clientWidth * 100; // Obtén la posición del mouse en porcentaje
         var y = event.clientY / bg.clientHeight * 100;
@@ -44,6 +48,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 hideEffects();
             }
         }
+    };
+
+    document.getElementById('background').onmouseleave = function(event) {
+        if (modal.style.display === 'flex') {
+            return; // Salir si el modal está activo
+        }
+
+        var div = document.getElementById('carddiv');
+        div.style.transform = "translateY(0%) rotate(0deg)";
+        document.getElementById('optionright').style.opacity = "0";
+        document.getElementById('optionleft').style.opacity = "0";
     };
 
     // script.js
