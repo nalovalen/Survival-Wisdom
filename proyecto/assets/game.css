@@ -634,15 +634,23 @@ align-items: center;
 padding: 20px;
 }
 
-#effects-display p {
-font-size: 10px;
-margin: 5px 0;
+#effects-display {
+  position: absolute;
+  left: 270px; /* Ajusta la posición a la izquierda */
+  top: 60%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 1.5vw;
+  color: white;
 }
 
-#effects-display {
-width: 200px;
-padding: 10px;
-margin-left: 10px;
-overflow: auto;
-margin-top: -100px;
+#effects-display p {
+  margin: 10px 0;
+}
+
+#effects-display span {
+  font-weight: bold;
 }

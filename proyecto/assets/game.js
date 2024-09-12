@@ -35,32 +35,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 div.style.transform = "translateY(0%) rotate(0deg)";
                 document.getElementById('optionleft').style.opacity = "0";
                 document.getElementById('optionright').style.opacity = "0";
-                if (comodin === 3) {
-                    hideEffects();
-                }
+                hideEffects();
             }
         } else {
             // Si está fuera del rango 25%-75%, restablece la carta
             div.style.transform = "translateY(0%) rotate(0deg)";
             document.getElementById('optionleft').style.opacity = "0";
             document.getElementById('optionright').style.opacity = "0";
-            if (comodin === 3) {
-                hideEffects();
-            }
+            hideEffects();
         }
     };
 
+    
     document.getElementById('background').onmouseleave = function(event) {
         if (modal.style.display === 'flex') {
             return; // Salir si el modal está activo
         }
-
+        
         var div = document.getElementById('carddiv');
         div.style.transform = "translateY(0%) rotate(0deg)";
         document.getElementById('optionright').style.opacity = "0";
         document.getElementById('optionleft').style.opacity = "0";
     };
-
+    
     // script.js
 function showEffects(position) {
     var effectsElement = document.getElementById('effects-data');
@@ -89,9 +86,9 @@ function showEffects(position) {
 
     // Mostrar los efectos en pantalla
     document.getElementById('health-effect').textContent = `Health: ${effectsToShow.health || 0}`;
-document.getElementById('hunger-effect').textContent = `Hunger: ${effectsToShow.hunger || 0}`;
-document.getElementById('water-effect').textContent = `Water: ${effectsToShow.water || 0}`;
-document.getElementById('temperature-effect').textContent = `Temperature: ${effectsToShow.temperature || 0}`;
+    document.getElementById('hunger-effect').textContent = `Hunger: ${effectsToShow.hunger || 0}`;
+    document.getElementById('water-effect').textContent = `Water: ${effectsToShow.water || 0}`;
+    document.getElementById('temperature-effect').textContent = `Temperature: ${effectsToShow.temperature || 0}`;
 
 }
 
