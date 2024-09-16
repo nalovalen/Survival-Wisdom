@@ -223,11 +223,11 @@ h2 {
 }
 
 p {
-  font-family: 'Lato', sans-serif;
+  font-family: courier new;
   font-weight: 300;
   text-align: center;
   font-size: 30px;
-  color: #2db84b;
+  color: #f1fff7;;
   margin: 0;
 }
 
@@ -535,19 +535,23 @@ justify-content: center;
 }
 
 .back-button {
-width: 40px;
-height: 40px;
-border-radius: 30%;
-background-color: rgb(189, 168, 103); /* Color de fondo de los botones */
-color: white;
-font-size: 18px;
-border: none;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: -40px;
+  width: 10vw; /* Ajuste en función del tamaño de la vista */
+  height: 10vw; /* Mantiene la proporción */
+  max-width: 50px; /* Ancho máximo */
+  max-height: 50px; /* Altura máxima */
+  border-radius: 30%; /* Asegura que sea circular */
+  background-color: rgb(189, 168, 103); /* Color de fondo de los botones */
+  color: white;
+  font-size: 4vw; /* Ajuste en función del tamaño de la vista */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0; /* Ajustar según sea necesario */
+  box-sizing: border-box; /* Asegura que el padding no afecte al tamaño total */
 }
+
 
 .modal {
 display: none;
@@ -563,7 +567,7 @@ z-index: 1000;
 }
 
 .modal-content {
-background: white;
+background: #110a01;
 padding: 20px;
 border-radius: 5px;
 text-align: center;
@@ -639,7 +643,7 @@ padding: 20px;
   left: 270px; /* Ajusta la posición a la izquierda */
   top: 60%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(35 20 3);
   padding: 10px;
   border-radius: 5px;
   text-align: left;
