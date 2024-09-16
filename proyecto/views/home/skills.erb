@@ -73,5 +73,20 @@
   </a>
 </section>
   </div>  
+  <script>
+  document.addEventListener('keydown', function(event) {
+    // Verificar si la tecla presionada es "Tab" (código 9)
+    if (event.key === 'Tab') {
+      event.preventDefault(); // Evitar el comportamiento predeterminado del tabulador
+      
+      // Obtener el checkbox que controla la barra lateral
+      var sidebarToggle = document.getElementById('check');
+      
+      // Alternar el estado del checkbox para abrir o cerrar la barra lateral
+      sidebarToggle.checked = !sidebarToggle.checked;
+    }
+  });
+</script>
+
 </body>
  
