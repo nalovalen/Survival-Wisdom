@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
-
+require 'bcrypt'
 
 enable :sessions
 
@@ -79,10 +79,10 @@ class App < Sinatra::Application
       erb :'login/register', locals: { error: "El nombre de usuario ya está en uso. Por favor, elige otro nombre de usuario." }
     else
       # Si no existe un usuario con el mismo nombre de usuario, procede a crear uno nuevo y guardarlo en la base de datos
-      #new_user = User.new(username: username, password: password)
+      new_password_digest = BCrypt::Password.create(password)
       user = User.new
       user.username = username
-      user.password = password
+      user.password = new_password_digest
       user.nickname = nickname
       user.coins = 0
       user.save
@@ -111,9 +111,10 @@ class App < Sinatra::Application
   post '/change_password' do
     new_password = params[:new_password]
     current_user = User.find(session[:user_id])
-    if new_password != " " && new_password != "" && new_password != current_user.password
+    if new_password != " " && new_password != "" && new_password != BCrypt::Password.new(current_user.password)
       # Actualiza el pasword del usuario actual
-      current_user.update(password: new_password)
+      new_password_digest = BCrypt::Password.create(new_password)
+      current_user.update(password: new_password_digest)
       # Guarda los cambios en la base de datos
       current_user.save
       # Redirige a la página de cuenta o a donde prefieras

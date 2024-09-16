@@ -11,11 +11,8 @@ class User < ActiveRecord::Base
 
     def self.authenticate(username, password)
       user = find_by(username: username)
-      if user && user.password == password
-        return user # Credenciales válidas, devuelve el usuario
-      else
-        return nil # Credenciales inválidas, devuelve nil
-      end
+      return nil unless user
+      BCrypt::Password.new(user.password) == password ? user : nil
     end
 
     def name
