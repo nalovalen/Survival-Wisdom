@@ -120,7 +120,7 @@ class App < Sinatra::Application
       # Redirige a la página de cuenta o a donde prefieras
       redirect '/logout'
     else
-      erb :'home/account', locals: { error: "El nombre de usuario ya está en uso. Por favor, elige otro nombre de usuario." }
+      erb :'home/account', locals: { error: "Contraseña no valida." }
     end
   end
 
