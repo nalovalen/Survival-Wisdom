@@ -162,6 +162,10 @@ class App < Sinatra::Application
     erb :'home/account', locals: { user: current_user }
   end
 
+  get '/leaderboard' do
+    erb :'home/leaderboard', locals: { user: current_user }
+  end
+
   # Inicializa la partida
   get '/keep_it_alive/init' do
     # Recuperar todas las preguntas y opciones de la base de datos
