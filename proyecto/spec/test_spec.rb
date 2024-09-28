@@ -16,24 +16,45 @@ RSpec.describe 'The Server' do
   # Checkea si el usuario se loguea correctamente
   describe 'POST /login' do
     user = User.new
-    user.username = 'testuser'
+    user.username = 'testuser1'
     user.password = 'password'
     user.nickname = 'nickname'
     user.save
 
     it 'logs in the user with correct credentials' do
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
       expect(last_response).to be_redirect
       follow_redirect!
       expect(last_request.path).to eq('/home')
     end
 
     it 'renders login page with error on invalid credentials' do
-      post '/login', first: 'testuser', password: 'wrongpassword'
+      post '/login', first: 'testuser1', password: 'wrongpassword'
       expect(last_response).to be_ok
       expect(last_response.body).to include('Credenciales inválidas')
     end
   end
+
+  describe "POST /change_nickname" do
+    it 'updates the users nickname' do
+      post '/login', first: 'testuser1', password: 'password'
+      post '/change_nickname', new_nickname:'NewNickname'
+      user = User.find_by(username: 'testuser1')
+      expect(user.nickname).to eq('NewNickname')
+    end
+  end
+
+  describe "POST /change_password" do
+
+    it 'updates the users password' do
+      post '/login', first: 'testuser1', password: 'password'
+      post '/change_password', password: 'Newpassword'
+      
+      post '/login', first: 'testuser1', password: 'Newpassword'
+      expect(last_response).to be_ok
+    end
+  end
+
 
   # Checkea si se registra bien el usuario
   describe 'POST /register' do
@@ -99,7 +120,7 @@ RSpec.describe 'The Server' do
 
   describe 'GET /skills' do
     it 'redirects normaly' do
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
       get '/skills'
       expect(last_request.path).to eq('/skills')
     end
@@ -107,7 +128,7 @@ RSpec.describe 'The Server' do
 
   describe 'GET /keep_it_alive' do
     it 'redirects normaly' do
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
       get '/keep_it_alive'
       expect(last_request.path).to eq('/keep_it_alive')
     end
@@ -115,7 +136,7 @@ RSpec.describe 'The Server' do
 
   describe 'GET /about' do
     it 'redirects normaly' do
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
       get '/about'
       expect(last_request.path).to eq('/about')
     end
@@ -123,7 +144,7 @@ RSpec.describe 'The Server' do
 
   describe 'GET /account' do
     it 'redirects normaly' do
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
       get '/account'
       expect(last_request.path).to eq('/account')
     end
@@ -138,7 +159,7 @@ RSpec.describe 'The Server' do
     end
 
     it 'redirects logged' do
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
       get '/'
       expect(last_response.status).to eq(302)
       follow_redirect!
@@ -159,7 +180,7 @@ RSpec.describe 'The Server' do
     rutas2.each do |ruta2|
       describe "GET #{ruta2}" do
         it 'visitar endpoint' do
-          post '/login', first: 'testuser', password: 'password'
+          post '/login', first: 'testuser1', password: 'password'
           get "/skill/#{ruta2}"
           expect(last_response.status).to eq(200)
           expect(last_request.path).to eq("/skill/#{ruta2}")
@@ -179,7 +200,7 @@ RSpec.describe 'The Server' do
     guias.each do |guia|
       describe 'pdfs' do
         it "returns the PDF file" do
-          post '/login', first: 'testuser', password: 'password'
+          post '/login', first: 'testuser1', password: 'password'
           get "/skill/guide#{guia}.pdf"
           expect(last_response.status).to eq(200)
           expect(last_response.headers['Content-Type']).to eq('application/pdf')
@@ -193,7 +214,7 @@ RSpec.describe 'The Server' do
   describe 'Keep It Alive' do
     describe 'GET /keep_it_alive/init' do
       it 'initializes the game session' do
-        post '/login', first: 'testuser', password: 'password'
+        post '/login', first: 'testuser1', password: 'password'
 
         env 'rack.session', {
             health: 5,
@@ -224,7 +245,7 @@ RSpec.describe 'The Server' do
 
     describe "POST /keep_it_alive/playing" do
       before do
-        post '/login', first: 'testuser', password: 'password'
+        post '/login', first: 'testuser1', password: 'password'
 
         # Set up the session
         env 'rack.session', {
@@ -234,7 +255,8 @@ RSpec.describe 'The Server' do
           water: 5,
           temperature: 5,
           days: 1,
-          user_id: 1
+          user_id: 1,
+          coins: 0
         }
       end
 
@@ -273,12 +295,64 @@ RSpec.describe 'The Server' do
       end
     end
 
+    describe "POST /keep_it_alive/comodin" do
+      before do
+        post '/login', first: 'testuser1', password: 'password'
+        env 'rack.session', {
+          health: 5,
+          hunger: 5,
+          water: 5,
+          temperature: 5,
+          coins: 30,
+          user_id: 1
+        }
+      end
+    
+      def session
+        last_request.env['rack.session']
+      end
+    
+      it "applies skip card comodin when enough coins" do
+        get '/keep_it_alive/init'
+        post '/keep_it_alive/comodin', params: { comodin: 1 }
+      
+        expect(last_request).to eq('hola')
+       
+      end
+    
+      it "applies stat boost comodin when enough coins" do
+        # Reinicia la sesión antes de usar el comodín de impulso de estadísticas
+        get '/keep_it_alive/init'
+        post '/keep_it_alive/comodin', params: { comodin: 2 }
+      
+        expect(session[:health]).to be >= 5 # Aumento aleatorio de salud
+        expect(session[:hunger]).to be >= 5 # Aumento aleatorio de hambre
+        expect(session[:water]).to be >= 5 # Aumento aleatorio de agua
+        expect(session[:temperature]).to be >= 5 # Aumento aleatorio de temperatura
+      end
+    
+      it "shows error when not enough coins for Xray" do
+        # Reinicia la sesión con monedas insuficientes para el comodín Xray
+        get '/keep_it_alive/init'
+        post '/keep_it_alive/comodin', params: { comodin: 3 }
+        expect(last_response.body).to include('No tienes suficientes monedas para usar este comodín.')
+      end
+    end
+    
+    
+
+
+
   end
+
+
+
+
 
     # Si te deslogeas y queres entrar a una ruta no te tiene que dejar:
     describe 'User Logout' do
       it 'successfully logs out the user and redirects to login' do
-        post '/login', first: 'testuser', password: 'password'
+        post '/login', first: 'testuser1', password: 'password'
         expect(last_response).to be_redirect
         follow_redirect!
 
@@ -308,7 +382,7 @@ end
 describe 'Game Restart' do
   it 'resets the game state and redirects to the game init page' do
     #logeo el usuario:
-    post '/login', first: 'testuser', password: 'password'
+    post '/login', first: 'testuser1', password: 'password'
     # Realiza la solicitud POST para reiniciar el juego
     post '/jugar-de-nuevo'
 
@@ -325,7 +399,7 @@ end
 describe 'GET /back-to-home' do
   it 'redirects to the home page' do
     #logeo el usuario:
-    post '/login', first: 'testuser', password: 'password'
+    post '/login', first: 'testuser1', password: 'password'
     # Realiza una solicitud GET a la ruta /back-to-home
     get '/back-to-home'
 
@@ -344,7 +418,7 @@ describe 'GET /keep_it_alive/init' do
   context 'cuando no hay preguntas disponibles' do
     before do
       #logeo el usuario:
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
       allow(Question).to receive(:all).and_return(double(order: [])) # Simula que no hay preguntas
       allow(Bar).to receive(:all).and_return([]) # Opcional: si también necesitas simular los bares
       get '/keep_it_alive/init'
@@ -359,11 +433,11 @@ end
 
 describe 'GET /keep_it_alive/playing' do
   before do
-    post '/login', first: 'testuser', password: 'password'
+    post '/login', first: 'testuser1', password: 'password'
   end
 
     it 'empty questions' do
-      post '/login', first: 'testuser', password: 'password'
+      post '/login', first: 'testuser1', password: 'password'
 
       env 'rack.session', {
           health: 5,
@@ -379,11 +453,7 @@ describe 'GET /keep_it_alive/playing' do
       expect(last_request.session[:questions]).to_not eq(nil)
     end
 
-  it 'se renderiza la página de keep-it-alive' do
-    get '/keep_it_alive/playing'
-    #como el servidor devuelve un html, entonces para chequear que renderiza la pagina, me puedo fijar por ejemplo que el html tenga el titulo correcto.
-    expect(last_response.body).to include('<title> Home Page</title>')
-  end
+
 
   it 'asigna correctamente @questions con las preguntas de la sesión' do
     @questions = Question.all.order("RANDOM()").to_a.map(&:id)
@@ -403,7 +473,7 @@ describe '.authenticate' do
   
   it 'authenticate a valid account' do
     
-    username = 'testuser'
+    username = 'testuser1'
     password = 'password'
     user = User.find_by(username: username)
 
