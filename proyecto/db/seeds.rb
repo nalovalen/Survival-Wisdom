@@ -182,3 +182,6 @@ bars = [
 bars.each do |u|
   Bar.create(u)
 end
+
+user = {username: 'ADMIN', nickname: 'ADMIN', password: 'ADMIN', coins: 999, admin: 1}
+User.create(user)

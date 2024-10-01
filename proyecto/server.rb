@@ -85,6 +85,7 @@ class App < Sinatra::Application
       user.password = new_password_digest
       user.nickname = nickname
       user.coins = 0
+      user.admin = 0
       user.save
 
       session[:user_id] = user.id

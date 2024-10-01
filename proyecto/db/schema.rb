@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_212628) do
     t.string "nickname"
     t.string "password"
     t.integer "coins"
+    t.integer "admin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
