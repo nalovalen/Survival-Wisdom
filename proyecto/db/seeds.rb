@@ -1,4 +1,4 @@
-
+require 'bcrypt'
 
 /Barra Salud=[0],Comida[1],Agua[2],Temperatura[3]/
 
@@ -183,5 +183,5 @@ bars.each do |u|
   Bar.create(u)
 end
 
-user = {username: 'ADMIN', nickname: 'ADMIN', password: 'ADMIN', coins: 999, admin: 1}
+user = {username: 'ADMIN', nickname: 'ADMIN', password: BCrypt::Password.create('ADMIN'), coins: 999, admin: 1}
 User.create(user)
