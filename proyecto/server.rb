@@ -348,3 +348,49 @@ get '/logout' do
   session.clear
   redirect '/login'
 end
+
+
+get '/add_question' do
+  erb :'home/add_question'
+end 
+
+post '/add_question' do
+  
+  statement = params[:statement]
+  difficulty = params[:difficulty]
+
+  descriptionL = params[:descriptionL]
+  effectsL =  params[:effectsL].split(',').map(&:strip).map(&:to_i)
+
+  descriptionR = params[:descriptionR]
+  effectsR =  params[:effectsR].split(',').map(&:strip).map(&:to_i)
+
+  question = Question.new
+  
+  question.statement = statement
+  question.typeCard = difficulty
+
+  question.save
+  
+  question_id = question.id
+
+
+
+  optionL = Option.new
+  optionL.question_id = question_id
+  optionL.description = descriptionL
+  optionL.effects = effectsL
+
+
+  optionR = Option.new
+  optionR.question_id = question_id
+  optionR.description = descriptionR
+  optionR.effects = effectsR
+
+  optionL.save
+  optionR.save
+
+  @success_message = "The question was successfully added!"
+  
+  erb :'home/add_question'
+end

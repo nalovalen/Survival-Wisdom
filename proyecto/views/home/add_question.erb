@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <title> Home Page</title>
-<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="add_question.css">
 </head>
 <body>
  <input type="checkbox" id="check">
@@ -39,7 +39,7 @@
      <span>Account</span>
    </a>
    <% if @current_user.admin == 1%>
-      <a href="/add_question">
+      <a href="/add_question" class="active">
         <i class="fa fa-address-card"></i>
         <span>Add Question</span>
       </a>
@@ -55,11 +55,51 @@
 </body>
  
 <div class="frame">
-<h2>Survival Wisdom</h2>
-<p>Learn survival skills playing!!!</p>
-<label for="check"> 
-<span>Get Started!<span>
-</label>
+<h2>Add Question</h2>
+
+<form action="/add_question" method="POST">
+
+<div>
+    <label for="statement">Statement:</label>
+    <input type="text" id="statement" name="statement" required>
+</div>
+
+<div>
+    <label for="description">Left Description :</label>
+    <input type="text" id="description" name="descriptionL" required>
+</div>
+
+<div>
+    <label for="effects">Left Effects (separados por comas):</label>
+    <input type="text" id="effects" name="effectsL" placeholder="-1, 1, 0, 0" required>
+</div>
+
+<div>
+    <label for="description">Right Description:</label>
+    <input type="text" id="description" name="descriptionR" required>
+</div>
+
+<div>
+    <label for="effects">Right Effects(separados por comas):</label>
+    <input type="text" id="effects" name="effectsR" placeholder="-1, 1, 0, 0" required>
+</div>
+
+<div>
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty" name="difficulty" required>
+        <option value="facil">Easy</option>
+        <option value="medio">Medium</option>
+        <option value="dificil">Hard</option>
+    </select>
+</div>
+<% if @success_message %>
+  <div class="success-message">
+    <p><%= @success_message %></p>
+  </div>
+<% end %>
+<button type="submit">Enviar</button>
+</form>
+
 
 </div>  
 <script>
