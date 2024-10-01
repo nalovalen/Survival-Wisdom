@@ -37,6 +37,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_212628) do
   create_table "questions", force: :cascade do |t|
     t.string "statement"
     t.string "typeCard"
+    t.integer "leftclicks", default: 0
+    t.integer "rightclicks", default: 0
   end
 
   create_table "skills", force: :cascade do |t|

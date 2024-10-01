@@ -60,10 +60,11 @@
 
 <div class="frame">
 <h2>Survival Wisdom</h2>
-<p>Learn survival skills playing!!!</p>
-<label for="check">
-<span>Get Started!<span>
-</label>
+
+<%questionRight = Question.all.order(Arel.sql('rightclicks DESC')).first%>
+<%questionLeft = Question.all.order(Arel.sql('leftclicks DESC')).first%>
+<p>Task with more right clicks: <%=questionRight.statement%><p>
+<p>Task with more right clicks: <%=questionLeft.statement%><p>
 
 </div>
 <script>
