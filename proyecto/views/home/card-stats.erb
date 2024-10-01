@@ -64,7 +64,7 @@
 <%questionRight = Question.all.order(Arel.sql('rightclicks DESC')).first%>
 <%questionLeft = Question.all.order(Arel.sql('leftclicks DESC')).first%>
 <p>Question with more right clicks: <%=questionRight.statement%><p>
-<p>Question with more right clicks: <%=questionLeft.statement%><p>
+<p>Question with more left clicks: <%=questionLeft.statement%><p>
 
 </div>
 <script>
