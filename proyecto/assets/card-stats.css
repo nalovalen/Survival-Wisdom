@@ -165,13 +165,33 @@
   
   
   .frame {
-    width: 50%;
-
+    width: 70%;
+    height: 600px;
     margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
   
-
+  .frame label{
+    position:fixed;
+    top: 52%;
+    left: 50% ;
+    transform: translate(-50%,-50%);
+    cursor: pointer;
+    color: #95d395;
+    border-radius: 5px;
+    
+    font-size: 29px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(32, 29, 29, 0.4);
+    height: 45px;
+    width: 180px;
+    text-align: center;
+    z-index: -1;
+    line-height: 45px;
+  }
 
   .frame span{
     font-family: 'Lato', sans-serif;
@@ -185,25 +205,28 @@
   h2 {
     position: relative;
     text-align: center;
+    color: #2e412e;
+    font-size: 60px;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    color: #2db84b;
+  }
+  
+  p {
+    position: relative;
+    text-align: center;
     color: wheat; /* Color del texto */
     text-shadow: 
     2px 2px 0 black, /* Sombra hacia la parte inferior derecha */
     -2px 2px 0 black, /* Sombra hacia la parte inferior izquierda */
     2px -2px 0 black, /* Sombra hacia la parte superior derecha */
     -2px -2px 0 black; /* Sombra hacia la parte superior izquierda */
-    font-size: 60px;
+    font-size: 30px;
     font-family: 'Lato', sans-serif;
     margin: 0;
     color: wheat;
-  }
-  
-  p {
-    font-family: 'Lato', sans-serif;
-    font-weight: 300;
-    text-align: center;
-    font-size: 30px;
-    color: #2db84b;
-    margin: 0;
+    background-color:rgb(29, 21, 21);
+    padding: 20px;
   }
   
   .logout a{
@@ -218,118 +241,19 @@
     --gradient-color: rgb(236, 42, 42);
   }
   
-  form div {
-    margin-bottom: 15px;
-}
-
-select {
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-label {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    text-align: left;
-    color: #555;
-    font-weight: bold;
-}
-
-input, select {
-    display: block;
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-
-form {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(32, 29, 29, 0.4);
+  /* Hacer scrolleable el contenido */
+.scrollable-content {
+     /* Altura máxima fija */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    padding-right: 10px; /* Asegura que el texto no se solape con la barra de scroll */
+  }
+  
+  /* Opcional: Estilo de las barras de scroll en navegadores modernos */
+  .scrollable-content::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    padding: 20px;
-    width: 80%;
-    max-width: 500px;
-    margin: 20px auto;
-    font-family: 'Lato', sans-serif;
   }
-  
-  form div {
-    margin-bottom: 15px;
-  }
-  
-  form label {
-    display: block;
-    font-size: 18px;
-    font-weight: 300;
-    color: #2e412e;
-    margin-bottom: 5px;
-  }
-  
-  form input[type="text"], 
-  form select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #2db84b;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #FBFBFB;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  form input[type="text"]:focus, 
-  form select:focus {
-    outline: none;
-    border-color: #a2e284;
-  }
-  
-  form button[type="submit"] {
-    background-color: #2db84b;
-    color: #000000;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  form button[type="submit"]:hover {
-    background-color: #a2e284;
-  }
-  
-  form input[type="text"]::placeholder {
-    color: #999;
-  }
-  
-
-  @media (max-width: 600px) {
-    form {
-      width: 90%;
-      padding: 15px;
-    }
-    
-    form label {
-      font-size: 16px;
-    }
-    
-    form input[type="text"], 
-    form select {
-      font-size: 14px;
-    }
-  
-    form button[type="submit"] {
-      font-size: 16px;
-    }
-  }
-  

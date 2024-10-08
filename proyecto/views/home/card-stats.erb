@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <title> Home Page</title>
-<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="card-stats.css">
 </head>
 <body>
  <input type="checkbox" id="check">
@@ -14,7 +14,7 @@
  </label>
  <div class="sidebar">
    <header>Survival Wisdom</header>
-   <a href="/home" class="active">
+   <a href="/home" >
      <i class="fas fa-home"></i>
      <span>Home</span>
    </a>
@@ -43,7 +43,7 @@
         <i class="fa fa-lock"></i>
         <span>Add Question</span>
       </a>
-      <a href="/card-stats">
+      <a href="/card-stats" class="active">
         <i class="fa fa-lock"></i>
         <span>Card Stats</span>
       </a>
@@ -59,13 +59,19 @@
 </body>
 
 <div class="frame">
-<h2>Survival Wisdom</h2>
-<p>Learn survival skills playing!!!</p>
-<label for="check">
-<span>Get Started!<span>
-</label>
-
+  <div class="scrollable-content">
+    <% Question.all.each do |question| %>
+      <p>
+        <strong>Question:</strong> <%= question.statement %><br>
+        <strong>Left Description:</strong> <%= Question.find(question.id).options[0].description %><br>
+        <strong>Right Description:</strong> <%= Question.find(question.id).options[1].description %><br>
+        <strong>Left clicks:</strong> <%= question.leftclicks %><br>
+        <strong>Right clicks:</strong> <%= question.rightclicks %><br>
+      </p>
+    <% end %>
+  </div>
 </div>
+
 <script>
 document.addEventListener('keydown', function(event) {
   // Verificar si la tecla presionada es "Tab" (código 9)

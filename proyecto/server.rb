@@ -224,7 +224,14 @@ class App < Sinatra::Application
 
     opcionelegida = params[:valor].to_i
     effects = Question.find(session[:question]).options[opcionelegida-1].effects
+    question = Question.find(session[:question])
 
+    if params[:side] == 'left'then
+      question.leftclicks = question.leftclicks + 1
+    else
+      question.rightclicks = question.rightclicks + 1
+    end
+    question.save
 
      if session[:health] + effects[0] >= 10
       session[:health] = 10
@@ -352,10 +359,10 @@ end
 
 get '/add_question' do
   erb :'home/add_question'
-end 
+end
 
 post '/add_question' do
-  
+
   statement = params[:statement]
   difficulty = params[:difficulty]
 
@@ -366,12 +373,12 @@ post '/add_question' do
   effectsR =  params[:effectsR].split(',').map(&:strip).map(&:to_i)
 
   question = Question.new
-  
+
   question.statement = statement
   question.typeCard = difficulty
 
   question.save
-  
+
   question_id = question.id
 
 
@@ -391,6 +398,10 @@ post '/add_question' do
   optionR.save
 
   @success_message = "The question was successfully added!"
-  
+
   erb :'home/add_question'
+end
+
+get '/card-stats' do
+  erb :'home/card-stats'
 end
