@@ -36,6 +36,16 @@
      <i class="fa fa-address-card"></i>
      <span>Account</span>
    </a>
+   <% if @current_user.admin == 1%>
+   <a href="/add_question">
+     <i class="fa fa-lock"></i>
+     <span>Add Question</span>
+   </a>
+   <a href="/card-stats">
+      <i class="fa fa-lock"></i>
+      <span>Card Stats</span>
+    </a>
+ <%end%>
    <div class="logout">
    <a href="/login">
     <i class="fas fa-sign-out-alt"></i>

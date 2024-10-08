@@ -1,53 +1,54 @@
-
+require 'bcrypt'
 
 /Barra Salud=[0],Comida[1],Agua[2],Temperatura[3]/
 
 questions = [
-  { statement: 'You come across a hive of bees', typeCard: 'Medium' },
-  { statement: 'You find an abandoned campfire', typeCard: 'Medium' },
-  { statement: 'You find a shallow stream', typeCard: 'Medium' },
-  { statement:'You find a stream' , typeCard: 'Medium' },
-  { statement:'You come across an unknown plant' , typeCard:'Medium' },
-  { statement:'You find a group of mushrooms' , typeCard:'Medium' },
-  { statement:'You encounter a thunderstorm' , typeCard:'Hard' },
-  { statement:'You meet a group of survivors' , typeCard:'Hard' },
-  { statement:'You meet a wounded wolf', typeCard:'Hard' },
-  { statement:'You find an abandoned backpack', typeCard:'Easy' },
-  { statement:'You find a dark cave', typeCard:'Medium' },
-  { statement:'You find a fruit tree', typeCard:'Medium' },
-  { statement:'Its getting a little cold', typeCard:'Medium' },
-  { statement: 'You come across a stream with small fish swimming near the shore', typeCard: 'Medium' },
-  { statement: 'You find a colony of insects under a rotten log', typeCard: 'Medium' },
-  { statement: 'You discover a bird\'s nest with several eggs inside', typeCard: 'Medium' },
-  { statement: 'You find a puddle with stagnant water and some mosquito larvae', typeCard: 'Medium' },
-  { statement: 'You find several worms after a rain', typeCard: 'Medium' },
-  { statement: 'You come across a small river crab in a stream', typeCard: 'Medium' },
-  { statement: 'You see a non-venomous snake near your shelter', typeCard: 'Medium' },
-  { statement: 'You find a group of snails in a damp area', typeCard: 'Medium' },
-  { statement: 'You see a frog near a pond', typeCard: 'Medium' },
-  { statement: 'You come across a bush with unknown berries', typeCard: 'Medium' },
-  { statement: 'You need to build a fire for warmth and cooking.', typeCard: 'Medium' },
-  { statement: 'You find a water source that looks clean.', typeCard: 'Easy' },
-  { statement: 'You encounter a snow-covered area and need to make a fire base.', typeCard: 'Hard' },
-  { statement: 'You are in a frigid area with only snow and ice around you.', typeCard: 'Medium' },
-  { statement: 'You are stranded at sea with no fresh water.', typeCard: 'Hard' },
-  { statement: 'You find yourself on a deserted beach with no obvious fresh water source.', typeCard: 'Medium' },
-  { statement: 'You are in a desert with extremely limited water sources.', typeCard: 'Hard' },
-  { statement: 'You are in a jungle with various plants and trees around.', typeCard: 'Easy' },
-  { statement: 'You find an ideal spot for a shelter', typeCard: 'Easy' },
-  { statement: 'You need to quickly build a shelter to protect yourself from the cold', typeCard: 'Medium' },
-  { statement: 'Your shelter has collapsed during a storm', typeCard: 'Hard' },
-  { statement: 'You find yourself in a desert with limited water supply.', typeCard: 'Hard' },
-  { statement: 'You discover an open wound on your leg.', typeCard: 'Hard' },
-  { statement: 'You are feeling extremely tired after a long hike.', typeCard: 'Medium' },
-  { statement: 'You come across a stream of water.', typeCard: 'Medium' },
-  { statement: 'You have a splitting headache and feel dizzy.', typeCard: 'Medium' },
-  { statement: 'You notice your urine is very dark and you feel weak.', typeCard: 'Hard' },
-  { statement: 'You have an insect bite that is swelling.', typeCard: 'Easy' },
-  { statement: 'You are in a cold environment without proper clothing.', typeCard: 'Hard' },
-  { statement: 'You see some berries that you are unsure are edible.', typeCard: 'Medium' },
-  { statement: 'Your feet are developing blisters.', typeCard: 'Medium' }
-]
+  { statement: 'You come across a hive of bees', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find an abandoned campfire', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a shallow stream', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a stream', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You come across an unknown plant', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a group of mushrooms', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You encounter a thunderstorm', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You meet a group of survivors', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You meet a wounded wolf', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find an abandoned backpack', typeCard: 'Easy', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a dark cave', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a fruit tree', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'It\'s getting a little cold', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You come across a stream with small fish swimming near the shore', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a colony of insects under a rotten log', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You discover a bird\'s nest with several eggs inside', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a puddle with stagnant water and some mosquito larvae', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find several worms after a rain', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You come across a small river crab in a stream', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You see a non-venomous snake near your shelter', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a group of snails in a damp area', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You see a frog near a pond', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You come across a bush with unknown berries', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You need to build a fire for warmth and cooking.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find a water source that looks clean.', typeCard: 'Easy', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You encounter a snow-covered area and need to make a fire base.', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You are in a frigid area with only snow and ice around you.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You are stranded at sea with no fresh water.', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find yourself on a deserted beach with no obvious fresh water source.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You are in a desert with extremely limited water sources.', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You are in a jungle with various plants and trees around.', typeCard: 'Easy', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find an ideal spot for a shelter', typeCard: 'Easy', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You need to quickly build a shelter to protect yourself from the cold', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'Your shelter has collapsed during a storm', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You find yourself in a desert with limited water supply.', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You discover an open wound on your leg.', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You are feeling extremely tired after a long hike.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You come across a stream of water.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You have a splitting headache and feel dizzy.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You notice your urine is very dark and you feel weak.', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You have an insect bite that is swelling.', typeCard: 'Easy', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You are in a cold environment without proper clothing.', typeCard: 'Hard', leftclicks: 0, rightclicks: 0 },
+  { statement: 'You see some berries that you are unsure are edible.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 },
+  { statement: 'Your feet are developing blisters.', typeCard: 'Medium', leftclicks: 0, rightclicks: 0 }
+];
+
 
 questions.each do |t|
   Question.create(t)
@@ -182,3 +183,6 @@ bars = [
 bars.each do |u|
   Bar.create(u)
 end
+
+user = {username: 'ADMIN', nickname: 'ADMIN', password: BCrypt::Password.create('ADMIN'), coins: 999, admin: 1}
+User.create(user)

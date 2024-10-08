@@ -85,6 +85,7 @@ class App < Sinatra::Application
       user.password = new_password_digest
       user.nickname = nickname
       user.coins = 0
+      user.admin = 0
       user.save
 
       session[:user_id] = user.id
@@ -223,7 +224,14 @@ class App < Sinatra::Application
 
     opcionelegida = params[:valor].to_i
     effects = Question.find(session[:question]).options[opcionelegida-1].effects
+    question = Question.find(session[:question])
 
+    if params[:side] == 'left'then
+      question.leftclicks = question.leftclicks + 1
+    else
+      question.rightclicks = question.rightclicks + 1
+    end
+    question.save
 
      if session[:health] + effects[0] >= 10
       session[:health] = 10
@@ -346,4 +354,54 @@ end
 get '/logout' do
   session.clear
   redirect '/login'
+end
+
+
+get '/add_question' do
+  erb :'home/add_question'
+end
+
+post '/add_question' do
+
+  statement = params[:statement]
+  difficulty = params[:difficulty]
+
+  descriptionL = params[:descriptionL]
+  effectsL =  params[:effectsL].split(',').map(&:strip).map(&:to_i)
+
+  descriptionR = params[:descriptionR]
+  effectsR =  params[:effectsR].split(',').map(&:strip).map(&:to_i)
+
+  question = Question.new
+
+  question.statement = statement
+  question.typeCard = difficulty
+
+  question.save
+
+  question_id = question.id
+
+
+
+  optionL = Option.new
+  optionL.question_id = question_id
+  optionL.description = descriptionL
+  optionL.effects = effectsL
+
+
+  optionR = Option.new
+  optionR.question_id = question_id
+  optionR.description = descriptionR
+  optionR.effects = effectsR
+
+  optionL.save
+  optionR.save
+
+  @success_message = "The question was successfully added!"
+
+  erb :'home/add_question'
+end
+
+get '/card-stats' do
+  erb :'home/card-stats'
 end
