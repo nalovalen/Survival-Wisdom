@@ -53,6 +53,23 @@ RSpec.describe 'The Server' do
       post '/login', first: 'testuser1', password: 'Newpassword'
       expect(last_response).to be_ok
     end
+
+    
+    it 'shows an error when the new password is invalid' do
+      # Inicia sesión con un usuario de prueba
+      post '/login', { first: 'testuser1', password: 'password' }, 'rack.session' => { user_id: 1 }
+      
+      # Intenta cambiar la contraseña a una vacía
+      post '/change_password', { new_password: '' }, 'rack.session' => { user_id: 1 }
+    
+      # Verifica que la respuesta contiene el mensaje de error
+      expect(last_response.body).to include('Contraseña no valida.')
+    
+      # Verifica que la respuesta es correcta (status 200 OK)
+      expect(last_response).to be_ok
+    end
+    
+
   end
 
 
@@ -98,6 +115,7 @@ RSpec.describe 'The Server' do
       '/keep_it_alive/init',
       '/about',
       '/account',
+      'leaderboard',
       '/keep_it_alive/playing'
     ]
     rutas.each do |ruta|
@@ -147,6 +165,14 @@ RSpec.describe 'The Server' do
       post '/login', first: 'testuser1', password: 'password'
       get '/account'
       expect(last_request.path).to eq('/account')
+    end
+  end
+
+  describe 'GET /account' do
+    it 'redirects normaly' do
+      post '/login', first: 'testuser1', password: 'password'
+      get '/leaderboard'
+      expect(last_request.path).to eq('/leaderboard')
     end
   end
 
@@ -296,52 +322,126 @@ RSpec.describe 'The Server' do
     end
 
     describe "POST /keep_it_alive/comodin" do
+      let(:question) { double('Question', id: 1) }
+      let(:questions) { [question] }
+      let(:question_class) { class_double("Question").as_stubbed_const }
+    
       before do
         post '/login', first: 'testuser1', password: 'password'
+        get '/keep_it_alive/init'
+      end
+
+      context 'when using comodin 1 (Skip de carta)' do
+        it 'deducts 30 coins ' do
+          post '/keep_it_alive/comodin', { comodin: 1 }, 'rack.session' => { coins: 50 }
+          expect(last_response).to be_redirect
+          follow_redirect!
+          expect(last_request.path).to eq('/keep_it_alive/playing')
+          expect(last_request.session[:coins]).to eq(20)
+        
+        end
+
+        it 'does not deduct coins if there are not enough' do
+          initial_coins = 10
+          post '/keep_it_alive/comodin', { comodin: 1 }, 'rack.session' => { coins: initial_coins }
+          
+          # Comprobar que las monedas no cambian
+          expect(last_request.session[:coins]).to eq(initial_coins)
+          # Verificar que no se redirige a la ruta de playing
+          expect(last_response).to be_ok
+          expect(last_request.path).not_to eq('/keep_it_alive/playing')
+        end
+
+        it 'deducts 30 and refill cards' do
+          # Simula que no hay preguntas en la sesión
+          # Realiza la solicitud para usar el comodín
+          post '/keep_it_alive/comodin', { comodin: 1 }, 'rack.session' => { coins: 50, '@questions' => [] }
+    
+          # Verifica que se dedujeron las monedas
+          expect(last_request.session[:coins]).to eq(20)
+    
+          # Verifica que las preguntas se rellenaron correctamente
+          expect(last_request.session[:@questions]).not_to eq([]) # Asegúrate de que el ID de la pregunta coincida con el que has configurado
+        end
+      end
+
+      context 'when using comodin 2 (Stat Boost)' do
+        it 'deducts 10 coins and boosts stats' do
+          post '/keep_it_alive/comodin', { comodin: 2 }, 'rack.session' => { coins: 20, health: 5, hunger: 5, water: 5, temperature: 5 }
+          expect(last_response).to be_ok
+          expect(last_request.session[:coins]).to eq(10)
+          expect(last_request.session[:health]).to be_between(5, 8).inclusive
+          expect(last_request.session[:hunger]).to be_between(5, 8).inclusive
+          expect(last_request.session[:water]).to be_between(5, 8).inclusive
+          expect(last_request.session[:temperature]).to be_between(5, 8).inclusive
+        end
+
+        it 'does not boost stats if there are not enough coins' do
+          initial_stats = { health: 5, hunger: 5, water: 5, temperature: 5 }
+          initial_coins = 5
+          post '/keep_it_alive/comodin', { comodin: 2 }, 'rack.session' => { coins: initial_coins }.merge(initial_stats)
+    
+          # Verificar que las monedas no cambian
+          expect(last_request.session[:coins]).to eq(initial_coins)
+          # Verificar que las estadísticas no cambian
+          expect(last_request.session[:health]).to eq(initial_stats[:health])
+          expect(last_request.session[:hunger]).to eq(initial_stats[:hunger])
+          expect(last_request.session[:water]).to eq(initial_stats[:water])
+          expect(last_request.session[:temperature]).to eq(initial_stats[:temperature])
+        end
+      end
+
+      context 'when using comodin 3 (Xray)' do
+        it 'deducts 15 coins and activates Xray' do
+          post '/keep_it_alive/comodin', { comodin: 3 }, 'rack.session' => { coins: 20 }
+          expect(last_response).to be_ok
+          expect(last_request.session[:coins]).to eq(5)
+          expect(last_request.session[:xray]).to eq(1)
+        end
+
+        it 'does not activate Xray if there are not enough coins' do
+          initial_coins = 10
+          post '/keep_it_alive/comodin', { comodin: 3 }, 'rack.session' => { coins: initial_coins }
+    
+          # Verificar que las monedas no cambian
+          expect(last_request.session[:coins]).to eq(initial_coins)
+          # Verificar que el modo Xray no se activa
+          expect(last_request.session[:xray]).to eq(0)
+        end
+      end
+    end
+
+    describe 'POST /keep_it_alive/end' do
+
+      before do
+        post '/login', first: 'testuser1', password: 'password'
+
+        # Set up the session
         env 'rack.session', {
+          question: 1,
           health: 5,
           hunger: 5,
           water: 5,
-          temperature: 5,
-          coins: 30,
-          user_id: 1
+          temperature: 0,
+          days: 5,
+          user_id: 1,
+          coins: 15
         }
       end
-    
-      def session
-        last_request.env['rack.session']
+
+      it 'Ends a game and saves the files' do
+        stat_count_before = Stat.count
+        post '/keep_it_alive/end'
+        stat_count_after = Stat.count
+
+        expect(stat_count_after).to eq(stat_count_before + 1)
+        expect(last_response).to be_redirect
+        follow_redirect!
+        expect(last_request.path).to eq('/home')
       end
+
     
-      it "applies skip card comodin when enough coins" do
-        get '/keep_it_alive/init'
-        post '/keep_it_alive/comodin', params: { comodin: 1 }
-      
-        expect(last_request).to eq('hola')
-       
-      end
-    
-      it "applies stat boost comodin when enough coins" do
-        # Reinicia la sesión antes de usar el comodín de impulso de estadísticas
-        get '/keep_it_alive/init'
-        post '/keep_it_alive/comodin', params: { comodin: 2 }
-      
-        expect(session[:health]).to be >= 5 # Aumento aleatorio de salud
-        expect(session[:hunger]).to be >= 5 # Aumento aleatorio de hambre
-        expect(session[:water]).to be >= 5 # Aumento aleatorio de agua
-        expect(session[:temperature]).to be >= 5 # Aumento aleatorio de temperatura
-      end
-    
-      it "shows error when not enough coins for Xray" do
-        # Reinicia la sesión con monedas insuficientes para el comodín Xray
-        get '/keep_it_alive/init'
-        post '/keep_it_alive/comodin', params: { comodin: 3 }
-        expect(last_response.body).to include('No tienes suficientes monedas para usar este comodín.')
-      end
     end
-    
-    
-
-
 
   end
 
