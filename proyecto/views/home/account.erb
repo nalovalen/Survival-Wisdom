@@ -94,6 +94,11 @@
         <input type="password" name="new_password" placeholder="Enter new password">
         <button type="submit">Confirm</button>
     </form>
+    <% if locals[:error] %>
+      <div class="error-message">
+        <%= locals[:error] %>
+      </div>
+    <% end %>
   </div>
 </div>
 
