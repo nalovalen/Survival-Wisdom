@@ -285,15 +285,27 @@ RSpec.describe 'The Server' do
           coins: 0
         }
       end
-
+      let(:effects) { [1, -1, 2, -2] } # Simula los efectos de la opción elegida
+      
       def session
         last_request.env['rack.session']
       end
 
-      let(:effects) { [1, -1, 2, -2] } # Simula los efectos de la opción elegida
 
       before do
-        allow(Question).to receive_message_chain(:find, :options).and_return([double(effects: effects)])
+        # Creamos un mock para la opción seleccionada que contiene los efectos
+        option_mock = double('Option', effects: effects)
+        
+        # Mock para la pregunta, asegurando que devuelva la lista de opciones
+        question_mock = double('Question', rightclicks: 0, leftclicks: 0, options: [option_mock])
+
+        # Simulamos la lectura y escritura de `rightclicks` y `leftclicks`
+        allow(question_mock).to receive(:rightclicks=).with(anything)
+        allow(question_mock).to receive(:leftclicks=).with(anything)
+        #Simulamos el metodo save
+        allow(question_mock).to receive(:save)
+        # Simulamos la llamada a `Question.find`
+        allow(Question).to receive(:find).and_return(question_mock)
       end
 
       it "updates session correctly when effects are positive and negative" do

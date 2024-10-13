@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/server.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/server.rb": {
         "lines": [
           1,
           1,
@@ -57,8 +57,8 @@
           null,
           null,
           1,
-          106,
-          84,
+          105,
+          83,
           null,
           null,
           null,
@@ -84,6 +84,7 @@
           1,
           null,
           null,
+          1,
           1,
           1,
           1,
@@ -228,7 +229,14 @@
           null,
           3,
           3,
+          3,
           null,
+          3,
+          0,
+          null,
+          3,
+          null,
+          3,
           null,
           3,
           1,
@@ -351,10 +359,60 @@
           1,
           1,
           1,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/models/user.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/models/user.rb": {
         "lines": [
           1,
           null,
@@ -380,7 +438,7 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/models/question.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/models/question.rb": {
         "lines": [
           1,
           1,
@@ -390,7 +448,7 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/models/option.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/models/option.rb": {
         "lines": [
           1,
           1,
@@ -399,7 +457,7 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/models/skill.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/models/skill.rb": {
         "lines": [
           1,
           1,
@@ -407,22 +465,14 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/models/guide.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/models/guide.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/models/bar.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/models/stat.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/models/bar.rb": {
         "lines": [
           1,
           1,
@@ -430,7 +480,15 @@
           null
         ]
       },
-      "C:/Users/JOAQUIN/Desktop/Uni/Proyecto Survival Wisdom/Survival-Wisdom/proyecto/spec/test_spec.rb": {
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/models/stat.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "C:/Users/marci/OneDrive/Escritorio/Ingenieria de software/Survival-Wisdom/proyecto/spec/test_spec.rb": {
         "lines": [
           1,
           null,
@@ -719,14 +777,26 @@
           null,
           null,
           null,
+          4,
           null,
           1,
           8,
           null,
           null,
-          4,
           null,
           1,
+          null,
+          3,
+          null,
+          null,
+          3,
+          null,
+          null,
+          3,
+          3,
+          null,
+          3,
+          null,
           3,
           null,
           null,
@@ -1026,6 +1096,6 @@
         ]
       }
     },
-    "timestamp": 1727556387
+    "timestamp": 1728850115
   }
 }
