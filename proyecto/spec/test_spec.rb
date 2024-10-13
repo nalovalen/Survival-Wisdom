@@ -293,19 +293,43 @@ RSpec.describe 'The Server' do
 
 
       before do
-        # Creamos un mock para la opción seleccionada que contiene los efectos
         option_mock = double('Option', effects: effects)
-        
-        # Mock para la pregunta, asegurando que devuelva la lista de opciones
-        question_mock = double('Question', rightclicks: 0, leftclicks: 0, options: [option_mock])
 
-        # Simulamos la lectura y escritura de `rightclicks` y `leftclicks`
-        allow(question_mock).to receive(:rightclicks=).with(anything)
-        allow(question_mock).to receive(:leftclicks=).with(anything)
-        #Simulamos el metodo save
-        allow(question_mock).to receive(:save)
+        # Mock para la pregunta, asegurando que devuelva la lista de opciones
+        @question_mock = double('Question', options: [option_mock, option_mock])
+        
+        # Inicializamos los contadores de clics
+        @rightclicks = 0
+        @leftclicks = 0
+
+        # Simulamos la lectura de rightclicks y leftclicks
+        allow(@question_mock).to receive(:rightclicks).and_return(@rightclicks)
+        allow(@question_mock).to receive(:leftclicks).and_return(@leftclicks)
+    
+        # Simulamos la escritura de rightclicks y leftclicks
+        allow(@question_mock).to receive(:rightclicks=) { |value| @rightclicks = value }
+        allow(@question_mock).to receive(:leftclicks=) { |value| @leftclicks = value }
+        
+        # Simulamos el metodo save
+        allow(@question_mock).to receive(:save)
         # Simulamos la llamada a `Question.find`
-        allow(Question).to receive(:find).and_return(question_mock)
+        allow(Question).to receive(:find).and_return(@question_mock)
+      end
+
+      it "cuando se elige la opción derecha, incrementa el contador de rightclicks" do
+        # Simula un clic en la opción correcta (opción 2)
+        post '/keep_it_alive/playing', params: { valor: 2 }
+    
+        # Verifica que el contador de rightclicks se haya incrementado
+        expect(@rightclicks).to eq(1)
+      end
+    
+      it "cuando se elige la opción izquierda, incrementa el contador de leftclicks" do
+        # Simula un clic en la opción incorrecta (opción 1)
+        post '/keep_it_alive/playing', params: { valor: 1 }
+    
+        # Verifica que el contador de leftclicks se haya incrementado
+        expect(@leftclicks).to eq(1)
       end
 
       it "updates session correctly when effects are positive and negative" do
