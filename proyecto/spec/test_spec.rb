@@ -314,11 +314,12 @@ RSpec.describe 'The Server' do
         allow(@question_mock).to receive(:save)
         # Simulamos la llamada a `Question.find`
         allow(Question).to receive(:find).and_return(@question_mock)
+
       end
 
       it "cuando se elige la opción derecha, incrementa el contador de rightclicks" do
         # Simula un clic en la opción correcta (opción 2)
-        post '/keep_it_alive/playing', params: { valor: 2 }
+        post '/keep_it_alive/playing', valor: 2
     
         # Verifica que el contador de rightclicks se haya incrementado
         expect(@rightclicks).to eq(1)
@@ -326,7 +327,7 @@ RSpec.describe 'The Server' do
     
       it "cuando se elige la opción izquierda, incrementa el contador de leftclicks" do
         # Simula un clic en la opción incorrecta (opción 1)
-        post '/keep_it_alive/playing', params: { valor: 1 }
+        post '/keep_it_alive/playing', valor: 1
     
         # Verifica que el contador de leftclicks se haya incrementado
         expect(@leftclicks).to eq(1)
@@ -624,4 +625,43 @@ describe '.authenticate' do
     expect(User.authenticate(username,password)).to eq(nil)
   end
 end
+
+describe 'Admin features' do
+  
+  
+  it 'Question Successfully Added' do
+    post '/login', first: 'testuser1', password: 'password'
+    
+    
+    post '/add_question', statement:'ABC',
+                          difficulty: 'Easy',
+                          descriptionL:'Left',
+                          descriptionR:'Rigth',
+                          effectsL:'1,1,1,1',
+                          effectsR:'2,2,2,2'
+
+    question = Question.last
+
+    expect(question).not_to be_nil
+    expect(question.statement).to eq('ABC')
+    expect(question.typeCard).to eq('Easy')
+    expect(question.options[0].description).to eq('Left')
+    expect(question.options[1].description).to eq('Rigth')
+    expect(question.options[0].effects).to eq([1,1,1,1])
+    expect(question.options[1].effects).to eq([2,2,2,2])
+
+  end
+  it 'Add_question Endpoint' do
+    post '/login', first: 'testuser1', password: 'password'
+    get '/add_question'
+    expect(last_request.path).to eq('/add_question')
+  end
+
+  it 'card-stats Endpoint' do
+    post '/login', first: 'testuser1', password: 'password'
+    get '/card-stats'
+    expect(last_request.path).to eq('/card-stats')
+  end
+end
+
 end
