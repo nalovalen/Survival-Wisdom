@@ -267,7 +267,8 @@ class App < Sinatra::Application
     comodin_elegido = params[:comodin].to_i
     monedas = session[:coins]
 
-    if comodin_elegido == 1
+    case comodin_elegido
+    when 1
       if monedas >= 30
         # Comodin de Skip de carta
         session[:coins] -= 30
@@ -287,7 +288,7 @@ class App < Sinatra::Application
         @error_message = 'No tienes suficientes monedas para usar este comodín.'
       end
 
-    elsif comodin_elegido == 2
+    when 2
       # Comodin de Stat Boost
       if monedas >= 10
         session[:coins] -= 10
@@ -300,7 +301,7 @@ class App < Sinatra::Application
         @error_message = 'No tienes suficientes monedas para usar este comodín.'
       end
 
-    elsif comodin_elegido == 3
+    when 3
       # Comodin de Xray
       if monedas >= 15
         session[:coins] -= 15
@@ -310,7 +311,6 @@ class App < Sinatra::Application
         @error_message = 'No tienes suficientes monedas para usar este comodín.'
       end
     end
-
     erb :'home/game'
   end
 

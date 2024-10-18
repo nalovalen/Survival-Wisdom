@@ -1,0 +1,4 @@
+Metrics/BlockLength:
+  Max: 80
+  Exclude:
+    - 'db/schema.rb'
