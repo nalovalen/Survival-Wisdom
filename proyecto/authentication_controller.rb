@@ -6,15 +6,14 @@ require 'bcrypt'
 require './models/user'
 require './models/stat'
 
-# This module provides methods for handling user authentication,
-# such as checking the current user and validating credentials.
+# Para autenticar usuario
 module Authentication
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 end
 
-# class to manage user login/logout and register
+# class to manage user login/logout and register & change nickname or password
 class AuthController < Sinatra::Base
   include Authentication
 
@@ -86,5 +85,32 @@ class AuthController < Sinatra::Base
   get '/logout' do
     session.clear
     redirect '/login'
+  end
+
+  post '/change_nickname' do
+    new_nickname = params[:new_nickname]
+    current_user = User.find(session[:user_id])
+    # Actualiza el nickname del usuario actual
+    current_user.update(nickname: new_nickname)
+    # Guarda los cambios en la base de datos
+    current_user.save
+    # Redirige a la página de cuenta o a donde prefieras
+    redirect '/account'
+  end
+
+  post '/change_password' do
+    new_password = params[:new_password]
+    current_user = User.find(session[:user_id])
+    if new_password != ' ' && new_password != '' && new_password != BCrypt::Password.new(current_user.password)
+      # Actualiza el pasword del usuario actual
+      new_password_digest = BCrypt::Password.create(new_password)
+      current_user.update(password: new_password_digest)
+      # Guarda los cambios en la base de datos
+      current_user.save
+      # Redirige a la página de cuenta o a donde prefieras
+      redirect '/logout'
+    else
+      erb :'home/account', locals: { error: 'Contraseña no valida.' }
+    end
   end
 end
